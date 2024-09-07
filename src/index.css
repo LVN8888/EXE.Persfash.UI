@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+  font-family: 'ITC Avant Garde Gothic Std';
+  src: url('/src/assets/font/ITC-Avant-Garde-Gothic-Std-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'ITC Avant Garde Gothic Std', sans-serif;
+}
