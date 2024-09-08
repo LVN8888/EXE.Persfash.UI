@@ -1,6 +1,7 @@
 .homeContainer {
   width: 100%;
   height: auto;
+  background-color: #B3FF00; /* Đặt màu nền tổng thể */
 }
 
 .homeBackground {
@@ -8,7 +9,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -38,24 +39,22 @@
 
 /* Space between the two sections */
 .space {
-  height: 20px; /* Adjust this as needed */
-  background-color: #a6d93d; /* The same as before, or leave it transparent */
+  height: 20px;
+  background-color: #a6d93d;
 }
 
-/* Second Content Section with background image */
+/* Second content */
 .secondContent {
-  background-image: url('../../../assets/img/bg_2.png'); /* Use imported second image */
+  background-image: url('../../../assets/img/bg_2.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  height: 100vh; /* Full viewport height for the second section */
+  height: 100vh;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding-right: 50px;
 }
 
-/* Text for second content */
 .secondContentText {
   max-width: 400px;
   text-align: left;
@@ -73,4 +72,55 @@
   font-weight: 300;
   line-height: 1.5;
   margin: 0;
+}
+
+/* Third Content Section with two cards */
+.thirdContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+}
+
+/* Individual card styling */
+.card {
+  flex: 1;
+  background-size: cover; /* Ensure the image covers the card */
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 15px;
+  margin: 0 10px;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  color: white;
+  height: 500px; /* Set height for the card */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensure the title stays at the top */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+}
+
+/* Title at the top */
+.cardTitle {
+  padding: 20px;
+  color: #a6d93d; /* Bright green color for title */
+  font-size: 28px; /* Tăng kích thước chữ */
+  text-align: left; /* Đưa chữ sang bên trái */
+  z-index: 2;
+}
+
+/* Card Text inside the card */
+.cardText {
+  position: relative;
+  padding: 20px;
+  z-index: 2;
+  background: none; /* Loại bỏ background cho text */
+}
+
+.cardText p {
+  color: white;
+  font-size: 18px; /* Kích thước chữ cho phần mô tả */
+  font-weight: 300;
+  line-height: 1.5;
 }
