@@ -5,10 +5,9 @@
   background-color: #4949E9;
   color: white;
   gap: 50px;
-}
-
-.column .logo {
-  color: #B3FF00;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .column {
@@ -23,14 +22,13 @@
   font-size: 24px;
 }
 
-.footer h3  {
+.footer h3 {
   color: #9ea0f4;
   margin-bottom: 10px;
   font-size: 18px;
 }
 
-
-.footer p , .footer a {
+.footer p, .footer a {
   margin: 5px 0;
   color: #F5F8FF;
 }
@@ -39,8 +37,8 @@
   color: white;
 }
 
-.specialText {  
-  color: #9ea0f4;
+.specialText {
+  color: #9ea0f4 !important;
 }
 
 .footer .column .specialText {
