@@ -1,14 +1,19 @@
-import React from 'react';
-import Home from '../../components/partials/Home';  
-import Footer from '../../components/layouts/Footer';
+import React from "react";
+import Home from "../../components/partials/Home";
+import Footer from "../../components/layouts/Footer";
+import Header from "../../components/partials/Home/Header";
+import topImage from "../../assets/img/main.png";
+import styles from "./style.module.scss";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col min-h-screen w-full">
-      <div className="flex-grow bg-cover bg-center w-full h-full">
-        <Home />
+    <div className={styles.homePage}>
+      <div className={styles.topSection}>
+        <img src={topImage} alt="persfash top" className={styles.topImage} />
       </div>
-      <Footer/>
+      <Header />
+      <Home />
+      <Footer />
     </div>
   );
 };

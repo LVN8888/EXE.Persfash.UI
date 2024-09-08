@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px; /* Add some padding to space out the elements */
+  background-color: transparent; /* Transparent to blend with background */
+  z-index: 10; /* Ensure the header stays on top of the background */
+  position: absolute; /* Make sure it's part of the home background */
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: #B3FF00;
+  font-size: 24px;
+  font-weight: bold;
+
+  img {
+    height: 40px;
+    margin-right: 10px;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+
+  .support {
+    color: white;
+    margin-right: 40px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .loginButton {
+    background-color: #a6d93d;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 30px; 
+    font-size: 14px;
+    margin-right: 15px; 
+    cursor: pointer;
+  }
+
+  .signUpButton {
+    background-color: transparent;
+    color: #a6d93d;
+    border: 2px solid #a6d93d;
+    border-radius: 10px;
+    padding: 10px 30px; 
+    font-size: 14px;
+    margin-right: 15px; 
+    cursor: pointer;
+  }
+
+  .languageIcon {
+    margin-left: 0;
+    
+    img {
+      height: 20px;
+    }
+  }
+}
