@@ -1,11 +1,12 @@
 .header {
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px; /* Add some padding to space out the elements */
   background-color: transparent; /* Transparent to blend with background */
   z-index: 10; /* Ensure the header stays on top of the background */
-  position: absolute; /* Make sure it's part of the home background */
+ /* Make sure it's part of the home background */
   top: 0;
   left: 0;
   width: 100%;

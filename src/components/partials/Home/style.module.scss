@@ -1,34 +1,76 @@
+.homeContainer {
+  width: 100%;
+  height: auto;
+}
+
 .homeBackground {
-  background-image: url('../../../assets/img/bg.png'); 
+  background-image: url('../../../assets/img/bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 100vh; /* Full viewport height */
   width: 100%;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   align-items: center;
-  padding-right: 50px; 
-}
-
-.homeContent h2 {
-  color: #a6d93d; 
-  font-size: 20px; 
-  font-weight: 400;
-  margin-bottom: 10px;
-  text-align: left; 
-}
-
-.homeContent p {
-  color: white; 
-  font-size: 36px; 
-  font-weight: 300; 
-  line-height: 1.5;
-  margin: 0;
-  text-align: left; 
+  padding-right: 50px;
 }
 
 .homeContent {
   max-width: 400px;
-  text-align: left; 
+  text-align: left;
+}
+
+.homeContent h2 {
+  color: #a6d93d;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.homeContent p {
+  color: white;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Space between the two sections */
+.space {
+  height: 20px; /* Adjust this as needed */
+  background-color: #a6d93d; /* The same as before, or leave it transparent */
+}
+
+/* Second Content Section with background image */
+.secondContent {
+  background-image: url('../../../assets/img/bg_2.png'); /* Use imported second image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Full viewport height for the second section */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 50px;
+}
+
+/* Text for second content */
+.secondContentText {
+  max-width: 400px;
+  text-align: left;
+}
+
+.secondContentText h2 {
+  color: #a6d93d;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.secondContentText p {
+  color: white;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
 }
