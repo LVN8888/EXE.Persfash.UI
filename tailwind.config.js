@@ -1,13 +1,14 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,scss}", 
   ],
-  darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        avantgarde: ['ITC Avant Garde Gothic Std', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
-

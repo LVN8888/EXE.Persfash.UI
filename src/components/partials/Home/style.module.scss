@@ -1,0 +1,34 @@
+.homeBackground {
+  background-image: url('../../../assets/img/bg.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  padding-right: 50px; 
+}
+
+.homeContent h2 {
+  color: #a6d93d; 
+  font-size: 20px; 
+  font-weight: 400;
+  margin-bottom: 10px;
+  text-align: left; 
+}
+
+.homeContent p {
+  color: white; 
+  font-size: 36px; 
+  font-weight: 300; 
+  line-height: 1.5;
+  margin: 0;
+  text-align: left; 
+}
+
+.homeContent {
+  max-width: 400px;
+  text-align: left; 
+}
