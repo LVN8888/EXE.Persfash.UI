@@ -3,10 +3,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px; /* Add some padding to space out the elements */
-  background-color: transparent; /* Transparent to blend with background */
-  z-index: 10; /* Ensure the header stays on top of the background */
- /* Make sure it's part of the home background */
+  padding: 20px 50px; 
+  background-color: transparent; 
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
@@ -37,7 +36,7 @@
   }
 
   .loginButton {
-    background-color: #a6d93d;
+    background-color: #B3FF00;
     color: black;
     border: none;
     border-radius: 10px;
@@ -49,8 +48,8 @@
 
   .signUpButton {
     background-color: transparent;
-    color: #a6d93d;
-    border: 2px solid #a6d93d;
+    color: #B3FF00;
+    border: 2px solid #B3FF00;
     border-radius: 10px;
     padding: 10px 30px; 
     font-size: 14px;

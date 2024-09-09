@@ -1,7 +1,7 @@
 .homeContainer {
   width: 100%;
   height: auto;
-  background-color: #B3FF00; /* Đặt màu nền tổng thể */
+  background-color: #B3FF00;
 }
 
 .homeBackground {
@@ -23,8 +23,8 @@
 }
 
 .homeContent h2 {
-  color: #a6d93d;
-  font-size: 20px;
+  color: #B3FF00;
+  font-size: 24px;
   font-weight: 400;
   margin-bottom: 10px;
 }
@@ -37,13 +37,11 @@
   margin: 0;
 }
 
-/* Space between the two sections */
 .space {
   height: 20px;
-  background-color: #a6d93d;
+  background-color: #B3FF00;
 }
 
-/* Second content */
 .secondContent {
   background-image: url('../../../assets/img/bg_2.png');
   background-size: cover;
@@ -61,7 +59,7 @@
 }
 
 .secondContentText h2 {
-  color: #a6d93d;
+  color: #B3FF00;
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -74,18 +72,16 @@
   margin: 0;
 }
 
-/* Third Content Section with two cards */
 .thirdContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px;
+  padding: 15px;
 }
 
-/* Individual card styling */
 .card {
   flex: 1;
-  background-size: cover; /* Ensure the image covers the card */
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 15px;
@@ -94,33 +90,37 @@
   position: relative;
   text-align: left;
   color: white;
-  height: 500px; /* Set height for the card */
+  height: 800px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensure the title stays at the top */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+  justify-content: space-between; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
-/* Title at the top */
 .cardTitle {
   padding: 20px;
-  color: #a6d93d; /* Bright green color for title */
-  font-size: 28px; /* Tăng kích thước chữ */
-  text-align: left; /* Đưa chữ sang bên trái */
+  color: #B3FF00; 
+  font-size: 50px; 
+  text-align: left; 
+  padding-left: 100px;
   z-index: 2;
 }
 
-/* Card Text inside the card */
 .cardText {
   position: relative;
-  padding: 20px;
+  padding: 70px;
   z-index: 2;
-  background: none; /* Loại bỏ background cho text */
+  background: none;
 }
 
 .cardText p {
   color: white;
-  font-size: 18px; /* Kích thước chữ cho phần mô tả */
+  font-size: 18px;
   font-weight: 300;
   line-height: 1.5;
 }
+
+.cardTitle h2 .experts {
+  display: block;
+}
+

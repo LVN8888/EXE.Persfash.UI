@@ -1,8 +1,8 @@
-import React from 'react';
-import styles from './style.module.scss';
-import secondImage from '../../../assets/img/bg_2.png'; // Second section background image
-import pic3 from '../../../assets/img/pic_3.png'; // Third image
-import pic4 from '../../../assets/img/pic_4.png'; // Fourth image
+import React from "react";
+import styles from "./style.module.scss";
+import secondImage from "../../../assets/img/bg_2.png";
+import pic3 from "../../../assets/img/pic_3.png";
+import pic4 from "../../../assets/img/pic_4.png";
 
 const Home = () => {
   return (
@@ -30,20 +30,40 @@ const Home = () => {
 
       {/* Third Section with two cards */}
       <div className={styles.thirdContent}>
-        <div className={styles.card} style={{ backgroundImage: `url(${pic3})` }}>
+        <div
+          className={styles.card}
+          style={{ backgroundImage: `url(${pic3})` }}
+        >
           <div className={styles.cardTitle}>
             <h2>A.I</h2>
           </div>
           <div className={styles.cardText}>
-            <p>Simultaneously, your long-term vision encompasses the establishment of your own studio. Armed with the knowledge and experience gained from your early career, you envision a space where you can cater to both individual clients and larger-scale projects.</p>
+            <p>
+              Simultaneously, your long-term vision encompasses the
+              establishment of your own studio. Armed with the knowledge and
+              experience gained from your early career, you envision a space
+              where you can cater to both individual clients and larger-scale
+              projects.
+            </p>
           </div>
         </div>
-        <div className={styles.card} style={{ backgroundImage: `url(${pic4})` }}>
+        <div
+          className={styles.card}
+          style={{ backgroundImage: `url(${pic4})` }}
+        >
           <div className={styles.cardTitle}>
-            <h2>Consulting with experts</h2>
+            <h2>
+              Consulting <span className={styles.experts}>with experts</span>
+            </h2>
           </div>
           <div className={styles.cardText}>
-            <p>Simultaneously, your long-term vision encompasses the establishment of your own studio. Armed with the knowledge and experience gained from your early career, you envision a space where you can cater to both individual clients and larger-scale projects.</p>
+            <p>
+              Simultaneously, your long-term vision encompasses the
+              establishment of your own studio. Armed with the knowledge and
+              experience gained from your early career, you envision a space
+              where you can cater to both individual clients and larger-scale
+              projects.
+            </p>
           </div>
         </div>
       </div>
