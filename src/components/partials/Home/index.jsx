@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./style.module.scss";
-import secondImage from "../../../assets/img/bg_2.png";
 import pic3 from "../../../assets/img/pic_3.png";
 import pic4 from "../../../assets/img/pic_4.png";
 import fbLogo from "../../../assets/icon/facebook_logo.png";
@@ -85,9 +84,11 @@ const Home = () => {
             <div className={styles.moreButton}>+</div>
           </div>
           <button className={styles.signUpButton}>Sign up</button>
+          <div className={styles.separator}></div>
           <p>
             Already have an account? <a href="#">Log in</a>
           </p>
+          <button className={styles.logInButton}>Log in</button>
         </div>
       </div>
       <div className={styles.spaceBottom}></div>
