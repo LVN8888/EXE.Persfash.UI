@@ -3,11 +3,14 @@ import styles from "./style.module.scss";
 import secondImage from "../../../assets/img/bg_2.png";
 import pic3 from "../../../assets/img/pic_3.png";
 import pic4 from "../../../assets/img/pic_4.png";
+import fbLogo from "../../../assets/icon/facebook_logo.png";
+import instagramLogo from "../../../assets/icon/instagram_logo.png";
+import tiktokLogo from "../../../assets/icon/tiktok_logo.png";
+import registerPic from "../../../assets/img/register_pic.png";
 
 const Home = () => {
   return (
     <div className={styles.homeContainer}>
-      {/* First Section */}
       <div className={styles.homeBackground}>
         <div className={styles.homeContent}>
           <h2>Who we are</h2>
@@ -16,10 +19,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Gap between sections */}
       <div className={styles.space}></div>
 
-      {/* Second Section */}
       <div className={styles.secondContent}>
         <div className={styles.secondContentText}>
           <h2>What can we do?</h2>
@@ -28,7 +29,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Third Section with two cards */}
       <div className={styles.thirdContent}>
         <div
           className={styles.card}
@@ -67,6 +67,31 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+      <div className={styles.registerSection}>
+        <div
+          className={styles.registerImage}
+          style={{ backgroundImage: `url(${registerPic})` }}
+        >
+          <h2>Become a member now.</h2>
+        </div>
+
+        <div className={styles.registerForm}>
+          <h2>Create Account</h2>
+          <div className={styles.socialButtons}>
+            <img src={fbLogo} alt="Facebook" />
+            <img src={instagramLogo} alt="Instagram" />
+            <img src={tiktokLogo} alt="TikTok" />
+            <div className={styles.moreButton}>+</div>
+          </div>
+          <button className={styles.signUpButton}>Sign up</button>
+          <p>
+            Already have an account? <a href="#">Log in</a>
+          </p>
+        </div>
+      </div>
+      <div className={styles.spaceBottom}></div>
+      <div className={styles.space}></div>
     </div>
   );
 };

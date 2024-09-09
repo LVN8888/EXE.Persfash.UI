@@ -1,7 +1,9 @@
 .homeContainer {
   width: 100%;
   height: auto;
+  background: linear-gradient(180deg, #B3FF00 0%,#B3FF00 50%, #B3FF00 80% , #5c5cef 95%, #4949E9 100%);
   background-color: #B3FF00;
+  
 }
 
 .homeBackground {
@@ -40,6 +42,11 @@
 .space {
   height: 20px;
   background-color: #B3FF00;
+}
+
+.spaceBottom {
+  height: 30px;
+  background: linear-gradient(180deg, #5252EC 0%, #4949E9 100%);
 }
 
 .secondContent {
@@ -124,3 +131,91 @@
   display: block;
 }
 
+.registerSection {
+  display: flex;
+  max-width: 850px;
+  margin: auto;
+  border-radius: 30px;
+  overflow: hidden;
+  height: 550px;
+  box-sizing: border-box; 
+}
+
+.registerImage {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.registerForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.registerImage h2 {
+  font-size: 50px; 
+  color: white;
+  text-align: left;
+}
+
+.registerForm h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #0e0e52;
+}
+
+.socialButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.socialButtons img {
+  width: 50px;
+  height: 50px;
+}
+
+.moreButton {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  background-color: #4949E9;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+}
+
+.signUpButton {
+  background-color: #B3FF00;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.registerForm p {
+  color: #0e0e52;
+  font-size: 14px;
+}
+
+.registerForm a {
+  color: #0e0e52;
+  text-decoration: none;
+  font-weight: bold;
+}
