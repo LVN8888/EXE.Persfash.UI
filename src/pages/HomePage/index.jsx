@@ -11,6 +11,7 @@ const HomePage = () => {
       <div className={styles.topSection}>
         <img src={topImage} alt="persfash top" className={styles.topImage} />
       </div>
+      <div className={styles.space}></div>
       <Header />
       <Home />
       <Footer />
