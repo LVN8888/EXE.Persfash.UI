@@ -41,9 +41,9 @@
     color: black;
     border: none;
     border-radius: 10px;
-    padding: 10px 30px; 
+    padding: 10px 30px;
     font-size: 14px;
-    margin-right: 15px; 
+    margin-right: 15px;
     cursor: pointer;
   }
 
@@ -52,17 +52,61 @@
     color: #B3FF00;
     border: 2px solid #B3FF00;
     border-radius: 10px;
-    padding: 10px 30px; 
+    padding: 10px 30px;
     font-size: 14px;
-    margin-right: 15px; 
+    margin-right: 15px;
     cursor: pointer;
   }
 
   .languageIcon {
-    margin-left: 0;
-    
+    position: relative;
+    margin-left: 15px;
+    cursor: pointer;
+
     img {
       height: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  .languageDropdown {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px); /* Initial position for animation */
+    background: rgba(255, 255, 255, 0);
+    display: flex;
+    gap: 10px;
+    padding: 5px;
+    z-index: 1000;
+    opacity: 0; /* Initially hidden */
+    pointer-events: none; /* Prevent interaction when hidden */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition effect */
+  }
+
+  .languageDropdown.show {
+    opacity: 1; /* Fully visible */
+    transform: translateX(-50%) translateY(10px); /* Slide down effect */
+    pointer-events: all; /* Allow interaction when shown */
+  }
+
+  .languageButton {
+    font-size: 14px;
+    width: auto;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    transition: background 0.3s ease;
+    border-radius: 10px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    &.ant-btn-primary {
+      background-color: rgba(255, 255, 255, 0.6);
+      color: black;
     }
   }
 }
