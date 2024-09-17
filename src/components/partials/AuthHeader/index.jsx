@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button } from "antd"; 
+import { Button } from "antd";
 import { useNavigate } from "react-router-dom"; // Updated to useNavigate
 import styles from "./style.module.scss";
 import logo from "../../../assets/icon/perfash.png";
@@ -10,7 +10,7 @@ const AuthHeader = () => {
   const [language, setLanguage] = useState("EN");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
-  const navigate = useNavigate(); // Updated to use useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
@@ -47,6 +47,14 @@ const AuthHeader = () => {
     navigate("/"); 
   };
 
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const handleSignUpClick = () => {
+    navigate("/register"); 
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -58,8 +66,8 @@ const AuthHeader = () => {
         <a href="/support" className={styles.support}>
           Support
         </a>
-        <Button className={styles.loginButton}>Log in</Button>
-        <Button className={styles.signUpButton}>Sign up</Button>
+        <Button className={styles.loginButton} onClick={handleLoginClick}>Log in</Button>
+        <Button className={styles.signUpButton} onClick={handleSignUpClick}>Sign up</Button>
         <div className={styles.languageIcon} ref={dropdownRef}>
           <img src={globeIcon} alt="language" onClick={toggleDropdown} />
           <div className={`${styles.languageDropdown} ${isDropdownVisible ? styles.show : ""}`}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button } from "antd"; // Import Ant Design Button component
+import { Button } from "antd"; 
+import { useNavigate } from "react-router-dom"; 
 import styles from "./style.module.scss";
 import logo from "../../../../assets/icon/perfash.png";
 import globeIcon from "../../../../assets/icon/globe.png";
@@ -7,9 +8,9 @@ import globeIcon from "../../../../assets/icon/globe.png";
 const Header = () => {
   const [language, setLanguage] = useState("EN");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null); // Reference to the dropdown for click outside handling
+  const dropdownRef = useRef(null); 
+  const navigate = useNavigate();
 
-  // Check localStorage on component mount
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language");
     if (savedLanguage) {
@@ -22,13 +23,12 @@ const Header = () => {
   const changeLanguage = (lang) => {
     setLanguage(lang);
     localStorage.setItem("language", lang);
-    setIsDropdownVisible(false); 
+    setIsDropdownVisible(false);
   };
 
   const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -42,6 +42,14 @@ const Header = () => {
     };
   }, [dropdownRef]);
 
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const handleSignUpClick = () => {
+    navigate("/register");
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -52,11 +60,19 @@ const Header = () => {
         <a href="#support" className={styles.support}>
           Support
         </a>
-        <Button className={styles.loginButton}>Log in</Button>
-        <Button className={styles.signUpButton}>Sign up</Button>
+        <Button className={styles.loginButton} onClick={handleLoginClick}>
+          Log in
+        </Button>
+        <Button className={styles.signUpButton} onClick={handleSignUpClick}>
+          Sign up
+        </Button>
         <div className={styles.languageIcon} ref={dropdownRef}>
           <img src={globeIcon} alt="language" onClick={toggleDropdown} />
-          <div className={`${styles.languageDropdown} ${isDropdownVisible ? styles.show : ""}`}>
+          <div
+            className={`${styles.languageDropdown} ${
+              isDropdownVisible ? styles.show : ""
+            }`}
+          >
             <Button.Group>
               <Button
                 type={language === "VN" ? "primary" : "default"}

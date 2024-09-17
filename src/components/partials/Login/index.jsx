@@ -1,11 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./style.module.scss";
 import fbLogo from "../../../assets/icon/facebook_logo.png";
 import instagramLogo from "../../../assets/icon/instagram_logo.png";
 import tiktokLogo from "../../../assets/icon/tiktok_logo.png";
-import loginPic from "../../../assets/img/login_pic.png"; // Import the login image
+import loginPic from "../../../assets/img/login_pic.png";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleSignUpClick = () => {
+    navigate("/register");
+  };
+
   return (
     <div className={styles.homeContainer}>
       <div className={styles.loginSection}>
@@ -13,7 +20,11 @@ const Login = () => {
           className={styles.loginImage}
           style={{ backgroundImage: `url(${loginPic})` }}
         >
-          <h2>Welcome<br />back</h2>
+          <h2>
+            Welcome
+            <br />
+            back
+          </h2>
         </div>
 
         <div className={styles.loginForm}>
@@ -26,10 +37,10 @@ const Login = () => {
           </div>
           <button className={styles.logInButton}>Log in</button>
           <div className={styles.separator}></div>
-          <p>
-            Don’t have an account? <a href="/register">Sign up</a>
-          </p>
-          <button className={styles.signUpButton}>Sign up</button>
+          <p>Don’t have an account?</p>
+          <button className={styles.signUpButton} onClick={handleSignUpClick}>
+            Sign up
+          </button>
         </div>
       </div>
     </div>
