@@ -1,0 +1,152 @@
+.header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    color: #B3FF00;
+    font-size: 24px;
+    font-weight: bold;
+  
+    img {
+      height: 40px;
+      margin-right: 10px;
+    }
+  }
+
+  
+  
+  .nav {
+    display: flex;
+    align-items: center;
+  
+    .support {
+      color: #4949E9;
+      margin-right: 40px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+  
+    .loginButton {
+      background-color: #4949E9;
+      color: #B3FF00;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 30px;
+      font-size: 14px;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+  
+    .signUpButton {
+      background-color: transparent;
+      color: #4949E9;
+      border: 2px solid #4949E9;
+      border-radius: 10px;
+      padding: 10px 30px;
+      font-size: 14px;
+      margin-right: 15px;
+      cursor: pointer;
+    }
+  
+    .languageIcon {
+      position: relative;
+      margin-left: 15px;
+      cursor: pointer;
+  
+      img {
+        height: 20px;
+        margin-right: 10px;
+        filter: brightness(0) saturate(100%) invert(25%) sepia(70%) saturate(551%) hue-rotate(204deg) brightness(125%) contrast(150%);
+      }
+    }
+  
+    .languageDropdown {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(255, 255, 255, 0);
+      display: flex;
+      gap: 10px;
+      padding: 5px;
+      z-index: 1000;
+      opacity: 0; 
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease; 
+    }
+  
+    .languageDropdown.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(10px); 
+      pointer-events: all; 
+    }
+  
+    .languageButton {
+      font-size: 14px;
+      width: auto;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #4949E9;
+      transition: background 0.3s ease;
+      border-radius: 10px;
+  
+      &:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+  
+      &.ant-btn-primary {
+        background-color: rgba(255, 255, 255, 0.6);
+        color: black;
+      }
+    }
+  }
+  
+  .header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+  
+.logo {
+    display: flex;
+    align-items: center;
+    color: #4949E9;
+    font-size: 24px;
+    font-weight: bold;
+
+    img {
+      height: 40px;
+      margin-right: 10px;
+      filter: brightness(0) saturate(100%) invert(25%) sepia(70%) saturate(551%) hue-rotate(204deg) brightness(125%) contrast(150%);
+    }
+
+    .arrowIcon {
+      height: 25px; 
+      margin-right: 70px; 
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .arrowIcon:hover {
+      transform: scale(1.1);
+    }
+}
+

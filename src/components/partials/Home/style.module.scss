@@ -1,34 +1,288 @@
+.homeContainer {
+  width: 100%;
+  height: auto;
+  background: linear-gradient(180deg, #B3FF00 0%,#B3FF00 50%, #B3FF00 80% , #5c5cef 95%, #4949E9 100%);
+  background-color: #B3FF00;
+  
+}
+
 .homeBackground {
-  background-image: url('../../../assets/img/bg.png'); 
+  background-image: url('../../../assets/img/bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   align-items: center;
-  padding-right: 50px; 
-}
-
-.homeContent h2 {
-  color: #a6d93d; 
-  font-size: 20px; 
-  font-weight: 400;
-  margin-bottom: 10px;
-  text-align: left; 
-}
-
-.homeContent p {
-  color: white; 
-  font-size: 36px; 
-  font-weight: 300; 
-  line-height: 1.5;
-  margin: 0;
-  text-align: left; 
+  padding-right: 50px;
 }
 
 .homeContent {
   max-width: 400px;
+  text-align: left;
+}
+
+.homeContent h2 {
+  color: #B3FF00;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.homeContent p {
+  color: white;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.space {
+  height: 20px;
+  background-color: #B3FF00;
+}
+
+.spaceBottom {
+  height: 30px;
+  background: linear-gradient(180deg, #5252EC 0%, #4949E9 100%);
+}
+
+.secondContent {
+  background-image: url('../../../assets/img/bg_2.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 50px;
+}
+
+.secondContentText {
+  max-width: 400px;
+  text-align: left;
+}
+
+.secondContentText h2 {
+  color: #B3FF00;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.secondContentText p {
+  color: white;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.thirdContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.card {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 15px;
+  margin: 0 10px;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  color: white;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.cardTitle {
+  padding: 20px;
+  color: #B3FF00; 
+  font-size: 50px; 
   text-align: left; 
+  padding-left: 100px;
+  z-index: 2;
+}
+
+.cardText {
+  position: relative;
+  padding: 70px;
+  z-index: 2;
+  background: none;
+}
+
+.cardText p {
+  color: white;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.cardTitle h2 .experts {
+  display: block;
+}
+
+.registerSection {
+  display: flex;
+  max-width: 850px;
+  margin: auto;
+  border-radius: 30px;
+  overflow: hidden;
+  height: 550px;
+  box-sizing: border-box; 
+}
+
+.registerImage {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.registerForm {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.registerImage h2 {
+  font-size: 50px; 
+  color: white;
+  text-align: left;
+}
+
+.registerForm h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #0e0e52;
+}
+
+.socialButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.socialButtons img {
+  width: 50px;
+  height: 50px;
+}
+
+.moreButton {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  background-color: #4949E9;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+}
+
+.socialButtons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px; 
+  margin-bottom: 20px;
+}
+
+.socialButtons img, .moreButton {
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+  cursor: pointer; 
+}
+
+.socialButtons img:hover, .moreButton:hover {
+  transform: scale(1.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.moreButton {
+  background-color: #4949E9;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerForm p {
+  color: #0e0e52;
+  font-size: 14px;
+}
+
+.registerForm a {
+  color: #0e0e52;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signUpButton {
+  background-color: #B3FF00;
+  color: #4949E9;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 60%; 
+  text-align: center; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signUpButton:hover {
+  transform: scale(1.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.logInButton {
+  background-color: transparent; 
+  color: #4949E9; 
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 2px solid #4949E9; 
+  border-radius: 10px; 
+  cursor: pointer;
+  width: 60%; 
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+
+.logInButton:hover {
+  transform: scale(1.1); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.separator {
+  width: 60%;
+  height: 1px;
+  background-color: #4949E9;
+  margin: 10px 0;
 }
