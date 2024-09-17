@@ -72,7 +72,7 @@ const Home = () => {
           className={styles.registerImage}
           style={{ backgroundImage: `url(${registerPic})` }}
         >
-          <h2>Become a member now.</h2>
+          <h2>Become a member now</h2>
         </div>
 
         <div className={styles.registerForm}>

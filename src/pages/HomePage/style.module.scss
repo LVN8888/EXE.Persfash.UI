@@ -14,17 +14,15 @@
 .topImage {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensure the image covers the full viewport */
+  object-fit: cover; 
 }
 
-/* Add spacing between the topImage and the Header */
 .space {
-  height: 20px; /* You can adjust this value to increase or decrease the gap */
-  background-color: #a6d93d; /* Set color of the gap, or remove this if you just need spacing */
+  height: 20px;
+  background-color: #a6d93d;
 }
 
-/* Optional: Apply margin to the header instead */
 .header {
-  margin-top: 50px; /* Add space between the image and header */
+  margin-top: 50px;
 }
 

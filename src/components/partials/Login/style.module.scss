@@ -1,0 +1,151 @@
+.homeContainer {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, #B3FF00 0%, #5c5cef 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loginSection {
+    display: flex;
+    width: 80%;
+    max-width: 850px;
+    height: 550px;
+    margin: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background-color: #4949E9;
+    box-sizing: border-box;
+  }
+  
+  .loginImage {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .loginImage h2 {
+    font-size: 50px;
+    color: white;
+    text-align: left;
+    line-height: 1.2;
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.7);
+    margin-right: 100px;
+  }
+  
+  .loginForm {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 0 20px 20px 0;
+  }
+  
+  .loginForm h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #0e0e52;
+  }
+  
+  .socialButtons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .socialButtons img,
+  .moreButton {
+    width: 95px;
+    height: 95px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .socialButtons img:hover,
+  .moreButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .moreButton {
+    background-color: #4949E9;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loginForm p {
+    color: #0e0e52;
+    font-size: 14px;
+  }
+  
+  .loginForm a {
+    color: #0e0e52;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .logInButton {
+    background-color: #B3FF00;
+    color: #4949E9;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    width: 60%;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .logInButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .signUpButton {
+    background-color: transparent;
+    color: #4949E9;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #4949E9;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 60%;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .signUpButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .separator {
+    width: 60%;
+    height: 1px;
+    background-color: #4949E9;
+    margin: 10px 0;
+  }
+  
