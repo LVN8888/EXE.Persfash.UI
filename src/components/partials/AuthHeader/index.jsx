@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button } from "antd"; 
-import { useNavigate } from "react-router-dom"; 
+import { Button } from "antd";
+import { useNavigate } from "react-router-dom"; // Updated to useNavigate
 import styles from "./style.module.scss";
-import logo from "../../../../assets/icon/perfash.png";
-import globeIcon from "../../../../assets/icon/globe.png";
+import logo from "../../../assets/icon/perfash.png";
+import globeIcon from "../../../assets/icon/globe.png";
+import arrowIcon from "../../../assets/icon/arrow.png"; 
 
-const Header = () => {
+const AuthHeader = () => {
   const [language, setLanguage] = useState("EN");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null); 
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Header = () => {
   const changeLanguage = (lang) => {
     setLanguage(lang);
     localStorage.setItem("language", lang);
-    setIsDropdownVisible(false);
+    setIsDropdownVisible(false); 
   };
 
   const toggleDropdown = () => {
@@ -42,37 +43,34 @@ const Header = () => {
     };
   }, [dropdownRef]);
 
+  const handleArrowClick = () => {
+    navigate("/"); 
+  };
+
   const handleLoginClick = () => {
     navigate("/login");
   };
 
   const handleSignUpClick = () => {
-    navigate("/register");
+    navigate("/register"); 
   };
 
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
+        <img src={arrowIcon} alt="back arrow" onClick={handleArrowClick} className={styles.arrowIcon} />
         <img src={logo} alt="persfash logo" />
         <span>persfash</span>
       </div>
       <nav className={styles.nav}>
-        <a href="#support" className={styles.support}>
+        <a href="/support" className={styles.support}>
           Support
         </a>
-        <Button className={styles.loginButton} onClick={handleLoginClick}>
-          Log in
-        </Button>
-        <Button className={styles.signUpButton} onClick={handleSignUpClick}>
-          Sign up
-        </Button>
+        <Button className={styles.loginButton} onClick={handleLoginClick}>Log in</Button>
+        <Button className={styles.signUpButton} onClick={handleSignUpClick}>Sign up</Button>
         <div className={styles.languageIcon} ref={dropdownRef}>
           <img src={globeIcon} alt="language" onClick={toggleDropdown} />
-          <div
-            className={`${styles.languageDropdown} ${
-              isDropdownVisible ? styles.show : ""
-            }`}
-          >
+          <div className={`${styles.languageDropdown} ${isDropdownVisible ? styles.show : ""}`}>
             <Button.Group>
               <Button
                 type={language === "VN" ? "primary" : "default"}
@@ -96,4 +94,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AuthHeader;
