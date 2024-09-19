@@ -1,0 +1,108 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #f9faff;
+    color: #5a2cd3;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #5a2cd3;
+  
+    img {
+      height: 35px;
+      margin-right: 10px;
+      filter: brightness(0) saturate(100%) invert(25%) sepia(70%) saturate(551%) hue-rotate(204deg) brightness(125%) contrast(150%);
+    }
+  
+    span {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around; /* Distribute space evenly between items */
+  
+    .link {
+      color: #5a2cd3;
+      margin-right: 80px; /* Further increased space between links */
+      text-decoration: none;
+      font-size: 14px;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  
+    .searchIcon, .userIcon {
+      margin-right: 80px; /* Further increased space between icons */
+      cursor: pointer;
+  
+      img {
+        height: 24px;
+        filter: brightness(0) saturate(100%) invert(25%) sepia(70%) saturate(551%) hue-rotate(204deg) brightness(125%) contrast(150%);
+      }
+    }
+  
+    .languageIcon {
+      position: relative;
+      margin-left: 100px; 
+      cursor: pointer;
+  
+      img {
+        height: 24px; 
+        margin-right: 30px;
+        filter: brightness(0) saturate(100%) invert(25%) sepia(70%) saturate(551%) hue-rotate(204deg) brightness(125%) contrast(150%);
+      }
+    }
+  
+    .languageDropdown {
+      position: absolute;
+      top: 20px; 
+      left: 20%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0);
+      display: flex;
+      gap: 10px;
+      padding: 5px;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+  
+    .languageDropdown.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(10px);
+      pointer-events: all;
+    }
+  
+    .languageButton {
+      font-size: 14px;
+      width: auto;
+      padding: 20px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #5a2cd3;
+      transition: background 0.3s ease;
+      border-radius: 10px;
+  
+      &:hover {
+        background: rgba(255, 255, 255, 0.4);
+      }
+  
+      &.ant-btn-primary {
+        background-color: rgba(255, 255, 255, 0.6);
+        color: black;
+      }
+    }
+  }
+  
