@@ -1,4 +1,4 @@
-.homeContainer {
+.introContainer {
   width: 100%;
   height: auto;
   background: linear-gradient(180deg, #B3FF00 0%,#B3FF00 50%, #B3FF00 80% , #5c5cef 95%, #4949E9 100%);
@@ -6,7 +6,7 @@
   
 }
 
-.homeBackground {
+.introBackground {
   background-image: url('../../../assets/img/bg.png');
   background-size: cover;
   background-position: center;
@@ -19,19 +19,19 @@
   padding-right: 50px;
 }
 
-.homeContent {
+.introContent {
   max-width: 400px;
   text-align: left;
 }
 
-.homeContent h2 {
+.introContent h2 {
   color: #B3FF00;
   font-size: 24px;
   font-weight: 400;
   margin-bottom: 10px;
 }
 
-.homeContent p {
+.introContent p {
   color: white;
   font-size: 36px;
   font-weight: 300;
