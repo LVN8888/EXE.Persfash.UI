@@ -8,7 +8,7 @@ import instagramLogo from "../../../assets/icon/instagram_logo.png";
 import tiktokLogo from "../../../assets/icon/tiktok_logo.png";
 import registerPic from "../../../assets/img/register_pic.png";
 
-const Home = () => {
+const Intro = () => {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -20,9 +20,9 @@ const Home = () => {
   };
 
   return (
-    <div className={styles.homeContainer}>
-      <div className={styles.homeBackground}>
-        <div className={styles.homeContent}>
+    <div className={styles.introContainer}>
+      <div className={styles.introBackground}>
+        <div className={styles.introContent}>
           <h2>Who we are</h2>
           <p>Even though we're going through it</p>
           <p>And it makes you feel alone</p>
@@ -108,4 +108,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Intro;
