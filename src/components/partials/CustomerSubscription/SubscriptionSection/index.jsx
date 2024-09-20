@@ -10,10 +10,10 @@ const includedFeatures = [
 export default function SubscriptionSection() {
 
     return (
-        <div className="bg-white pt-24 sm:py-16">
+        <div className="bg-white pt-24 sm:py-16 mb-8">
       <div className="max-w-[1240px] mx-auto">
         <div className="mx-auto max-w-2xl sm:text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-[#B3FF00] sm:text-4xl">Welcome</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-[#B3FF00] sm:text-4xl">Plans</h2>
           <p className="mt-6 text-lg leading-8 text-[#4949e9]">
           "PersFash offers two service packages: Free with outfit and clothing recommendations, 
           and Premium with wardrobe management and the option to add clothes to favorite outfits, 

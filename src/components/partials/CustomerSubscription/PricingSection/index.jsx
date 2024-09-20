@@ -51,7 +51,7 @@ export default function PricingSection() {
             </p>
           </div>
           <button className="bg-[#B3FF00] text-[#4949e9] w-[200px] rounded-full font-medium my-6 px-6 mx-auto py-3" onClick={() => {
-            toast.success("Chuyển trang sang thanh toán")
+            toast.success("Chuyển trang sang review plan trước")
           }}>
             Upgrade
           </button>
