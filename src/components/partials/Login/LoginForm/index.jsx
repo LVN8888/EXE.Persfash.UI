@@ -14,10 +14,10 @@ import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LoginForm() {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const usernameRef = useRef(null);
   const navigate = useNavigate();
   const { login, user, isAuthenticated } = useAuth();
 
@@ -70,7 +70,7 @@ export default function LoginForm() {
     onSuccess: (token) => {
       console.log(token.access_token);
 
-      navigate("/home");
+      // navigate("/home");
       // handleGoogleLogin(token.access_token);
     },
     onError: () => {
@@ -217,7 +217,7 @@ export default function LoginForm() {
               <a
                 href="#"
                 className="font-semibold text-indigo-600 hover:text-indigo-500"
-                onClick={() => navigate("/forgot-password")}
+                onClick={() => navigate("/password/forgot-password")}
               >
                 Forgot password?
               </a>

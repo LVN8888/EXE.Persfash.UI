@@ -6,6 +6,8 @@ import { EyeInvisibleOutlined, EyeTwoTone, GoogleOutlined } from '@ant-design/ic
 
 import logo from '../../../assets/icon/perfash.png'
 import registerPic from "../../../assets/img/register_pic.png";
+import { FcGoogle } from "react-icons/fc";
+import { useGoogleLogin } from "@react-oauth/google";
 
 
 const Register = () => {
@@ -19,6 +21,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [gender, setGender] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleLoginClick = () => {
     navigate("/login-form");
@@ -30,8 +33,72 @@ const Register = () => {
   };
 
   // Function to handle Google Sign-Up
-  const googleSignUp = () => {
-  };
+  const googleLogin = useGoogleLogin({
+    onSuccess: (token) => {
+      console.log(token.access_token);
+
+      // navigate("/home");
+      // handleGoogleLogin(token.access_token);
+    },
+    onError: () => {
+      toast({
+        title: "Sign In Error",
+        description: "Sign in by Google failed. Try again!!!",
+        status: "error",
+        duration: 2500,
+        position: "top",
+        isClosable: true,
+      });
+    },
+  });
+
+  //   const handleGoogleLogin = async (token) => {
+  //     const api = new ApiClient<any>('/auth/login-google');
+  //     const data = {
+  //         token
+  //     };
+
+  //     try {
+  //         const response = await api.postUnauthen(data);
+
+  //         if (response.success) {
+  //             localStorage.setItem('access_token', response.data.token);
+  //             localStorage.setItem('refresh_token', response.data.refreshToken);
+  //             const decoded = jwtDecode<DecodeJWTRole>(response.data.token);
+  //             const decodedRole = formatRoleString(decoded.role[0]);
+
+  //             setIsAuthenticated(true);
+  //             setRole(decodedRole);
+  //             if (decodedRole === 'Customer') {
+  //                 navigate('/');
+  //             } else {
+  //                 return;
+  //             }
+  //         } else {
+  //             toast({
+  //                 title: "Error",
+  //                 description: response.message,
+  //                 status: "error",
+  //                 duration: 2500,
+  //                 position: 'top',
+  //                 isClosable: true,
+  //             });
+  //         }
+  //     } catch (error) {
+
+  //         if (error instanceof AxiosError) {
+  //             toast({
+  //                 title: "Error",
+  //                 description: error.response?.data?.message || "An error occurred",
+  //                 status: "error",
+  //                 duration: 2500,
+  //                 position: 'top',
+  //                 isClosable: true,
+  //             });
+  //         }
+  //     }
+  // };
+
 
   return (
     <div className="min-h-screen flex">
@@ -205,9 +272,9 @@ const Register = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="w-full bg-[#4949e9]"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign up
+                {loading ? "Signing up..." : "Sign up"}
               </Button>
             </Form.Item>
           </Form>
@@ -225,8 +292,8 @@ const Register = () => {
           {/* Google Sign Up Button */}
           <div className="mt-6">
             <Button
-              icon={<GoogleOutlined />}
-              onClick={googleSignUp}
+              icon={<FcGoogle />}
+              onClick={() => googleLogin()}
               className="flex w-full justify-center rounded-md bg-white text-[#4949e9] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
             >
               Sign up with Google
@@ -239,7 +306,7 @@ const Register = () => {
             <a
               href="#"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/login-form")}
             >
               Sign in
             </a>

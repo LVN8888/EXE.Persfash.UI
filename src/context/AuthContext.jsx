@@ -9,6 +9,8 @@ export const AuthProvider = ({children}) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    const BaseURL = import.meta.env.VITE_SERVER_URL;
+
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         const token = localStorage.getItem('accessToken');
@@ -18,7 +20,8 @@ export const AuthProvider = ({children}) => {
         }
       }, []);
 
-      const apiClinet = new AxiosHelper( 'https://localhost:7126/api');
+
+      const apiClinet = new AxiosHelper(BaseURL);
 
       const login = async (username, password) => {
         try {

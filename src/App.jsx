@@ -8,6 +8,9 @@ import PlanPage from "./pages/PlanPage/index.jsx";
 import PayMentSuccessPage from "./pages/PaymentPage/PaymentSuccessPage/index.jsx";
 import ReviewPaymentPage from "./pages/PaymentPage/ReviewPaymentPage/index.jsx";
 import LoginFormPage from "./pages/LoginPage/LoginForm/index.jsx";
+import { NotFoundPage } from "./pages/NotFoundPage/index.jsx";
+import { ForgotPasswordPage } from "./pages/PasswordPage/ForgotPasswordPage/index.jsx";
+import { ResetPasswordPage } from "./pages/PasswordPage/ResetPasswordPage/index.jsx";
 
 function App() {
   return (
@@ -21,6 +24,9 @@ function App() {
         <Route path="/plan" element={<PlanPage />} />
         <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
         <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
+        <Route path="/password/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/password/reset-password" element={<ResetPasswordPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
