@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.1",
     "@react-spring/web": "^9.7.4",
     "antd": "^5.20.5",
+    "axios": "^1.7.7",
     "exe-perfash-ui": "file:",
     "exe-persfash-ui": "file:",
     "i18next": "^23.14.0",

@@ -9,6 +9,10 @@ import loginPic from "../../../assets/img/login_pic.png";
 const Login = () => {
   const navigate = useNavigate();
 
+  const handleSignInClick = () => {
+    navigate("/login-form")
+  }
+
   const handleSignUpClick = () => {
     navigate("/register");
   };
@@ -33,9 +37,9 @@ const Login = () => {
             <img src={fbLogo} alt="Facebook" />
             <img src={instagramLogo} alt="Instagram" />
             <img src={tiktokLogo} alt="TikTok" />
-            <div className={styles.moreButton}>+</div>
+            <div className={styles.moreButton} onClick={handleSignInClick}>+</div>
           </div>
-          <button className={styles.logInButton}>Log in</button>
+          <button className={styles.logInButton} onClick={handleSignInClick}>Log in</button>
           <div className={styles.separator}></div>
           <p>Don’t have an account?</p>
           <button className={styles.signUpButton} onClick={handleSignUpClick}>

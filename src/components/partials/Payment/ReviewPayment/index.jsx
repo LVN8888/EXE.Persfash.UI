@@ -11,7 +11,7 @@ const ReviewPayment = () => {
       };
 
       return (
-        <div className="min-h-screen bg-gradient-to-r from-[#4949e9] to-white flex flex-col items-center justify-start pt-36">
+        <div className="min-h-screen bg-gradient-to-r from-[#4949e9] to-white flex flex-col items-center justify-center">
           {/* Review Your Plan Heading */}
           <div className="mb-6 text-center">
             <h1 className="text-4xl font-bold text-[#4949e9]">
