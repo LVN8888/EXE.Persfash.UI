@@ -12,7 +12,7 @@ const Intro = () => {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate("/login");
+    navigate("/login-form");
   };
 
   const handleSignUpClick = () => {
@@ -92,7 +92,7 @@ const Intro = () => {
             <img src={fbLogo} alt="Facebook" />
             <img src={instagramLogo} alt="Instagram" />
             <img src={tiktokLogo} alt="TikTok" />
-            <div className={styles.moreButton}>+</div>
+            <div className={styles.moreButton} onClick={handleLoginClick}>+</div>
           </div>
           <button className={styles.signUpButton} onClick={handleSignUpClick}>Sign up</button>
           <div className={styles.separator}></div>

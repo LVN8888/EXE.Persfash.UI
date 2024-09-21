@@ -48,7 +48,7 @@ const AuthHeader = () => {
   };
 
   const handleLoginClick = () => {
-    navigate("/login");
+    navigate("/login-form");
   };
 
   const handleSignUpClick = () => {

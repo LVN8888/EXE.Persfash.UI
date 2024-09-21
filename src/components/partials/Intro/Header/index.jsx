@@ -43,7 +43,7 @@ const Header = () => {
   }, [dropdownRef]);
 
   const handleLoginClick = () => {
-    navigate("/login");
+    navigate("/login-form");
   };
 
   const handleSignUpClick = () => {

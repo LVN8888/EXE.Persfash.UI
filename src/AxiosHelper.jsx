@@ -40,21 +40,29 @@ class AxiosHelper {
     refreshToken = async () => {
         const refreshToken = this.getRefreshToken();
         try {
-            const response = await this.client.post('/auth/refresh', {
-                refreshToken: refreshToken,
-            });
+            const response = await this.client.post(
+                '/api/refreshtoken',
+                {
+                    refreshToken: refreshToken, 
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
             const { accessToken, newRefreshToken } = response.data;
-
+    
             // Lưu lại cả accessToken và refreshToken
             this.setAccessToken(accessToken);
             this.setRefreshToken(newRefreshToken);
-
+    
             return accessToken;
         } catch (error) {
             console.error('Error refreshing token:', error);
             throw error;
         }
-    };
+    };    
 
     // Thêm access token vào headers
     addAuthHeader = (headers = {}) => {
