@@ -11,6 +11,7 @@
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   text-align: left;
+  padding: 2rem; 
 }
 
 .titleColumn {
@@ -31,7 +32,8 @@
 .contentColumns {
   font-size: 1.2rem;
   color: #ffffff; 
-  line-height: 1.5; 
+  line-height: 1.5;
+  padding: 1rem 0; 
 }
 
 .upgradeButton {
@@ -45,6 +47,7 @@
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
   margin-top: 2rem; 
+  margin-bottom: 1rem;
 
   &:hover {
     background-color: #ffffff;
