@@ -57,6 +57,7 @@ export const ForgotPassword = () => {
             <Form.Item
               name="email"
               label="Email"
+              className="font-medium"
               rules={[
                 {
                   required: true,
@@ -78,7 +79,7 @@ export const ForgotPassword = () => {
               <button
                 htmlType="submit"
                 loading={loading}
-                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9]"
+                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
               >
                 Send Reset Link
               </button>
@@ -87,7 +88,7 @@ export const ForgotPassword = () => {
 
             <Form.Item>
             <button onClick={() => (window.location.href = "/login-form")}
-                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9]"
+                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
               >
                 Back
               </button>

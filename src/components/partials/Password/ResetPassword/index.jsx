@@ -123,6 +123,7 @@ export const ResetPassword = () => {
              <Form.Item
       label="OTP Code"
       rules={[{ required: true, message: "Please input the OTP code!" }]}
+      className="font-medium "
     >
       <Row gutter={[16, 16]} justify="center">
         {otp.map((code, index) => (
@@ -132,7 +133,7 @@ export const ResetPassword = () => {
               maxLength={1}
               value={code}
               onChange={(e) => handleChange(index, e.target.value)}
-              className="text-center border border-gray-300 rounded-lg transition duration-300 ease-in-out focus:border-blue-500 focus:ring-2 focus:ring-blue-500 w-12"
+              className="text-center border border-gray-300 rounded-lg transition duration-300 ease-in-out focus:border-blue-500 focus:ring-2 focus:ring-blue-500 w-12 font-avantgarde"
               style={{
                 width: '50px',
                 height: '50px',
@@ -148,6 +149,7 @@ export const ResetPassword = () => {
             <Form.Item
               label="New Password"
               name="newPassword"
+              className="font-medium "
               rules={[
                 { required: true, message: "Please input your new password!" },
               ]}
@@ -162,6 +164,7 @@ export const ResetPassword = () => {
             <Form.Item
               label="Confirm Password"
               name="confirmPassword"
+              className="font-medium "
               rules={[
                 { required: true, message: "Please confirm your password!" },
               ]}
@@ -177,7 +180,7 @@ export const ResetPassword = () => {
               <button
                 type="primary"
                 htmlType="submit"
-                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9]"
+                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
               >
                 Reset Password
               </button>
@@ -191,13 +194,13 @@ export const ResetPassword = () => {
                 className={`w-full px-1 py-2 rounded-md font-medium ${
                   isButtonDisabled
                     ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                    : "bg-[#4949e9] text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9]"
+                    : "bg-[#4949e9] text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
                 }`}
               >
                 Resend OTP
               </button>
               {isButtonDisabled && (
-                <p className="text-center mt-2">
+                <p className="text-center mt-4 font-avantgarde">
                   Please wait {timeLeft}s before resending the OTP.
                 </p>
               )}
@@ -210,7 +213,7 @@ export const ResetPassword = () => {
                 onClick={() =>
                   (window.location.href = "/password/forgot-password")
                 }
-                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9]"
+                className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
               >
                 Back
               </button>

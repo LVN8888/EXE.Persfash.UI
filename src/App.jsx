@@ -11,6 +11,7 @@ import LoginFormPage from "./pages/LoginPage/LoginForm/index.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage/index.jsx";
 import { ForgotPasswordPage } from "./pages/PasswordPage/ForgotPasswordPage/index.jsx";
 import { ResetPasswordPage } from "./pages/PasswordPage/ResetPasswordPage/index.jsx";
+import { CustomerInformationPage } from "./pages/CustomerInformationPage/index.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login-form" element={<LoginFormPage />} />
         <Route path="/plan" element={<PlanPage />} />
+        <Route path="/customer/customer-info" element={<CustomerInformationPage />} />
         <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
         <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
         <Route path="/password/forgot-password" element={<ForgotPasswordPage />} />

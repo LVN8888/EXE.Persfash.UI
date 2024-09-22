@@ -91,10 +91,6 @@ const MainHeader = () => {
   const userMenuItems = [
     {
       key: "1",
-      label: <div onClick={() => navigate("/profile")}>View Profile</div>,
-    },
-    {
-      key: "3",
       label: (
         <>
           {darkMode ? <MoonOutlined /> : <BulbOutlined />}
@@ -109,10 +105,17 @@ const MainHeader = () => {
   ];
 
   if (user !== null && isAuthenticated) {
+
+
     userMenuItems.push({
         key: "2",
-        label: <div onClick={() => handleLogout()}>Log Out</div>,
-    });
+        label: <div onClick={() => navigate("/customer/customer-info")}>View Profile</div>,
+    })
+
+    userMenuItems.push({
+      key: "3",
+      label: <div onClick={() => handleLogout()}>Log Out</div>,
+  });
 }
 
   // Sử dụng Menu cho User Icon

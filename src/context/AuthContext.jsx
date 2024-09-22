@@ -54,10 +54,10 @@ export const AuthProvider = ({children}) => {
 
             // Store user data and tokens in localStorage
             localStorage.setItem('user', JSON.stringify(userData));
-            localStorage.setItem('accessToken', data.token); // Store access token
-            localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token
+            // localStorage.setItem('accessToken', data.token); // Store access token
+            // localStorage.setItem('refreshToken', data.refreshToken); // Store refresh token
 
-            return response;
+            return userData;
         } catch (error) {
             console.error('Login failed:', error);
             throw error;
@@ -68,12 +68,12 @@ export const AuthProvider = ({children}) => {
         setUser(null);
         setIsAuthenticated(false);
         localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
       };
 
       return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, setUser, setIsAuthenticated, login, logout }}>
           {children}
         </AuthContext.Provider>
       );
