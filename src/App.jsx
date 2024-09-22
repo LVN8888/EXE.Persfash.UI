@@ -9,6 +9,7 @@ import PayMentSuccessPage from "./pages/PaymentPage/PaymentSuccessPage/index.jsx
 import ReviewPaymentPage from "./pages/PaymentPage/ReviewPaymentPage/index.jsx";
 import LoginFormPage from "./pages/LoginPage/LoginForm/index.jsx";
 import SupportPage from "./pages/SupportPage/index.jsx";
+import WardrobePage from "./pages/WardobePage/index.jsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/support" element={<SupportPage/>} />
         <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
         <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
+        <Route path="/wardobe" element={<WardrobePage/>} />
       </Routes>
     </div>
   );
