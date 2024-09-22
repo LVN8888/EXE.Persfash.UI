@@ -1,8 +1,9 @@
-import { Button, Form, Input, notification, Row, Col } from "antd";
+import { Button, Form, Input, notification, Row, Col, message } from "antd";
 import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import bg from "../../../../assets/img/bg.png";
+import { forgotPassword, resetPassword } from "../../../../services/PasswordApi";
 
 export const ResetPassword = () => {
   const location = useLocation();
@@ -59,48 +60,95 @@ export const ResetPassword = () => {
       });
       return;
     }
+   
+    const currOTP = otp.join("");
 
-    const api = new ApiClient("/auth/reset-password");
-    const data = {
-      otp,
-      newPassword,
-    };
-
+    console.log(otp.join(""));
+    
     try {
-      const response = await api.postUnauthen(data);
-      if (response.success === false) {
-        notification.error({
-          message: "Error",
-          description: response.message,
-          placement: "top",
-          duration: 2.5,
+      const response = await resetPassword(currOTP, newPassword, confirmPassword, email);
+
+      console.log(response);
+      
+      setTimeout(() => {
+        message.success({
+          content: "Reset password successfully!",
+          style: {
+              marginTop: '10px', // Space above the message
+              fontSize: '18px', // Increase font size
+              padding: '10px', // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+      });
+        navigate("/login-form")
+      }, 2000);
+
+    } catch (error) {
+      if (error.response) {
+        // Log the response data to see the error message
+        console.error("Reset password failed log:", error.response.data);
+        message.error({
+          content: error.response.data.message,
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
         });
       } else {
-        notification.success({
-          message: "Success",
-          description: "Password reset successful!",
-          placement: "top",
-          duration: 2.5,
+        message.error({
+          content: "Error occurred",
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
         });
+        console.error("Reset password failed log: ", error);
       }
-    } catch (error) {
-      notification.error({
-        message: "Error",
-        description: error.response?.data?.message || "An error occurred",
-        placement: "top",
-        duration: 2.5,
-      });
     }
   };
 
-  const resendOtp = () => {
+  const resendOtp = async () => {
     // Logic to resend the OTP
-    notification.success({
-      message: "Success",
-      description: `OTP resent to ${email}`,
-      placement: "top",
-      duration: 2.5,
-    });
+    try {
+      const response = await forgotPassword(email);
+
+      console.log(response);
+
+      setTimeout(() => {
+        message.success("Resent reset email successfully!");
+        navigate("/password/reset-password", {state: {email: values.email}})
+      }, 2000);
+
+    } catch (error) {
+      if (error.response) {
+        // Log the response data to see the error message
+        console.error("Login failed log:", error.response.data);
+        message.error({
+          content: error.response.data.message,
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
+      } else {
+        message.error({
+          content: "Error occurred",
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
+        console.error("Login failed log: ", error);
+      }
+    }
 
     setIsButtonDisabled(true); // Disable the button again
     setTimeLeft(120); // Reset timer

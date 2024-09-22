@@ -3,21 +3,56 @@ import { Form, Input, Button, message, Row, Col } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import bg from '../../../../assets/img/bg.png'
 import { Navigate, useNavigate } from "react-router-dom";
+import { forgotPassword } from "../../../../services/PasswordApi";
 
 export const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // Handle form submission
-  // Handle form submission
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+
+    console.log(values.email);
+
+    try {
+      const response = await forgotPassword(values.email);
+
+      console.log(response);
+
+      setTimeout(() => {
+        setLoading(false);
+        message.success("Password reset email sent!");
+        navigate("/password/reset-password", {state: {email: values.email}})
+      }, 2000);
+
+    } catch (error) {
       setLoading(false);
-      message.success("Password reset email sent!");
-      navigate("/password/reset-password", {state: {email: values.email}})
-    }, 2000);
+      if (error.response) {
+        // Log the response data to see the error message
+        console.error("Login failed log:", error.response.data);
+        message.error({
+          content: error.response.data.message,
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
+      } else {
+        message.error({
+          content: "Error occurred",
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
+        console.error("Login failed log: ", error);
+      }
+    }
   };
 
   return (
@@ -81,7 +116,7 @@ export const ForgotPassword = () => {
                 loading={loading}
                 className="w-full bg-[#4949e9] px-1 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
               >
-                Send Reset Link
+                {loading ? 'Sending Reset Link...' : 'Send Reset Link'}
               </button>
             </Form.Item>
 

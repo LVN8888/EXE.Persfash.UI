@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Avatar, Form, Input, Row, Col, DatePicker, Button, Divider, message } from "antd";
 import { useAuth } from "../../../hooks/useAuth";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export const CustomerInformation = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -9,6 +10,8 @@ export const CustomerInformation = () => {
     const [avatar, setAvatar] = useState(null);
     const [currentAvatar, setCurrentAvatar] = useState(null);
     const {user} = useAuth();
+
+    const navigate = useNavigate();
 
     // Retrieve user data from localStorage
     const sampleCustomerData = {
@@ -109,7 +112,7 @@ export const CustomerInformation = () => {
 
 
     return (
-      <div className="flex justify-center p-10 bg-gray-100 min-h-screen bg-gradient-to-tr from-[#b3ff00] to-[#4949e9]">
+      <div className="flex justify-center p-10 bg-gray-100 min-h-screen bg-gradient-to-tr from-white to-[#4949e9]">
         <div className="max-w-7xl w-full">
           <div className="flex flex-col md:flex-row justify-between items-start space-y-4 md:space-y-0 md:space-x-20">
             {/* Avatar and Details Card */}
@@ -148,6 +151,7 @@ export const CustomerInformation = () => {
 
                 <button
                   type="button"
+                  onClick={() => navigate("/password/change-password")}
                   className="bg-[#4949e9] px-4 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
                 >
                   Change password

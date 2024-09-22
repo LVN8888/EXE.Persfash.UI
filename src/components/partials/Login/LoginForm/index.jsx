@@ -13,6 +13,7 @@ import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import AxiosHelper from "../../../../AxiosHelper";
+import { LoginGoogle } from "../../../../services/LoginApi";
 
 export default function LoginForm() {
 
@@ -60,8 +61,18 @@ export default function LoginForm() {
           duration: 2, // Optional: duration in seconds
       });
     } else {
-        console.error('Login failed log:', error);
-        throw new Error('Login failed. Please try again.');
+      message.error({
+        content: "Error occurred",
+        style: {
+            marginTop: '10px', // Space above the message
+            fontSize: '18px', // Increase font size
+            padding: '10px', // Optional: add padding for a better look
+        },
+        duration: 2, // Optional: duration in seconds
+    });
+
+    console.error("Login failed log: ", error);
+        // throw new Error('Login failed. Please try again.');
     };
     }
   };
@@ -90,7 +101,9 @@ export default function LoginForm() {
       };
 
       try {
-          const response = await apiClient.post("/authentication/login-google", tokenModel);
+          // const response = await apiClient.post("/authentication/login-google", tokenModel);
+
+          const response = await LoginGoogle(tokenModel.token);
 
           console.log(response);
           
@@ -130,32 +143,27 @@ export default function LoginForm() {
       } catch (error) {
         if (error.response) {
           // Log the response data to see the error message
-          console.error("Login failed log:", error.response.data);
-          if (error.response.message) {
-            message.error({
-              content: error.response.data.message,
-              style: {
-                marginTop: "10px", // Space above the message
-                fontSize: "18px", // Increase font size
-                padding: "10px", // Optional: add padding for a better look
-              },
-              duration: 2, // Optional: duration in seconds
-            });
-          }else {
-            message.error({
-              content: "Error occurred",
-              style: {
-                marginTop: "10px", // Space above the message
-                fontSize: "18px", // Increase font size
-                padding: "10px", // Optional: add padding for a better look
-              },
-              duration: 2, // Optional: duration in seconds
-            });
-          }
-          // throw new Error(error.response.data.message || 'Login failed');
+          console.error("Login google failed log:", error.response.data);
+          message.error({
+            content: error.response.data.message,
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
         } else {
-          console.error("Login failed log sss:", error);
-          throw new Error("Login failed. Please try again.");
+          message.error({
+            content: "Error occurred",
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+          console.error("Login google failed log: ", error);
         }
       }
   };

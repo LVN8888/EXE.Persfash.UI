@@ -15,6 +15,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import moment from "moment";
 import AxiosHelper from "../../../AxiosHelper";
 import { useAuth } from "../../../hooks/useAuth";
+import { customerRegister } from "../../../services/CustomerApi";
+import { LoginGoogle } from "../../../services/LoginApi";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -57,7 +59,11 @@ const Register = () => {
   setLoading(true);
     try {
       // setDateOfBirth(dateOfBirth.format('YYYY-MM-DD').t)
-      const response = await apiClient.post("/customer/register", requestBody.customerRegisterReqModel);
+      // const response = await apiClient.post("/customer/register", requestBody.customerRegisterReqModel);
+
+      const response = await customerRegister(requestBody.customerRegisterReqModel.username, requestBody.customerRegisterReqModel.email, requestBody.customerRegisterReqModel.password, 
+        requestBody.customerRegisterReqModel.confirmPassword, requestBody.customerRegisterReqModel.fullName,
+        requestBody.customerRegisterReqModel.gender,requestBody.customerRegisterReqModel.dateOfBirth);
 
       setLoading(false);
 
@@ -77,35 +83,31 @@ const Register = () => {
 
 
     } catch (error) {
-      setLoading(false);
       if (error.response) {
         // Log the response data to see the error message
-        console.error("Login failed log:", error.response.data);
-        if (error.response.message) {
-          message.error({
-            content: error.response.data.message,
-            style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
-            duration: 2, // Optional: duration in seconds
-          });
-        }else {
-          message.error({
-            content: "Error occurred",
-            style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
-            duration: 2, // Optional: duration in seconds
-          });
-        }
-        // throw new Error(error.response.data.message || 'Login failed');
+        setLoading(false)
+        console.error("Register customer failed log:", error.response.data);
+        message.error({
+          content: error.response.data.message,
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
       } else {
-        console.error("Login failed log:", error);
-        throw new Error("Login failed. Please try again.");
+        setLoading(false)
+        message.error({
+          content: "Error occurred",
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
+        console.error("Register customer failed log: ", error);
       }
     }
   };
@@ -128,13 +130,16 @@ const Register = () => {
       });
     },
   });
+
   const handleGoogleLogin = async (token) => {
     const tokenModel = {
         token
     };
 
     try {
-        const response = await apiClient.post("/authentication/login-google", tokenModel);
+        // const response = await apiClient.post("/authentication/login-google", tokenModel);
+
+        const response = await LoginGoogle(tokenModel.token);
 
         console.log(response);
         
@@ -168,38 +173,33 @@ const Register = () => {
         });
 
         console.log(userData.role);
-        
+
         navigate("/Home")
 
     } catch (error) {
       if (error.response) {
         // Log the response data to see the error message
-        console.error("Login failed log:", error.response.data);
-        if (error.response.message) {
-          message.error({
-            content: error.response.data.message,
-            style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
-            duration: 2, // Optional: duration in seconds
-          });
-        }else {
-          message.error({
-            content: "Error occurred",
-            style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
-            duration: 2, // Optional: duration in seconds
-          });
-        }
-        // throw new Error(error.response.data.message || 'Login failed');
+        console.error("Login google failed log:", error.response.data);
+        message.error({
+          content: error.response.data.message,
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
       } else {
-        console.error("Login failed log:", error);
-        throw new Error("Login failed. Please try again.");
+        message.error({
+          content: "Error occurred",
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
+        console.error("Login google failed log: ", error);
       }
     }
 };
@@ -349,7 +349,7 @@ const Register = () => {
                 >
                   <Option value="Male">Male</Option>
                   <Option value="Female">Female</Option>
-                  <Option value="Other">Other</Option>
+                  <Option value="Other">Others</Option>
                 </Select>
               </Form.Item>
 
