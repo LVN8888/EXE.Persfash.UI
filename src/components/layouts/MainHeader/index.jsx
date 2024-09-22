@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Input, Dropdown, Menu, Switch } from "antd";
+import { Button, Input, Dropdown, Menu, Switch, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { BulbOutlined, MoonOutlined } from "@ant-design/icons"; // Import icons
 import styles from "./style.module.scss";
@@ -7,6 +7,7 @@ import logo from "../../../assets/icon/persfash.png";
 import lookupIcon from "../../../assets/icon/lookup.png";
 import profileIcon from "../../../assets/icon/profile.png";
 import globeIcon from "../../../assets/icon/globe_2.png";
+import { useAuth } from "../../../hooks/useAuth";
 
 const MainHeader = () => {
   const dropdownRef = useRef(null);
@@ -17,6 +18,7 @@ const MainHeader = () => {
   const [searchText, setSearchText] = useState("");
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
   const navigate = useNavigate();
+  const {user, isAuthenticated, logout} = useAuth();
 
   // Thiết lập mặc định chế độ Light Mode nếu chưa có trong localStorage
   useEffect(() => {
@@ -57,6 +59,20 @@ const MainHeader = () => {
     console.log("Tìm kiếm:", searchText);
   };
 
+  const handleLogout = () => {
+    logout();
+    message.success({
+      content: "Logout successfully!",
+      style: {
+          marginTop: '10px', // Space above the message
+          fontSize: '18px', // Increase font size
+          padding: '10px', // Optional: add padding for a better look
+      },
+      duration: 2, // Optional: duration in seconds
+  });
+    navigate('/')
+  }
+
   const handleSearchInputChange = (e) => {
     setSearchText(e.target.value);
   };
@@ -75,10 +91,6 @@ const MainHeader = () => {
   const userMenuItems = [
     {
       key: "1",
-      label: <div onClick={() => navigate("/profile")}>View Profile</div>,
-    },
-    {
-      key: "2",
       label: (
         <>
           {darkMode ? <MoonOutlined /> : <BulbOutlined />}
@@ -91,6 +103,20 @@ const MainHeader = () => {
       ),
     },
   ];
+
+  if (user !== null && isAuthenticated) {
+
+
+    userMenuItems.push({
+        key: "2",
+        label: <div onClick={() => navigate("/customer/customer-info")}>View Profile</div>,
+    })
+
+    userMenuItems.push({
+      key: "3",
+      label: <div onClick={() => handleLogout()}>Log Out</div>,
+  });
+}
 
   // Sử dụng Menu cho User Icon
   const userMenu = <Menu items={userMenuItems} />;

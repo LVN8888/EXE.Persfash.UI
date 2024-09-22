@@ -10,6 +10,10 @@ import ReviewPaymentPage from "./pages/PaymentPage/ReviewPaymentPage/index.jsx";
 import LoginFormPage from "./pages/LoginPage/LoginForm/index.jsx";
 import SupportPage from "./pages/SupportPage/index.jsx";
 import WardrobePage from "./pages/WardobePage/index.jsx";
+import { NotFoundPage } from "./pages/NotFoundPage/index.jsx";
+import { ForgotPasswordPage } from "./pages/PasswordPage/ForgotPasswordPage/index.jsx";
+import { ResetPasswordPage } from "./pages/PasswordPage/ResetPasswordPage/index.jsx";
+import { CustomerInformationPage } from "./pages/CustomerInformationPage/index.jsx";
 
 function App() {
   return (
@@ -25,6 +29,12 @@ function App() {
         <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
         <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
         <Route path="/wardobe" element={<WardrobePage/>} />
+        <Route path="/customer/customer-info" element={<CustomerInformationPage />} />
+        <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
+        <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
+        <Route path="/password/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/password/reset-password" element={<ResetPasswordPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

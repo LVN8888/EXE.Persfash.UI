@@ -1,43 +1,212 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, Select, DatePicker } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone, GoogleOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Select, DatePicker, message } from "antd";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  GoogleOutlined,
+} from "@ant-design/icons";
 
-import logo from '../../../assets/icon/perfash.png'
+import logo from "../../../assets/icon/perfash.png";
 import registerPic from "../../../assets/img/register_pic.png";
-
+import { FcGoogle } from "react-icons/fc";
+import { useGoogleLogin } from "@react-oauth/google";
+import moment from "moment";
+import AxiosHelper from "../../../AxiosHelper";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Register = () => {
   const navigate = useNavigate();
 
   // State hooks for each form field
-  const [fullName, setFullName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [gender, setGender] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [gender, setGender] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [loading, setLoading] = useState(false);
+  const {setUser, setIsAuthenticated } = useAuth();
+  const BaseURL = import.meta.env.VITE_SERVER_URL;
+  const apiClient = new AxiosHelper(BaseURL);
 
   const handleLoginClick = () => {
     navigate("/login-form");
   };
 
   // Function to handle sign-up form submission
-  const handleSignUp = (values) => {
-    console.log('Sign-up values:', values);
+  const handleSignUp = async (values) => {
+    // const formattedDateOfBirth = dateOfBirth ? dateOfBirth.format('yyyy-MM-dd') : null;
+
+  // Ensure your request matches the API's expected structure
+  const requestBody = {
+    customerRegisterReqModel: {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+      fullName: values.fullName,
+      gender: values.gender,
+      dateOfBirth: values.dateOfBirth, // Use the formatted date
+    }
+  };
+
+  console.log(requestBody);
+  setLoading(true);
+    try {
+      // setDateOfBirth(dateOfBirth.format('YYYY-MM-DD').t)
+      const response = await apiClient.post("/customer/register", requestBody.customerRegisterReqModel);
+
+      setLoading(false);
+
+      console.log(response);
+
+      message.success({
+        content: "Register successfully!",
+        style: {
+          marginTop: "10px", // Space above the message
+          fontSize: "18px", // Increase font size
+          padding: "10px", // Optional: add padding for a better look
+        },
+        duration: 2, // Optional: duration in seconds
+      });
+
+      navigate('/login-form')
+
+
+    } catch (error) {
+      setLoading(false);
+      if (error.response) {
+        // Log the response data to see the error message
+        console.error("Login failed log:", error.response.data);
+        if (error.response.message) {
+          message.error({
+            content: error.response.data.message,
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+        }else {
+          message.error({
+            content: "Error occurred",
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+        }
+        // throw new Error(error.response.data.message || 'Login failed');
+      } else {
+        console.error("Login failed log:", error);
+        throw new Error("Login failed. Please try again.");
+      }
+    }
   };
 
   // Function to handle Google Sign-Up
-  const googleSignUp = () => {
-  };
+  const googleLogin = useGoogleLogin({
+    onSuccess: (token) => {
+      console.log(token.access_token);
 
+      handleGoogleLogin(token.access_token);
+    },
+    onError: () => {
+      toast({
+        title: "Sign In Error",
+        description: "Sign in by Google failed. Try again!!!",
+        status: "error",
+        duration: 2500,
+        position: "top",
+        isClosable: true,
+      });
+    },
+  });
+  const handleGoogleLogin = async (token) => {
+    const tokenModel = {
+        token
+    };
+
+    try {
+        const response = await apiClient.post("/authentication/login-google", tokenModel);
+
+        console.log(response);
+        
+        const { isSuccess, data } = response;
+        
+          const userData = {
+            userId: data.userId,
+            username: data.username,
+            email: data.email,
+            role: data.role,
+        };
+
+        console.log(userData);
+        
+
+        apiClient.setAccessToken(data.token);
+        apiClient.setRefreshToken(data.refreshToken);
+        setUser(userData);
+        setIsAuthenticated(true);
+
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        message.success({
+          content: "Login with google successfully!",
+          style: {
+            marginTop: "10px", // Space above the message
+            fontSize: "18px", // Increase font size
+            padding: "10px", // Optional: add padding for a better look
+          },
+          duration: 2, // Optional: duration in seconds
+        });
+
+        console.log(userData.role);
+        
+        navigate("/Home")
+
+    } catch (error) {
+      if (error.response) {
+        // Log the response data to see the error message
+        console.error("Login failed log:", error.response.data);
+        if (error.response.message) {
+          message.error({
+            content: error.response.data.message,
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+        }else {
+          message.error({
+            content: "Error occurred",
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+        }
+        // throw new Error(error.response.data.message || 'Login failed');
+      } else {
+        console.error("Login failed log:", error);
+        throw new Error("Login failed. Please try again.");
+      }
+    }
+};
+  
   return (
     <div className="min-h-screen flex">
-
-
-<div
+      <div
         className="hidden lg:flex w-1/2 bg-cover bg-center"
         style={{
           backgroundImage: `url(${registerPic})`,
@@ -192,7 +361,8 @@ const Register = () => {
                 ]}
                 className="w-1/2 font-medium" // Adjust the width to half
               >
-                <DatePicker
+                <Input
+                  type="date"
                   value={dateOfBirth}
                   onChange={(date) => setDateOfBirth(date)}
                   style={{ width: "100%" }}
@@ -205,9 +375,9 @@ const Register = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="w-full bg-[#4949e9]"
+                className="font-avantgarde flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign up
+                {loading ? "Signing up..." : "Sign up"}
               </Button>
             </Form.Item>
           </Form>
@@ -225,9 +395,9 @@ const Register = () => {
           {/* Google Sign Up Button */}
           <div className="mt-6">
             <Button
-              icon={<GoogleOutlined />}
-              onClick={googleSignUp}
-              className="flex w-full justify-center rounded-md bg-white text-[#4949e9] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              icon={<FcGoogle />}
+              onClick={() => googleLogin()}
+              className="font-avantgarde flex w-full justify-center rounded-md bg-white text-[#4949e9] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
             >
               Sign up with Google
             </Button>
@@ -239,15 +409,13 @@ const Register = () => {
             <a
               href="#"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/login-form")}
             >
               Sign in
             </a>
           </p>
         </div>
       </div>
-
-      
     </div>
   );
 };
