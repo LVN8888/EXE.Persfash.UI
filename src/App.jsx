@@ -15,6 +15,9 @@ import { ForgotPasswordPage } from "./pages/PasswordPage/ForgotPasswordPage/inde
 import { ResetPasswordPage } from "./pages/PasswordPage/ResetPasswordPage/index.jsx";
 import { CustomerInformationPage } from "./pages/CustomerInformationPage/index.jsx";
 import { ChangePasswordPage } from "./pages/PasswordPage/ChangePasswordPage/index.jsx";
+import { WelcomePage } from "./pages/StarterPage/WelcomePage/index.jsx";
+import { ProfileSetupPage } from "./pages/StarterPage/ProfileSetupPage/index.jsx";
+import { CustomerEditProfileSetupPage } from "./pages/CustomerEditProfileSetupPage/index.jsx";
 
 function App() {
   return (
@@ -31,11 +34,14 @@ function App() {
         <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
         <Route path="/wardrobe" element={<WardrobePage/>} />
         <Route path="/customer/customer-info" element={<CustomerInformationPage />} />
+        <Route path="/customer/edit-profile-setup" element={<CustomerEditProfileSetupPage />} />
         <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
         <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
         <Route path="/password/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/password/reset-password" element={<ResetPasswordPage />} />
         <Route path="/password/change-password" element={<ChangePasswordPage />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/profile-setup" element={<ProfileSetupPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

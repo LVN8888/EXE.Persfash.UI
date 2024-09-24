@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Divider, Form, Input, Typography, message } from "antd";
 import {
@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import AxiosHelper from "../../../../AxiosHelper";
 import { LoginGoogle } from "../../../../services/LoginApi";
+import { checkCustomerProfile } from "../../../../services/CustomerApi";
 
 export default function LoginForm() {
 
@@ -21,10 +22,23 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, setUser, setIsAuthenticated } = useAuth();
+  const { login, setUser, setIsAuthenticated, user, isAuthenticated } = useAuth();
 
   const BaseURL = import.meta.env.VITE_SERVER_URL;
   const apiClient = new AxiosHelper(BaseURL);
+
+  // useEffect(() => {
+  //   const storedUser = JSON.parse(localStorage.getItem('user'));
+  //   const token = localStorage.getItem('accessToken');
+  //   if (storedUser && token) {
+
+  //     if (storedUser.role === "Admin"){
+  //       navigate("/admin")
+  //     }else if (storedUser.role === "Customer") {
+  //       navigate("/home")
+  //     }
+  //   }
+  // }, [navigate]);
 
   const handleLogin = async (e) => {
     // e.preventDefault();
@@ -43,9 +57,22 @@ export default function LoginForm() {
             padding: '10px', // Optional: add padding for a better look
         },
         duration: 2, // Optional: duration in seconds
-    });
+    });    
 
-      navigate("/home");
+     if (res.role === "Customer") {
+      const profileRes = await checkCustomerProfile();
+
+      console.log(profileRes);
+
+      if (profileRes.data === true) {
+        navigate("/home");
+      }else {
+        navigate("/profile-setup")
+      }
+     }else if (res.role === "Admin") {
+      navigate("/admin")
+     }
+
     } catch (error) {
       setLoading(false)
       if (error.response) {

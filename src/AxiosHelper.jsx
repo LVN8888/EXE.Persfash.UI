@@ -41,7 +41,7 @@ class AxiosHelper {
         const refreshToken = this.getRefreshToken();
         try {
             const response = await this.client.post(
-                '/api/refreshtoken',
+                '/refreshtoken',
                 {
                     refreshToken: refreshToken, 
                 },
@@ -51,7 +51,7 @@ class AxiosHelper {
                     },
                 }
             );
-            const { accessToken, newRefreshToken } = response.data;
+            const { accessToken, newRefreshToken } = response.data.data;
     
             // Lưu lại cả accessToken và refreshToken
             this.setAccessToken(accessToken);

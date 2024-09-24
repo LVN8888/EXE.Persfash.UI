@@ -1,114 +1,176 @@
 import React, { useEffect, useState } from "react";
-import { Card, Avatar, Form, Input, Row, Col, DatePicker, Button, Divider, message } from "antd";
+import { Card, Avatar, Form, Input, Row, Col, DatePicker, Button, Divider, message, Select} from "antd";
 import { useAuth } from "../../../hooks/useAuth";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { customerUpdateInformation, viewCustomerInformation } from "../../../services/CustomerApi";
+import { uploadImages } from "../../../services/FileApi";
+
+const { Option } = Select;
 
 export const CustomerInformation = () => {
-    const [isEditing, setIsEditing] = useState(false);
-    const [form] = Form.useForm();
-    const [avatar, setAvatar] = useState(null);
-    const [currentAvatar, setCurrentAvatar] = useState(null);
-    const {user} = useAuth();
+  const [isEditing, setIsEditing] = useState(false);
+  const [form] = Form.useForm();
+  const [avatar, setAvatar] = useState(null);
+  const [currentAvatar, setCurrentAvatar] = useState(null);
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
+  const [customer, setCustomer] = useState({
+      customerId: 0,
+      username: "",
+      email: "",
+      fullName: "",
+      gender: "",
+      dateOfBirth: "",
+      profilePicture: "",
+      dateJoined: "",
+      status: ""
+  });
 
-    // Retrieve user data from localStorage
-    const sampleCustomerData = {
-        Username: "johndoe",
-        Email: "john.doe@example.com",
-        FullName: "John Doe",
-        Gender: "Male",
-        DateOfBirth: "1990-01-01",
-        ProfilePicture: currentAvatar || "https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/319750984_1175591466413987_4938157360962132268_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=so_TIG40ftwQ7kNvgHjhv7X&_nc_ht=scontent.fsgn15-1.fna&_nc_gid=Adz7asnSQgZJwi9kLtMssb9&oh=00_AYDPdV2U-IzIetoxvzTccYWpoacuQAyEAwtvskh7WuSYHw&oe=66F5B74F",
-        DateJoined: "2023-09-01T12:00:00Z",
-    };
+  const navigate = useNavigate();
 
-    const customerData = sampleCustomerData;
+  const fetchCustomerInformation = async (customerId) => {
+      try {
+          const response = await viewCustomerInformation(customerId);
+          console.log(response.data);
+          
+          setCustomer(response.data);
+      } catch (error) {
+          const errorMessage = error.response
+              ? error.response.data.message
+              : "Error occurred";
+          console.error("View customer information log:", error);
+          message.error({
+              content: errorMessage,
+              style: { marginTop: "10px", fontSize: "18px", padding: "10px" },
+              duration: 2,
+          });
+      }
+  };
 
-    const dateFormat = "YYYY-MM-DD";
+  useEffect(() => {
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (storedUser) {
+          fetchCustomerInformation(storedUser.userId);
+      }
+  }, []);
 
-    useEffect(() => {
-        const formattedDOB = customerData.DateOfBirth 
-        ? moment(customerData.DateOfBirth) 
-        : null;
+  useEffect(() => {
+      if (customer) {
+          const formattedDOB = customer.dateOfBirth ? moment(customer.dateOfBirth) : null;
+          const formattedDJ = customer.dateJoined ? moment(customer.dateJoined) : null;
 
-        const formattedDJ = customerData.DateJoined 
-        ? moment(customerData.DateJoined) 
-        : null;
+          form.setFieldsValue({
+              Username: customer.username || "N/A",
+              Email: customer.email || "N/A",
+              FullName: customer.fullName || "N/A",
+              Gender: customer.gender || "N/A",
+              DateOfBirth: formattedDOB,
+              DateJoined: formattedDJ,
+          });
+          setCurrentAvatar(customer.profilePicture);
+          setAvatar(customer.profilePicture);
+      }
+  }, [customer, form]);
 
-        form.setFieldsValue({
-            Username: customerData.Username || "N/A",
-            Email: customerData.Email || "N/A",
-            FullName: customerData.FullName || "N/A",
-            Gender: customerData.Gender || "N/A",
-            DateOfBirth: formattedDOB,
-            DateJoined: formattedDJ,
+  const handleUpdateClick = () => setIsEditing(true);
+
+  const handleSaveClick = async () => {
+      const values = await form.validateFields();      
+
+      const updatedData = {
+        customerId: customer.customerId,
+        email: values.Email,
+        fullName: values.FullName,
+        gender: values.Gender,
+        dateOfBirth: values.DateOfBirth.format('YYYY-MM-DD'),
+        profilePicture: avatar
+      }
+
+      try {
+
+        console.log(updatedData);
+        
+        setLoading(true)
+        const response = await customerUpdateInformation(updatedData.customerId, updatedData.email, updatedData.fullName, 
+          updatedData.gender, updatedData.dateOfBirth, updatedData.profilePicture)
+
+          console.log(response);
+          setLoading(false)
+        
+          message.success({
+            content: "Update customer information successfully!",
+            style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+            duration: 2,
         });
-        setCurrentAvatar(customerData.ProfilePicture);
-        setAvatar(customerData.ProfilePicture);
-    }, [customerData, form]);
 
-    const handleUpdateClick = () => {
-        setIsEditing(true);
-    };
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          fetchCustomerInformation(storedUser.userId);
+        }
 
-    const handleSaveClick = () => {
-        form.validateFields().then((values) => {
-            console.log("Saved values:", values);
-            // Handle saving other profile data logic
-            setIsEditing(false);
-        });
-    };
-
-    const handleCancelClick = () => {
         setIsEditing(false);
-        form.resetFields();
-    };
 
-    const handleDatePickerOpenChange = (open) => {
-        if (open && isEditing) {
-            form.setFieldsValue({ DateOfBirth: null });
-        }
-    };
+      }catch(error) {
+        setLoading(false)
+        console.error("Update customer information failed:", error);
+              message.error({
+                  content: error.response.data.message,
+                  style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+                  duration: 2,
+              });
+      }
+  };
 
-    const handleAvatarChange = async (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append("avatar", file);
+  const handleCancelClick = () => {
+      setIsEditing(false);
+      const formattedDOB = customer.dateOfBirth ? moment(customer.dateOfBirth) : null;
+      const formattedDJ = customer.dateJoined ? moment(customer.dateJoined) : null;
 
-            try {
-                const response = await axios.post("YOUR_API_URL/upload-avatar", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                });
-                
-                setAvatar(response.data.avatarUrl); // Assuming the API responds with the URL
-                message.success({
-                    content: "Avatar uploaded successfully!",
-                    style: {
-                        marginTop: '10px', // Space above the message
-                        fontSize: '18px', // Increase font size
-                        padding: '10px', // Optional: add padding for a better look
-                    },
-                    duration: 2, // Optional: duration in seconds
-                });
-            } catch (error) {
-                console.error("Error uploading avatar:", error);
-                message.error({
-                    content: 'Failed to upload avatar',
-                    style: {
-                        marginTop: '10px', // Space above the message
-                        fontSize: '18px', // Increase font size
-                        padding: '10px', // Optional: add padding for a better look
-                    },
-                    duration: 2, // Optional: duration in seconds
-                });
-            }
-        }
-    };
+    form.setFieldsValue({
+        Username: customer.username || "N/A",
+        Email: customer.email || "N/A",
+        FullName: customer.fullName || "N/A",
+        Gender: customer.gender || "N/A",
+        DateOfBirth: formattedDOB,
+        DateJoined: formattedDJ,
+    });
+    setCurrentAvatar(customer.profilePicture);
+          setAvatar(customer.profilePicture);
+  };
+
+  const handleDatePickerOpenChange = (open) => {
+    if (open && isEditing) {
+        form.setFieldsValue({ DateOfBirth: null });
+    }
+};
+
+  const handleAvatarChange = async (e) => {
+      const file = e.target.files[0];
+      if (file) {
+          const formData = new FormData();
+          formData.append("avatar", file);
+          try {
+              const response = await uploadImages(formData);
+              console.log(response.data[0]);
+              
+              setAvatar(response.data[0]); 
+              message.success({
+                  content: "Avatar uploaded successfully!",
+                  style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+                  duration: 2,
+              });
+          } catch (error) {
+              console.error("Error uploading avatar:", error);
+              message.error({
+                  content: error.response.data.message,
+                  style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+                  duration: 2,
+              });
+          }
+      }
+  };
 
 
     return (
@@ -145,6 +207,7 @@ export const CustomerInformation = () => {
                 <button
                   type="button"
                   className="bg-[#4949e9] px-4 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
+                  onClick={() => navigate("/customer/edit-profile-setup")}
                 >
                   Profile
                 </button>
@@ -175,7 +238,8 @@ export const CustomerInformation = () => {
                 >
                   <Input
                     className="border border-[#4949e9]"
-                    disabled={!isEditing}
+                    // onChange={(e) => setUsername(e.target.value)}
+                    disabled={true}
                   />
                 </Form.Item>
                 <Divider />
@@ -192,6 +256,7 @@ export const CustomerInformation = () => {
                   <Input
                     className="border border-[#4949e9]"
                     disabled={!isEditing}
+                    // onChange={(e) => setFullName(e.target.value)}
                   />
                 </Form.Item>
                 <Divider />
@@ -201,14 +266,21 @@ export const CustomerInformation = () => {
                   label="Gender"
                   name="Gender"
                   rules={[
-                    { required: true, message: "Please enter your gender" },
+                    { required: true, message: "Gender is required" },
                   ]}
                   className="font-medium font-avantgard"
                 >
-                  <Input
-                    className="border border-[#4949e9]"
-                    disabled={!isEditing}
-                  />
+                  <Select
+                  // value={gender}
+                  // onChange={(value) => setGender(value)}
+                  placeholder="Select Gender"
+                  disabled={!isEditing}
+                  className="w-full border border-[#4949e9] rounded-md "
+                >
+                  <Option value="Male">Male</Option>
+                  <Option value="Female">Female</Option>
+                  <Option value="Others">Others</Option>
+                </Select>
                 </Form.Item>
                 <Divider />
 
@@ -225,7 +297,7 @@ export const CustomerInformation = () => {
                   className="font-medium font-avantgard"
                 >
                   <DatePicker
-                    format={dateFormat}
+                    // format={dateFormat}
                     className="w-full border border-[#4949e9] rounded-md p-2"
                     disabled={!isEditing}
                     onOpenChange={handleDatePickerOpenChange} // Clear on open
@@ -242,7 +314,7 @@ export const CustomerInformation = () => {
                   ]}
                   className="font-medium font-avantgard"
                 >
-                  <Input className="border border-[#4949e9]" disabled={true} />
+                  <Input className="border border-[#4949e9]" disabled={!isEditing} />
                 </Form.Item>
                 <Divider />
 
@@ -253,7 +325,7 @@ export const CustomerInformation = () => {
                   className="font-medium font-avantgard"
                 >
                   <DatePicker
-                    format={dateFormat}
+                    // format={dateFormat}
                     className="w-full border border-[#4949e9] rounded-md p-2"
                     disabled={true}
                   />
@@ -284,7 +356,7 @@ export const CustomerInformation = () => {
                         className="bg-[#4949e9] px-4 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
                         onClick={handleSaveClick}
                       >
-                        Save profile
+                        {loading ? "Saving... profile" : "Save profile"}
                       </button>
                     </>
                   )}

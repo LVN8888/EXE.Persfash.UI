@@ -349,7 +349,7 @@ const Register = () => {
                 >
                   <Option value="Male">Male</Option>
                   <Option value="Female">Female</Option>
-                  <Option value="Other">Others</Option>
+                  <Option value="Others">Others</Option>
                 </Select>
               </Form.Item>
 
