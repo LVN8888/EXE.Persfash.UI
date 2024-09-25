@@ -28,7 +28,7 @@ function App() {
     <div>
       <Routes>
         {/* Route requires login */}
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute requiredRole="Customer" />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/plan" element={<PlanPage />} />
           <Route path="/support" element={<SupportPage />} />
@@ -84,7 +84,7 @@ function App() {
 
         {/*Dac Biet*/}
         <Route path="*" element={<NotFoundPage />} />
-        
+
       </Routes>
     </div>
   );

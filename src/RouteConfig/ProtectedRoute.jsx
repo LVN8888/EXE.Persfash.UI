@@ -22,9 +22,14 @@ const ProtectedRoute = ({ requiredRole }) => {
     return <Navigate to="/login-form" />;
   }
 
-  // Nếu đã đăng nhập nhưng không có vai trò yêu cầu thì trả về Intro Page
+  // Nếu đã đăng nhập nhưng không có vai trò yêu cầu thì điều hướng về trang phù hợp
   if (requiredRole && user?.role !== requiredRole) {
-    return <Navigate to="/" />;
+    // Kiểm tra nếu là Admin nhưng truy cập vào route không phải của Admin
+    if (user.role === "Admin") {
+      return <Navigate to="/admin" />;
+    } else {
+      return <Navigate to="/" />;
+    }
   }
 
   // Nếu đã đăng nhập và thỏa mãn yêu cầu, render các route con

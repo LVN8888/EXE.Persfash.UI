@@ -12,7 +12,7 @@ const Header = () => {
     logout(); // Gọi hàm logout từ AuthContext
 
     // Điều hướng về trang login sau khi logout
-    navigate('/login-form'); // Điều hướng về trang login
+    navigate('/'); // Điều hướng về trang intro
   };
 
   return (
