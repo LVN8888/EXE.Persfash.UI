@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Divider, Form, Input, Typography, message } from "antd";
 import {
@@ -12,14 +12,33 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
+import AxiosHelper from "../../../../AxiosHelper";
+import { LoginGoogle } from "../../../../services/LoginApi";
+import { checkCustomerProfile } from "../../../../services/CustomerApi";
 
 export default function LoginForm() {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const usernameRef = useRef(null);
   const navigate = useNavigate();
-  const { login, user, isAuthenticated } = useAuth();
+  const { login, setUser, setIsAuthenticated, user, isAuthenticated } = useAuth();
+
+  const BaseURL = import.meta.env.VITE_SERVER_URL;
+  const apiClient = new AxiosHelper(BaseURL);
+
+  // useEffect(() => {
+  //   const storedUser = JSON.parse(localStorage.getItem('user'));
+  //   const token = localStorage.getItem('accessToken');
+  //   if (storedUser && token) {
+
+  //     if (storedUser.role === "Admin"){
+  //       navigate("/admin")
+  //     }else if (storedUser.role === "Customer") {
+  //       navigate("/home")
+  //     }
+  //   }
+  // }, [navigate]);
 
   const handleLogin = async (e) => {
     // e.preventDefault();
@@ -28,11 +47,8 @@ export default function LoginForm() {
       const res = await login(username, password);
       setLoading(false);
       
-      if (res.isSuccess === false) {
-        toast.error(res.message || "Login failed. Please try again.");
-        return;
-      }
-
+      // console.log(res.role);
+      
       message.success({
         content: "Login successfully!",
         style: {
@@ -41,9 +57,22 @@ export default function LoginForm() {
             padding: '10px', // Optional: add padding for a better look
         },
         duration: 2, // Optional: duration in seconds
-    });
+    });    
 
-      navigate("/home");
+     if (res.role === "Customer") {
+      const profileRes = await checkCustomerProfile();
+
+      console.log(profileRes);
+
+      if (profileRes.data === true) {
+        navigate("/home");
+      }else {
+        navigate("/profile-setup")
+      }
+     }else if (res.role === "Admin") {
+      navigate("/admin")
+     }
+
     } catch (error) {
       setLoading(false)
       if (error.response) {
@@ -58,10 +87,19 @@ export default function LoginForm() {
           },
           duration: 2, // Optional: duration in seconds
       });
-        // throw new Error(error.response.data.message || 'Login failed');
     } else {
-        console.error('Login failed log:', error);
-        throw new Error('Login failed. Please try again.');
+      message.error({
+        content: "Error occurred",
+        style: {
+            marginTop: '10px', // Space above the message
+            fontSize: '18px', // Increase font size
+            padding: '10px', // Optional: add padding for a better look
+        },
+        duration: 2, // Optional: duration in seconds
+    });
+
+    console.error("Login failed log: ", error);
+        // throw new Error('Login failed. Please try again.');
     };
     }
   };
@@ -70,8 +108,7 @@ export default function LoginForm() {
     onSuccess: (token) => {
       console.log(token.access_token);
 
-      navigate("/home");
-      // handleGoogleLogin(token.access_token);
+      handleGoogleLogin(token.access_token);
     },
     onError: () => {
       toast({
@@ -85,52 +122,78 @@ export default function LoginForm() {
     },
   });
 
-  //   const handleGoogleLogin = async (token) => {
-  //     const api = new ApiClient<any>('/auth/login-google');
-  //     const data = {
-  //         token
-  //     };
+    const handleGoogleLogin = async (token) => {
+      const tokenModel = {
+          token
+      };
 
-  //     try {
-  //         const response = await api.postUnauthen(data);
+      try {
+          // const response = await apiClient.post("/authentication/login-google", tokenModel);
 
-  //         if (response.success) {
-  //             localStorage.setItem('access_token', response.data.token);
-  //             localStorage.setItem('refresh_token', response.data.refreshToken);
-  //             const decoded = jwtDecode<DecodeJWTRole>(response.data.token);
-  //             const decodedRole = formatRoleString(decoded.role[0]);
+          const response = await LoginGoogle(tokenModel.token);
 
-  //             setIsAuthenticated(true);
-  //             setRole(decodedRole);
-  //             if (decodedRole === 'Customer') {
-  //                 navigate('/');
-  //             } else {
-  //                 return;
-  //             }
-  //         } else {
-  //             toast({
-  //                 title: "Error",
-  //                 description: response.message,
-  //                 status: "error",
-  //                 duration: 2500,
-  //                 position: 'top',
-  //                 isClosable: true,
-  //             });
-  //         }
-  //     } catch (error) {
+          console.log(response);
+          
+          const { isSuccess, data } = response;
+          
+            const userData = {
+              userId: data.userId,
+              username: data.username,
+              email: data.email,
+              role: data.role,
+          };
 
-  //         if (error instanceof AxiosError) {
-  //             toast({
-  //                 title: "Error",
-  //                 description: error.response?.data?.message || "An error occurred",
-  //                 status: "error",
-  //                 duration: 2500,
-  //                 position: 'top',
-  //                 isClosable: true,
-  //             });
-  //         }
-  //     }
-  // };
+          console.log(userData);
+          
+
+          apiClient.setAccessToken(data.token);
+          apiClient.setRefreshToken(data.refreshToken);
+          setUser(userData);
+          setIsAuthenticated(true);
+
+          localStorage.setItem('user', JSON.stringify(userData));
+
+          message.success({
+            content: "Login with google successfully!",
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+
+          console.log(userData.role);
+
+          navigate("/Home")
+  
+      } catch (error) {
+        if (error.response) {
+          // Log the response data to see the error message
+          console.error("Login google failed log:", error.response.data);
+          message.error({
+            content: error.response.data.message,
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+        } else {
+          message.error({
+            content: "Error occurred",
+            style: {
+              marginTop: "10px", // Space above the message
+              fontSize: "18px", // Increase font size
+              padding: "10px", // Optional: add padding for a better look
+            },
+            duration: 2, // Optional: duration in seconds
+          });
+          console.error("Login google failed log: ", error);
+        }
+      }
+  };
 
   return (
     <div className="min-h-screen flex">
@@ -166,7 +229,7 @@ export default function LoginForm() {
             <Form.Item
               label="Username"
               name="username"
-              className="text-[#4949e9] font-medium"
+              className="text-[#4949e9] font-medium font-avantgarde"
               rules={[
                 { required: true, message: "Please input your username!" },
                 {
@@ -191,7 +254,7 @@ export default function LoginForm() {
             <Form.Item
               label="Password"
               name="password"
-              className="font-medium"
+              className="font-medium font-avantgarde" 
               rules={[
                 { required: true, message: "Please input your password!" },
                 {
@@ -208,7 +271,7 @@ export default function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 font-avantgarde"
               />
             </Form.Item>
 
@@ -216,8 +279,8 @@ export default function LoginForm() {
             <div className="flex items-center justify-between">
               <a
                 href="#"
-                className="font-semibold text-indigo-600 hover:text-indigo-500"
-                onClick={() => navigate("/forgot-password")}
+                className="font-semibold text-indigo-600 hover:text-indigo-500 font-avantgarde"
+                onClick={() => navigate("/password/forgot-password")}
               >
                 Forgot password?
               </a>
@@ -228,7 +291,7 @@ export default function LoginForm() {
               <Button
                 type="primary"
                 htmlType="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 font-avantgarde"
               >
                 {loading ? "Signing in..." : "Sign in"}
               </Button>
@@ -250,7 +313,7 @@ export default function LoginForm() {
             <Button
               icon={<FcGoogle />}
               onClick={() => googleLogin()}
-              className="flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-[#4949e9] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              className="flex w-full justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-[#4949e9] shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 font-avantgarde"
             >
               Sign in with Google
             </Button>

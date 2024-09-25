@@ -9,7 +9,7 @@ const Wardrobe = ({ username }) => {
 
   // Data for each category (using placeholder image3 for all items for now)
   const wardrobeData = {
-    Shirts: [image3, image3, image3, image3],
+    Shirts: [image3, image3, image3, image3, image3, image3, image3, image3],
     Pants: [image3, image3, image3],
     Shoes: [image3, image3, image3],
     Bags: [image3, image3],
@@ -23,9 +23,7 @@ const Wardrobe = ({ username }) => {
         {/* Welcome Text */}
         <h1 className="text-6xl font-bold text-[#4949E9]">Welcome back</h1>
         {/* Dynamic Username */}
-        <h1 className="text-6xl font-bold mt-4 text-[#4949E9]">
-          {username}
-        </h1>
+        <h1 className="text-6xl font-bold mt-4 text-[#4949E9]">{username}</h1>
         {/* Subtext */}
         <h2 className="text-4xl font-semibold mt-4 text-[#4949E9]">
           Let’s get dressed
@@ -37,17 +35,16 @@ const Wardrobe = ({ username }) => {
         {categories.map((category) => (
           <div key={category} className="mb-16">
             {/* Category Title */}
-            <div className="text-center">
-              <h2 className="inline-block text-3xl font-semibold bg-[#4949E9] text-white px-6 py-3 rounded-lg uppercase tracking-widest shadow-md hover:bg-[#B3FF00] transition-all duration-300">
-                {category}
-              </h2>
+            <div className="text-center text-[#4949E9] font-bold text-3xl mb-6">
+              <span>{category}</span>
+              <div className="h-1 w-28 bg-[#4949E9] mx-auto mt-2"></div>
             </div>
 
             {/* Carousel for Category Items */}
             <Carousel
               showThumbs={false} // Disable thumbnails
               showStatus={false} // Disable status text
-              infiniteLoop={false} // No infinite loop
+              infiniteLoop={true} // No infinite loop
               swipeable={true} // Enable swipe for better UX
               stopOnHover={false} // Disable stop on hover
               dynamicHeight={false} // Fixed height
@@ -55,14 +52,14 @@ const Wardrobe = ({ username }) => {
               centerMode={true} // Center items
               centerSlidePercentage={25} // Display 25% of each item (to show 4 items)
               emulateTouch={false} // Disable touch interactions
-              transitionTime={700} // Smooth transition
+              transitionTime={500} // Smooth transition
             >
               {wardrobeData[category].map((item, index) => (
                 <div key={index} className="p-4">
                   <img
                     src={item}
                     alt={`Wardrobe item ${index}`}
-                    className="rounded-lg w-[150px] h-[300px] object-cover mx-auto shadow-lg"
+                    className="rounded-lg w-[100px] h-[300px] object-cover mx-auto shadow-lg"
                   />
                 </div>
               ))}

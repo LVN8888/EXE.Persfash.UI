@@ -4,6 +4,7 @@ import image1 from "../../../assets/img/bg.png";
 import image2 from "../../../assets/img/bg_2.png";
 import OutfitForYou from "./OutfitForYou";
 import ServiceDetails from "./ServiceDetails";
+import { useAuth } from "../../../hooks/useAuth";
 
 const Home = () => {
   // State để lưu ảnh hiện tại và chuyển đổi ảnh
