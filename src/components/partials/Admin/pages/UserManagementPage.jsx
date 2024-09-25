@@ -6,7 +6,7 @@ import Footer from '../../../layouts/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Dashboard = () => {
+const UserManagementPage = () => {
   // State để kiểm soát trạng thái đóng/mở của Sidebar
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
@@ -44,4 +44,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default UserManagementPage;

@@ -11,6 +11,8 @@ import LoginFormPage from "./pages/LoginPage/LoginForm/index.jsx";
 import SupportPage from "./pages/SupportPage/index.jsx";
 import WardrobePage from "./pages/WardobePage/index.jsx";
 import AdminPage from "./pages/AdminPage/index.jsx";
+import Dashboard from "./components/partials/Admin/components/Dashboard.jsx";
+import DashboardPage from "./components/partials/Admin/pages/DashboardPage.jsx";
 
 function App() {
   return (
@@ -26,7 +28,8 @@ function App() {
         <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
         <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
         <Route path="/wardobe" element={<WardrobePage/>} />
-        <Route path="/admin" element={<AdminPage/>} />
+        <Route path="/admin/*" element={<AdminPage/>} />
+
       </Routes>
     </div>
   );
