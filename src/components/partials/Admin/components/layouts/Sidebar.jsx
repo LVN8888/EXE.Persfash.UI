@@ -18,11 +18,11 @@ const Sidebar = ({ collapsed, toggleSidebar }) => {
       <ul className="p-4 space-y-4 flex-1">
         <li className="flex items-center">
           <DashboardOutlined className="text-xl" />
-          {!collapsed && <Link to="/dashboard" className="text-white block ml-4">Dashboard</Link>}
+          {!collapsed && <Link to="/admin" className="text-white block ml-4">Dashboard</Link>}
         </li>
         <li className="flex items-center">
           <UserOutlined className="text-xl" />
-          {!collapsed && <Link to="/manage-users" className="text-white block ml-4">Manage Users</Link>}
+          {!collapsed && <Link to="/admin/user-management" className="text-white block ml-4">Manage Users</Link>}
         </li>
         <li className="flex items-center">
           <SettingOutlined className="text-xl" />

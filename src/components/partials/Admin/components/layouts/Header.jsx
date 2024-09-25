@@ -8,10 +8,10 @@ const Header = () => {
   // Hàm xử lý logout
   const handleLogout = () => {
     // Xóa session của admin khỏi localStorage
-    localStorage.removeItem('admin-session'); // Xóa phiên đăng nhập của admin
+    localStorage.removeItem('user'); // Xóa phiên đăng nhập của admin
 
     // Điều hướng về trang login
-    navigate('/login'); // Điều hướng về trang login
+    navigate('/'); // Điều hướng về trang login
   };
 
   return (
