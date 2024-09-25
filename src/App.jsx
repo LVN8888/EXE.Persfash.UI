@@ -68,7 +68,6 @@ function App() {
 
         {/* Public Route*/}
         <Route element={<PublicRoute />}>
-          <Route path="*" element={<NotFoundPage />} />
           <Route path="/" element={<IntroPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/login-form" element={<LoginFormPage />} />
@@ -82,6 +81,10 @@ function App() {
             element={<ResetPasswordPage />}
           />
         </Route>
+
+        {/*Dac Biet*/}
+        <Route path="*" element={<NotFoundPage />} />
+        
       </Routes>
     </div>
   );
