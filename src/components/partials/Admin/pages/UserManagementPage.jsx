@@ -5,7 +5,6 @@ import UserManagement from "../components/UserManagement";
 import Footer from "../../../layouts/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProtectedRoute from "../components/ProtectedRoute";
 
 const UserManagementPage = () => {
   // State để kiểm soát trạng thái đóng/mở của Sidebar
@@ -17,8 +16,7 @@ const UserManagementPage = () => {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen">
         {/* Header */}
         <Header />
 
@@ -48,7 +46,6 @@ const UserManagementPage = () => {
         {/* Toast container */}
         <ToastContainer position="top-right" autoClose={3000} />
       </div>
-    </ProtectedRoute>
   );
 };
 

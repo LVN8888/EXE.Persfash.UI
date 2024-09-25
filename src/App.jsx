@@ -20,34 +20,68 @@ import { ProfileSetupPage } from "./pages/StarterPage/ProfileSetupPage/index.jsx
 import { CustomerEditProfileSetupPage } from "./pages/CustomerEditProfileSetupPage/index.jsx";
 import DashboardPage from "./components/partials/Admin/pages/DashboardPage.jsx";
 import UserManagementPage from "./components/partials/Admin/pages/UserManagementPage.jsx";
-
+import ProtectedRoute from "./RouteConfig/ProtectedRoute.jsx";
+import PublicRoute from "./RouteConfig/PublicRoute.jsx";
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<IntroPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/login-form" element={<LoginFormPage />} />
-        <Route path="/plan" element={<PlanPage />} />
-        <Route path="/support" element={<SupportPage/>} />
-        <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
-        <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
-        <Route path="/wardrobe" element={<WardrobePage/>} />
-        <Route path="/customer/customer-info" element={<CustomerInformationPage />} />
-        <Route path="/customer/edit-profile-setup" element={<CustomerEditProfileSetupPage />} />
-        <Route path="/payment/payment-success" element={<PayMentSuccessPage />} />
-        <Route path="/payment/payment-review" element={<ReviewPaymentPage />} />
-        <Route path="/password/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/password/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/password/change-password" element={<ChangePasswordPage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="/profile-setup" element={<ProfileSetupPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/admin" element={<DashboardPage/>} />
-        <Route path="/admin/user-management" element={<UserManagementPage/>} />
+        {/* Route requires login */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/plan" element={<PlanPage />} />
+          <Route path="/support" element={<SupportPage />} />
+          <Route
+            path="/payment/payment-success"
+            element={<PayMentSuccessPage />}
+          />
+          <Route
+            path="/payment/payment-review"
+            element={<ReviewPaymentPage />}
+          />
+          <Route path="/wardrobe" element={<WardrobePage />} />
+          <Route
+            path="/customer/customer-info"
+            element={<CustomerInformationPage />}
+          />
+          <Route
+            path="/customer/edit-profile-setup"
+            element={<CustomerEditProfileSetupPage />}
+          />
+          <Route
+            path="/password/change-password"
+            element={<ChangePasswordPage />}
+          />
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/profile-setup" element={<ProfileSetupPage />} />
+        </Route>
+
+        {/* Route for Admin */}
+        <Route element={<ProtectedRoute requiredRole="Admin" />}>
+          <Route path="/admin" element={<DashboardPage />} />
+          <Route
+            path="/admin/user-management"
+            element={<UserManagementPage />}
+          />
+        </Route>
+
+        {/* Public Route*/}
+        <Route element={<PublicRoute />}>
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<IntroPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login-form" element={<LoginFormPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/password/forgot-password"
+            element={<ForgotPasswordPage />}
+          />
+          <Route
+            path="/password/reset-password"
+            element={<ResetPasswordPage />}
+          />
+        </Route>
       </Routes>
     </div>
   );
