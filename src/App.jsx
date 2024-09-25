@@ -18,6 +18,9 @@ import { ChangePasswordPage } from "./pages/PasswordPage/ChangePasswordPage/inde
 import { WelcomePage } from "./pages/StarterPage/WelcomePage/index.jsx";
 import { ProfileSetupPage } from "./pages/StarterPage/ProfileSetupPage/index.jsx";
 import { CustomerEditProfileSetupPage } from "./pages/CustomerEditProfileSetupPage/index.jsx";
+import AdminPage from "./pages/AdminPage/index.jsx";
+import Dashboard from "./components/partials/Admin/components/Dashboard.jsx";
+import DashboardPage from "./components/partials/Admin/pages/DashboardPage.jsx";
 
 function App() {
   return (
@@ -43,6 +46,7 @@ function App() {
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/profile-setup" element={<ProfileSetupPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/admin/*" element={<AdminPage/>} />
       </Routes>
     </div>
   );
