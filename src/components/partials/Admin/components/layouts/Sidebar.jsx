@@ -1,5 +1,13 @@
 import React from 'react';
-import { MenuFoldOutlined, MenuUnfoldOutlined, DashboardOutlined, UserOutlined, SettingOutlined } from '@ant-design/icons';
+import { 
+  MenuFoldOutlined, 
+  MenuUnfoldOutlined, 
+  DashboardOutlined, 
+  UserOutlined, 
+  SettingOutlined, 
+  DollarCircleOutlined,  // Icon cho subscription
+  ShoppingOutlined       // Icon cho fashion items
+} from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ collapsed, toggleSidebar }) => {
@@ -23,6 +31,14 @@ const Sidebar = ({ collapsed, toggleSidebar }) => {
         <li className="flex items-center">
           <UserOutlined className="text-xl" />
           {!collapsed && <Link to="/admin/user-management" className="text-white block ml-4">Manage Users</Link>}
+        </li>
+        <li className="flex items-center">
+          <DollarCircleOutlined className="text-xl" />
+          {!collapsed && <Link to="/admin/subscription-management" className="text-white block ml-4">Manage Subscriptions</Link>}
+        </li>
+        <li className="flex items-center">
+          <ShoppingOutlined className="text-xl" />
+          {!collapsed && <Link to="/admin/fashion-item-management" className="text-white block ml-4">Manage Fashion Items</Link>}
         </li>
         <li className="flex items-center">
           <SettingOutlined className="text-xl" />
