@@ -22,6 +22,8 @@ import DashboardPage from "./components/partials/Admin/pages/DashboardPage.jsx";
 import UserManagementPage from "./components/partials/Admin/pages/UserManagementPage.jsx";
 import ProtectedRoute from "./RouteConfig/ProtectedRoute.jsx";
 import PublicRoute from "./RouteConfig/PublicRoute.jsx";
+import FashionItemsManagementPage from "./components/partials/Admin/pages/FashionItemsManagementPage.jsx";
+import SubscriptionManagementPage from "./components/partials/Admin/pages/SubscriptionManagementPage.jsx";
 
 function App() {
   return (
@@ -64,6 +66,14 @@ function App() {
             path="/admin/user-management"
             element={<UserManagementPage />}
           />
+          <Route
+            path="/admin/fashion-item-management"
+            element={<FashionItemsManagementPage />}
+          />
+          <Route
+            path="/admin/subscription-management"
+            element={<SubscriptionManagementPage />}
+          />
         </Route>
 
         {/* Public Route*/}
@@ -84,7 +94,6 @@ function App() {
 
         {/*Dac Biet*/}
         <Route path="*" element={<NotFoundPage />} />
-
       </Routes>
     </div>
   );
