@@ -185,3 +185,13 @@ export const updateCustomerProfile = async (
     throw error;
   }
 };
+
+
+export const viewCustomerItemRecommendation = async (page, size) => {
+  try {
+    const response = await apiClient.get("/customer/recommendation/fashion-item", {page, size}, {}, true);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

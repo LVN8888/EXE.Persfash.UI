@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel"; 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import image3 from "../../../../assets/img/main.png";
+import { message } from "antd";
+import { viewCurrentUserInfo, viewCustomerItemRecommendation } from "../../../../services/CustomerApi";
+import { useNavigate } from "react-router-dom";
 
 const OutfitForYou = () => {
   const outfitImages = new Array(10).fill(image3);
@@ -10,9 +13,76 @@ const OutfitForYou = () => {
 
   const filterOptions = ["Weather", "Event", "Color", "All"];
 
+  const [currCustomer, setCurrCustomer] = useState({})
+
+  const [fashionitems, setFashionItems] = useState([{}])
+
+  const navigate = useNavigate();
+
   const handleFilterChange = (option) => {
     setFilter(option);
   };
+
+  const fetchCustomerInfo = async () => {
+    try {
+      const response = await viewCurrentUserInfo();
+
+      console.log(response.data);
+
+      setCurrCustomer(response.data)
+      
+      if (response.data.isDoneProfileSetup === false) {
+        navigate("/profile-setup")
+      }
+
+    }catch(error){
+      console.log("Failed to fetch customer information", error);
+      message.error({
+        content: error.response.data.message,
+        style: {
+          marginTop: '10px',
+          fontSize: '20px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
+        duration: 2,
+    });
+    }
+  }
+
+  const fetchCustomerFashionItemRecommendation = async () => {
+    try {
+
+      const response = await viewCustomerItemRecommendation(1, 10);
+
+      console.log(response.data);
+      
+      setFashionItems(response.data)
+
+    }catch {
+      console.log("Failed to fetch customer recommendation", error);
+      message.error({
+        content: error.response.data.message,
+        style: {
+          marginTop: '10px',
+          fontSize: '20px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
+        duration: 2,
+    });
+    }
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      fetchCustomerInfo();
+      fetchCustomerFashionItemRecommendation();
+    } 
+  }, [])
 
   return (
     <div className="mb-16 w-full px-8 flex flex-col items-center">

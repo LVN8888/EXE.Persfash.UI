@@ -56,7 +56,7 @@ const MainHeader = () => {
   };
 
   const handleSearch = () => {
-    console.log("Tìm kiếm:", searchText);
+    navigate("/search-results", { state: { query: searchText } });
   };
 
   const handleLogout = () => {

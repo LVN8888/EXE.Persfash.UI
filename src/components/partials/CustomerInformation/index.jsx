@@ -110,14 +110,20 @@ export const CustomerInformation = () => {
         
           message.success({
             content: "Update customer information successfully!",
-            style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+            style: {
+              marginTop: '10px',
+              fontSize: '20px', 
+              padding: '10px',
+              position: 'absolute',
+              right: '10px'
+          },
             duration: 2,
         });
 
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        if (storedUser) {
-          fetchCustomerInformation(storedUser.userId);
-        }
+        const storedUser = localStorage.getItem("accessToken");
+      if (storedUser) {          
+          fetchCustomerInformation(user.userId);
+      }
 
         setIsEditing(false);
 
@@ -126,7 +132,13 @@ export const CustomerInformation = () => {
         console.error("Update customer information failed:", error);
               message.error({
                   content: error.response.data.message,
-                  style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+                  style: {
+                    marginTop: '10px',
+                    fontSize: '20px', 
+                    padding: '10px',
+                    position: 'absolute',
+                    right: '10px'
+                },
                   duration: 2,
               });
       }

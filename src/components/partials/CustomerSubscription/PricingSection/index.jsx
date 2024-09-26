@@ -4,12 +4,15 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../../../hooks/useAuth";
 import { viewSubscription } from "../../../../services/SubscriptionApi";
 import { viewCurrentUserInfo } from "../../../../services/CustomerApi";
+import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function PricingSection() {
 
   const {user} = useAuth();
   const [subscriptions, setSubscriptions] = useState([]);
   const [customerSubscriptions, setCustomerSubscriptions] = useState([]);
+  const navigate = useNavigate();
 
   const fetchSubsctiption = async () => {
     try {
@@ -46,6 +49,24 @@ export default function PricingSection() {
     );
   };
 
+  const handleUpgradeClick = (subscriptionId) => {
+    console.log(subscriptionId);
+    
+    message.success({
+      content: "View details plan successfully!",
+      style: {
+          marginTop: '10px',
+          fontSize: '20px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
+      duration: 2, // Optional: duration in seconds
+  });    
+
+     navigate(`/payment/payment-review/${subscriptionId}`)
+  }
+
   const renderSubscription = (subscription) => {
     const { subscriptionId, subscriptionTitle, price, description } = subscription;
     const isOwned = customerHasSubscription(subscriptionTitle);
@@ -71,7 +92,7 @@ export default function PricingSection() {
             <button
               className="bg-[#B3FF00] text-[#4949e9] w-[200px] rounded-full font-medium my-6 px-6 mx-auto py-3"
               onClick={() => {
-                toast.success("Upgrade now!");
+                handleUpgradeClick(subscriptionId)
                 // Redirect to payment page or handle upgrade logic
               }}
             >
