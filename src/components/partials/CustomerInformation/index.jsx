@@ -3,8 +3,10 @@ import { Card, Avatar, Form, Input, Row, Col, DatePicker, Button, Divider, messa
 import { useAuth } from "../../../hooks/useAuth";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
-import { customerUpdateInformation, viewCustomerInformation } from "../../../services/CustomerApi";
+import { customerUpdateInformation, viewCurrentUserInfo, viewCustomerInformation } from "../../../services/CustomerApi";
 import { uploadImages } from "../../../services/FileApi";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 const { Option } = Select;
 
@@ -25,7 +27,8 @@ export const CustomerInformation = () => {
       dateOfBirth: "",
       profilePicture: "",
       dateJoined: "",
-      status: ""
+      status: "",
+      isDoneProfileSetup: ""
   });
 
   const navigate = useNavigate();
@@ -43,16 +46,22 @@ export const CustomerInformation = () => {
           console.error("View customer information log:", error);
           message.error({
               content: errorMessage,
-              style: { marginTop: "10px", fontSize: "18px", padding: "10px" },
+              style: {
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+                position: 'absolute',
+                right: '10px'
+            },
               duration: 2,
           });
       }
   };
 
   useEffect(() => {
-      const storedUser = JSON.parse(localStorage.getItem('user'));
-      if (storedUser) {
-          fetchCustomerInformation(storedUser.userId);
+      const storedUser = localStorage.getItem("accessToken");
+      if (storedUser) {          
+          fetchCustomerInformation(user.userId);
       }
   }, []);
 
@@ -158,14 +167,26 @@ export const CustomerInformation = () => {
               setAvatar(response.data[0]); 
               message.success({
                   content: "Avatar uploaded successfully!",
-                  style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+                  style: {
+                    marginTop: '10px',
+                    fontSize: '20px', 
+                    padding: '10px',
+                    position: 'absolute',
+                    right: '10px'
+                },
                   duration: 2,
               });
           } catch (error) {
               console.error("Error uploading avatar:", error);
               message.error({
                   content: error.response.data.message,
-                  style: { marginTop: '10px', fontSize: '18px', padding: '10px' },
+                  style: {
+                    marginTop: '10px',
+                    fontSize: '20px', 
+                    padding: '10px',
+                    position: 'absolute',
+                    right: '10px'
+                },
                   duration: 2,
               });
           }
@@ -204,13 +225,21 @@ export const CustomerInformation = () => {
               <Card className="p-1 shadow-lg shadow-[#4949e9] rounded-xl">
               <h2 className="text-xl font-bold mb-4 text-[#4949e9] font-avantgarde">Manage profile</h2>
                 <div className="flex justify-around space-x-4">
-                <button
+                {customer.isDoneProfileSetup === true ? (
+                  <button
                   type="button"
                   className="bg-[#4949e9] px-4 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
                   onClick={() => navigate("/customer/edit-profile-setup")}
                 >
                   Profile
                 </button>
+                ) : (<button
+                  type="button"
+                  className="bg-[#4949e9] px-4 py-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde"
+                  onClick={() => navigate("/profile-setup")}
+                >
+                  Profile
+                </button>)}
 
                 <button
                   type="button"

@@ -31,10 +31,12 @@ export const ChangePassword = () => {
       message.success({
         content: "Change password successfully!",
         style: {
-          marginTop: "10px", // Space above the message
-          fontSize: "18px", // Increase font size
-          padding: "10px", // Optional: add padding for a better look
-        },
+          marginTop: '10px',
+          fontSize: '20px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
         duration: 2, // Optional: duration in seconds
       });
 
@@ -47,20 +49,24 @@ export const ChangePassword = () => {
             message.error({
               content: error.response.data.message,
               style: {
-                marginTop: "10px", // Space above the message
-                fontSize: "18px", // Increase font size
-                padding: "10px", // Optional: add padding for a better look
-              },
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+                position: 'absolute',
+                right: '10px'
+            },
               duration: 2, // Optional: duration in seconds
             });
           } else {
             message.error({
               content: "Error occurred",
               style: {
-                marginTop: "10px", // Space above the message
-                fontSize: "18px", // Increase font size
-                padding: "10px", // Optional: add padding for a better look
-              },
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+                position: 'absolute',
+                right: '10px'
+            },
               duration: 2, // Optional: duration in seconds
             });
             console.error("Change password failed log: ", error);

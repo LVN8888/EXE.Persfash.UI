@@ -64,10 +64,12 @@ const MainHeader = () => {
     message.success({
       content: "Logout successfully!",
       style: {
-          marginTop: '10px', // Space above the message
-          fontSize: '18px', // Increase font size
-          padding: '10px', // Optional: add padding for a better look
-      },
+        marginTop: '10px',
+        fontSize: '20px', 
+        padding: '10px',
+        position: 'absolute',
+        right: '10px'
+    },
       duration: 2, // Optional: duration in seconds
   });
     navigate('/')

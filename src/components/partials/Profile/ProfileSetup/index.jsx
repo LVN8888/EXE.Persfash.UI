@@ -115,20 +115,24 @@ const bodyTypeOptions = [
             message.error({
               content: error.response.data.message,
               style: {
-                marginTop: "10px",
-                fontSize: "18px",
-                padding: "10px",
-              },
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+                position: 'absolute',
+                right: '10px'
+            },
               duration: 2,
             });
           } else {
             message.error({
               content: "Error occurred",
               style: {
-                marginTop: "10px",
-                fontSize: "18px",
-                padding: "10px",
-              },
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+                position: 'absolute',
+                right: '10px'
+            },
               duration: 2,
             });
             console.error("Check customer failed log: ", error);
@@ -136,17 +140,19 @@ const bodyTypeOptions = [
         }
       };
 
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    // const storedUser = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('accessToken');
-    if (storedUser && token) {
-      setUser(storedUser);
+    console.log(user);
+    
+    if (user && token) {
+      setUser(user);
       setIsAuthenticated(true);
 
-      if (storedUser.role === "Admin"){
+      if (user.role === "Admin"){
         navigate("/admin")
       }
       
-      if (storedUser.role === "Customer") {
+      if (user.role === "Customer") {
         handleCustomer();
       }
 
@@ -182,10 +188,12 @@ const bodyTypeOptions = [
         message.success({
             content: "Set up customer profile successfully!",
             style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
+              marginTop: '10px',
+              fontSize: '20px', 
+              padding: '10px',
+              position: 'absolute',
+              right: '10px'
+          },
             duration: 2, // Optional: duration in seconds
           });
     
@@ -201,10 +209,12 @@ const bodyTypeOptions = [
             message.error({
               content: error.response.data.message,
               style: {
-                marginTop: "10px", // Space above the message
-                fontSize: "18px", // Increase font size
-                padding: "10px", // Optional: add padding for a better look
-              },
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+                position: 'absolute',
+                right: '10px'
+            },
               duration: 2, // Optional: duration in seconds
             });
           } else {
@@ -212,10 +222,12 @@ const bodyTypeOptions = [
             message.error({
               content: "Error occurred",
               style: {
-                marginTop: "10px", // Space above the message
-                fontSize: "18px", // Increase font size
-                padding: "10px", // Optional: add padding for a better look
-              },
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+                position: 'absolute',
+                right: '10px'
+            },
               duration: 2, // Optional: duration in seconds
             });
             console.error("Setup customer profile failed log: ", error);

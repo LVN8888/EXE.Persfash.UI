@@ -74,10 +74,12 @@ export const ResetPassword = () => {
         message.success({
           content: "Reset password successfully!",
           style: {
-              marginTop: '10px', // Space above the message
-              fontSize: '18px', // Increase font size
-              padding: '10px', // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
       });
         navigate("/login-form")
@@ -90,20 +92,24 @@ export const ResetPassword = () => {
         message.error({
           content: error.response.data.message,
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
       } else {
         message.error({
           content: "Error occurred",
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
         console.error("Reset password failed log: ", error);
@@ -119,7 +125,17 @@ export const ResetPassword = () => {
       console.log(response);
 
       setTimeout(() => {
-        message.success("Resent reset email successfully!");
+        message.success({
+          content: "Resent reset email successfully!",
+          style: {
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
+          duration: 2, // Optional: duration in seconds
+        });
         navigate("/password/reset-password", {state: {email: values.email}})
       }, 2000);
 
@@ -130,20 +146,24 @@ export const ResetPassword = () => {
         message.error({
           content: error.response.data.message,
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
       } else {
         message.error({
           content: "Error occurred",
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
         console.error("Login failed log: ", error);

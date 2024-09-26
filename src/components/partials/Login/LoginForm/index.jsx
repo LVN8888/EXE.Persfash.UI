@@ -22,7 +22,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, setUser, setIsAuthenticated, user, isAuthenticated } = useAuth();
+  const { login, setUser, setIsAuthenticated, user, isAuthenticated, isProfileSetup, setIsProfileSetup } = useAuth();
 
   const BaseURL = import.meta.env.VITE_SERVER_URL;
   const apiClient = new AxiosHelper(BaseURL);
@@ -48,13 +48,16 @@ export default function LoginForm() {
       setLoading(false);
       
       // console.log(res.role);
+
       
       message.success({
         content: "Login successfully!",
         style: {
-            marginTop: '10px', // Space above the message
-            fontSize: '18px', // Increase font size
-            padding: '10px', // Optional: add padding for a better look
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
         },
         duration: 2, // Optional: duration in seconds
     });    
@@ -62,11 +65,14 @@ export default function LoginForm() {
      if (res.role === "Customer") {
       const profileRes = await checkCustomerProfile();
 
-      console.log(profileRes);
+      // console.log(profileRes);
 
       if (profileRes.data === true) {
+        setIsProfileSetup(true)        
         navigate("/home");
       }else {
+        setIsProfileSetup(false)
+        console.log(isProfileSetup);
         navigate("/profile-setup")
       }
      }else if (res.role === "Admin") {
@@ -81,20 +87,24 @@ export default function LoginForm() {
         message.error({
           content: error.response.data.message,
           style: {
-              marginTop: '10px', // Space above the message
-              fontSize: '18px', // Increase font size
-              padding: '10px', // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
       });
     } else {
       message.error({
         content: "Error occurred",
         style: {
-            marginTop: '10px', // Space above the message
-            fontSize: '18px', // Increase font size
-            padding: '10px', // Optional: add padding for a better look
-        },
+          marginTop: '10px',
+          fontSize: '20px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
         duration: 2, // Optional: duration in seconds
     });
 
@@ -151,21 +161,37 @@ export default function LoginForm() {
           setUser(userData);
           setIsAuthenticated(true);
 
-          localStorage.setItem('user', JSON.stringify(userData));
+          // localStorage.setItem('user', JSON.stringify(userData));
 
           message.success({
             content: "Login with google successfully!",
             style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
+              marginTop: '10px',
+              fontSize: '20px', 
+              padding: '10px',
+              position: 'absolute',
+              right: '10px'
+          },
             duration: 2, // Optional: duration in seconds
           });
 
           console.log(userData.role);
 
-          navigate("/Home")
+          if (userData.role === "Customer") {
+            const profileRes = await checkCustomerProfile();
+      
+            // console.log(profileRes);
+      
+            if (profileRes.data === true) {
+              setIsProfileSetup(true)
+              navigate("/home");
+            }else {
+              setIsProfileSetup(false)
+              navigate("/profile-setup")
+            }
+           }else if (userData.role === "Admin") {
+            navigate("/admin")
+           }
   
       } catch (error) {
         if (error.response) {
@@ -174,20 +200,24 @@ export default function LoginForm() {
           message.error({
             content: error.response.data.message,
             style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
+              marginTop: '10px',
+              fontSize: '20px', 
+              padding: '10px',
+              position: 'absolute',
+              right: '10px'
+          },
             duration: 2, // Optional: duration in seconds
           });
         } else {
           message.error({
             content: "Error occurred",
             style: {
-              marginTop: "10px", // Space above the message
-              fontSize: "18px", // Increase font size
-              padding: "10px", // Optional: add padding for a better look
-            },
+              marginTop: '10px',
+              fontSize: '20px', 
+              padding: '10px',
+              position: 'absolute',
+              right: '10px'
+          },
             duration: 2, // Optional: duration in seconds
           });
           console.error("Login google failed log: ", error);

@@ -39,6 +39,16 @@ export const viewCustomerInformation = async (customerId) => {
   }
 };
 
+export const viewCurrentUserInfo = async () => {
+  try {
+    const response = await apiClient.get(
+      `/authentication/user-infor`, {}, {}, true);
+    return response;
+  }catch(error) {
+    throw error;
+  }
+}
+
 export const customerUpdateInformation = async (
   customerId,
   email,
