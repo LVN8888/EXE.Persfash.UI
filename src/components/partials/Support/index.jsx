@@ -254,8 +254,10 @@ const Support = () => {
       onChange={(e) => setQuestion(e.target.value)} // Update state on input change
       className="mb-4"
     />
-    <button
+    <Button
+    style={{ backgroundColor: "#b3ff00", color: "#4949e9" }}
     className="bg-[#b3ff00] text-[#4949e9] py-2 px-4 rounded-full font-medium"
+    disabled={!question.trim()}
       onClick={() => {
         // Handle the submit action, e.g., sending the question to your API
         console.log('Submitted Question:', question);
@@ -267,7 +269,7 @@ const Support = () => {
       }}
     >
       Submit Question
-    </button>
+    </Button>
   </div>
 </Modal>
 
