@@ -387,11 +387,16 @@ const bodyTypeOptions = [
   { label: 'Slim', value: 'Slim' },
   { label: 'Athletic', value: 'Athletic' },
   { label: 'Curvy', value: 'Curvy' },
-  { label: 'Plus Size', value: 'PlusSize' },
+  { label: 'Plus Size', value: 'Plus Size' },
+  { label: 'Rectangle', value: 'Rectangle' },
+  { label: 'Inverted Triangle', value: 'Inverted Triangle' },
+  { label: 'Pear', value: 'Pear' },
 ];
 
 const fashionStyleOptions = [
   { label: 'Casual', value: 'Casual' },
+  { label: 'Minimalist', value: 'Minimalist' },
+  { label: 'Classic', value: 'Classic' },
   { label: 'Vintage', value: 'Vintage' },
   { label: 'Formal', value: 'Formal' },
   { label: 'Streetwear', value: 'Streetwear' },
@@ -447,6 +452,8 @@ const preferredMaterialsOptions = [
   { label: 'Wool', value: 'Wool' },
   { label: 'Mesh', value: 'Mesh' },
   { label: 'Leather', value: 'Leather' },
+  { label: 'Linen', value: 'Linen' },
+  { label: 'Nylon', value: 'Nylon' },
 ];
 
 const occasionOptions = [

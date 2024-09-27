@@ -26,9 +26,6 @@ const Support = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const questionsPerPage = 3;
 
-  const startIndex = currentPage * questionsPerPage;
-  const currentQuestions = supportedQuestion ? supportedQuestion.slice(startIndex, startIndex + questionsPerPage) : [];
-
   const {user} = useContext(AuthContext);
 
   // Later you can replace this useEffect with a fetch API call
@@ -36,7 +33,10 @@ const Support = () => {
   const fetchSupportQuestion = async () => {
     try {
       const response = await viewSupportQuestion(1, 20, null);
-      setSupportedQuestion(response);
+
+      console.log(response.data);
+      
+      setSupportedQuestion(response.data);
     
     }catch(error) {
       console.log("Failed to fetch support question", error);
@@ -109,7 +109,7 @@ const Support = () => {
       fetchSupportQuestion();
 
       message.success({
-        content: "Submit support question successfully!",
+        content: "Remove support question successfully!",
         style: {
           marginTop: '10px',
           fontSize: '20px', 
@@ -135,6 +135,8 @@ const Support = () => {
     }
   }
 
+  const startIndex = currentPage * questionsPerPage;
+  const currentQuestions = supportedQuestion ? supportedQuestion.slice(startIndex, startIndex + questionsPerPage) : [];
   // Calculate total pages
   const totalPages = Math.ceil((supportedQuestion ? supportedQuestion.length : 0) / questionsPerPage);
 
@@ -169,13 +171,13 @@ const Support = () => {
             <div className="flex items-center">
               {question.supportMessages.length > 0 && (
                 <div className="cursor-pointer" onClick={() => handleShowMessages(question.supportMessages)}>
-                  <FaEnvelope className="text-[#b3ff00] mr-2" size={24} />
+                  <FaEnvelope className="text-[#b3ff00] mx-1" size={24} />
                 </div>
               )}
               {question.customer.customerId === user.userId && (
                 // Button to delete the support message of the user
                 <div className="cursor-pointer" onClick={() => handleRemoveSupportQuestion(question.supportId)}>
-                  <FaTrashCan className="text-[#b3ff00]" size={24} />
+                  <FaTrashCan className="text-[#b3ff00] mx-1" size={24} />
                 </div>
               )}
             </div>

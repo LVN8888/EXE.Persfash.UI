@@ -129,10 +129,28 @@ const MainHeader = () => {
         placeholder={language === "EN" ? "Search..." : "Tìm kiếm..."}
         onChange={handleSearchInputChange}
         value={searchText}
-        onSearch={handleSearch}
+        onSearch={() => {
+          if (!searchText.trim()) {
+            // Alert or handle empty input
+            message.warning({
+              content: language === "EN" ? "Please enter a search term." : "Vui lòng nhập từ khóa tìm kiếm.",
+              style: {
+                marginTop: '10px',
+                fontSize: '20px', 
+                padding: '10px',
+            },
+              duration: 2, // Optional: duration in seconds
+            });
+            return;
+          }
+          handleSearch();  // Call your search function if input is valid
+        }}
         style={{ width: 250 }}
+        required
         enterButton={
-          <Button style={{ backgroundColor: "#4949E9", color: "#fff" }}>
+          <Button style={{ backgroundColor: "#4949E9", color: "#fff" }}
+          disabled={!searchText.trim()}
+          >
             {language === "EN" ? "Search" : "Tìm kiếm"}
           </Button>
         }
