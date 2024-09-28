@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Table, Input, Button, Space } from "antd";
+import { Table, Input, Button, Space, Switch, Popconfirm } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 
 const UserManagement = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-
-  const data = [
+  const [data, setData] = useState([
     {
       customerId: 1,
       username: "johndoe",
@@ -48,7 +47,6 @@ const UserManagement = () => {
       dateJoined: "2024-09-18",
       status: "Active",
     },
-    // Fake thêm nhiều dữ liệu
     ...Array.from({ length: 46 }, (_, i) => ({
       customerId: i + 5,
       username: `user${i + 5}`,
@@ -59,7 +57,7 @@ const UserManagement = () => {
       dateJoined: `2024-09-18`,
       status: i % 3 === 0 ? "Inactive" : "Active",
     })),
-  ];
+  ]);
 
   let searchInput;
 
@@ -142,6 +140,14 @@ const UserManagement = () => {
       ),
   });
 
+  const handleStatusToggle = (customerId, checked) => {
+    const newStatus = checked ? "Active" : "Inactive";
+    const updatedData = data.map((user) =>
+      user.customerId === customerId ? { ...user, status: newStatus } : user
+    );
+    setData(updatedData);
+  };
+
   const columns = [
     {
       title: "CustomerID",
@@ -192,6 +198,12 @@ const UserManagement = () => {
         { text: "Inactive", value: "Inactive" },
       ],
       onFilter: (value, record) => record.status.includes(value),
+      render: (text, record) => (
+        <Switch
+          checked={record.status === "Active"}
+          onChange={(checked) => handleStatusToggle(record.customerId, checked)}
+        />
+      ),
     },
     {
       title: "Date Joined",
