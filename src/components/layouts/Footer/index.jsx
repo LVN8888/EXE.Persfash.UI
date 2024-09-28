@@ -18,9 +18,8 @@ const Footer = () => {
       </div>
       <div className={styles.column}>
         <h3>Connect</h3>
-        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">Tiktok</a>
+        <a href="https://www.facebook.com/persfash" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://www.instagram.com/pers.fash/" target="_blank" rel="noopener noreferrer">Instagram</a>
       </div>
       <div className={styles.column}>
         <h3>Address</h3>

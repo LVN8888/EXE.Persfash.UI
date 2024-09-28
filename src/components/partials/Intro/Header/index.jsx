@@ -50,6 +50,10 @@ const Header = () => {
     navigate("/register");
   };
 
+  const handleSupportClick = () => {
+    navigate("/support");
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -57,9 +61,9 @@ const Header = () => {
         <span>persfash</span>
       </div>
       <nav className={styles.nav}>
-        <a href="#support" className={styles.support}>
+        <span className={styles.support} onClick={handleSupportClick}>
           Support
-        </a>
+        </span>
         <Button className={styles.loginButton} onClick={handleLoginClick}>
           Log in
         </Button>
