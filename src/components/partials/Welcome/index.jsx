@@ -54,15 +54,15 @@ export const Welcome = () => {
         }
       };
 
-      const storedUser = JSON.parse(localStorage.getItem('user'));
+      // const storedUser = JSON.parse(localStorage.getItem('user'));
       const token = localStorage.getItem('accessToken');
-      if (storedUser && token) {
-        setUser(storedUser);
+      if (user && token) {
+        setUser(user);
         setIsAuthenticated(true);
 
-        if (storedUser.role === "Admin"){
+        if (user.role === "Admin"){
           navigate("/admin")
-        }else if (storedUser.role === "Customer") {
+        }else if (user.role === "Customer") {
           handleCustomer();
         }
 

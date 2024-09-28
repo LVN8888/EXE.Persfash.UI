@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import AxiosHelper from "../AxiosHelper";
+import { checkCustomerProfile } from "../services/CustomerApi";
 
 export const AuthContext = createContext();
 
@@ -7,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true); // Để kiểm soát trạng thái loading
+  const [isProfileSetup, setIsProfileSetup] = useState(false); // Để kiểm soát trạng thái loading
 
   const BaseURL = import.meta.env.VITE_SERVER_URL;
   const apiClient = new AxiosHelper(BaseURL);
@@ -34,9 +36,10 @@ export const AuthProvider = ({ children }) => {
       );
       const { data } = response;
 
-      if (data) {
+      if (data) {        
         setUser(data);
         setIsAuthenticated(true);
+        await checkProfileSetup();
       } else {
         setIsAuthenticated(false);
       }
@@ -47,6 +50,18 @@ export const AuthProvider = ({ children }) => {
       setLoading(false); // Kết thúc trạng thái loading
     }
   };
+
+  const checkProfileSetup = async () => {
+    try {
+      const response = await checkCustomerProfile();
+
+      setIsProfileSetup(response.data );
+
+    }catch (error) {
+      console.error("Error fetching user info:", error);
+      setIsProfileSetup(false);
+    }
+  }
 
   const login = async (username, password) => {
     try {
@@ -77,6 +92,8 @@ export const AuthProvider = ({ children }) => {
       // Store user data and tokens in localStorage
       localStorage.setItem("accessToken", data.token);
       localStorage.setItem("refreshToken", data.refreshToken);
+      
+      await checkProfileSetup();
 
       return userData;
     } catch (error) {
@@ -85,7 +102,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    const refreshToken = localStorage.getItem("refreshToken"); {
+      if (refreshToken) {
+         try {
+          const response = await apiClient.post("/authentication/logout", {
+            refreshToken
+          })
+         }catch(error) {
+          console.error("Login failed:", error);
+         }
+      }
+    }
     setUser(null);
     setIsAuthenticated(false);
     localStorage.removeItem("accessToken");
@@ -103,6 +131,8 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         loading,
+        isProfileSetup,
+        setIsProfileSetup
       }}
     >
       {children}

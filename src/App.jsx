@@ -24,6 +24,7 @@ import ProtectedRoute from "./RouteConfig/ProtectedRoute.jsx";
 import PublicRoute from "./RouteConfig/PublicRoute.jsx";
 import FashionItemsManagementPage from "./components/partials/Admin/pages/FashionItemsManagementPage.jsx";
 import SubscriptionManagementPage from "./components/partials/Admin/pages/SubscriptionManagementPage.jsx";
+import { SearchResultPage } from "./pages/SearchResultPage/index.jsx";
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
             element={<PayMentSuccessPage />}
           />
           <Route
-            path="/payment/payment-review"
+            path="/payment/payment-review/:subscriptionId"
             element={<ReviewPaymentPage />}
           />
           <Route path="/wardrobe" element={<WardrobePage />} />
@@ -50,6 +51,10 @@ function App() {
           <Route
             path="/customer/edit-profile-setup"
             element={<CustomerEditProfileSetupPage />}
+          />
+           <Route
+            path="/search-results"
+            element={<SearchResultPage />}
           />
           <Route
             path="/password/change-password"

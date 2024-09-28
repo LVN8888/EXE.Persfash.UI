@@ -72,10 +72,12 @@ const Register = () => {
       message.success({
         content: "Register successfully!",
         style: {
-          marginTop: "10px", // Space above the message
-          fontSize: "18px", // Increase font size
-          padding: "10px", // Optional: add padding for a better look
-        },
+          marginTop: '10px',
+          fontSize: '20px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
         duration: 2, // Optional: duration in seconds
       });
 
@@ -90,10 +92,12 @@ const Register = () => {
         message.error({
           content: error.response.data.message,
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
       } else {
@@ -101,10 +105,12 @@ const Register = () => {
         message.error({
           content: "Error occurred",
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
         console.error("Register customer failed log: ", error);
@@ -165,16 +171,30 @@ const Register = () => {
         message.success({
           content: "Login with google successfully!",
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
 
         console.log(userData.role);
-
-        navigate("/Home")
+        
+          if (userData.role === "Customer") {
+            const profileRes = await checkCustomerProfile();
+      
+            // console.log(profileRes);
+      
+            if (profileRes.data === true) {
+              navigate("/home");
+            }else {
+              navigate("/profile-setup")
+            }
+           }else if (userData.role === "Admin") {
+            navigate("/admin")
+           }
 
     } catch (error) {
       if (error.response) {
@@ -183,20 +203,24 @@ const Register = () => {
         message.error({
           content: error.response.data.message,
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
       } else {
         message.error({
           content: "Error occurred",
           style: {
-            marginTop: "10px", // Space above the message
-            fontSize: "18px", // Increase font size
-            padding: "10px", // Optional: add padding for a better look
-          },
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
           duration: 2, // Optional: duration in seconds
         });
         console.error("Login google failed log: ", error);

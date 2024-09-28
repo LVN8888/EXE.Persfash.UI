@@ -12,3 +12,13 @@ export const viewSubscription = async (page = 1, size = 10) => {
         throw error
     }
 }
+
+export const viewDetailsSubscription = async (subscriptionId) => {
+    try {
+        const response = await apiClient.get(`/subscription/${subscriptionId}`)
+
+        return response;
+    }catch(error) {
+        throw error
+    }
+}
