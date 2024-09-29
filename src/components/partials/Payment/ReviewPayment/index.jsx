@@ -1,13 +1,17 @@
 import { toast } from "react-toastify";
 import React, { useEffect, useState } from "react";
-import { Form, Button } from "antd";
+import { Form, Button, message } from "antd";
 import { SmileOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { viewDetailsSubscription } from "../../../../services/SubscriptionApi";
+import { createPaymentSubscriptionUrl } from "../../../../services/PaymentApi";
+import { viewPaymentResult } from "../../../../services/PayOSApi";
 
 const ReviewPayment = () => {
 
   const {subscriptionId} = useParams();
+
+  const [loading, setLoading] = useState(false);
 
   const [currSubscription, setCurrSubscription] = useState({});
 
@@ -30,9 +34,34 @@ const ReviewPayment = () => {
     fetchSubscriptionInformation(subscriptionId);
   }, [])
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         // Handle form submission logic here
-        toast.success("Chuyển sang trang thanh toán");
+        setLoading(true)
+        try {
+          const response = await createPaymentSubscriptionUrl(subscriptionId, "http://localhost:5173/payment/payment-success")
+
+          console.log(response);
+
+          window.location.href = response.paymentUrl;
+
+          setLoading(false);
+          
+        }catch(error) {
+          setLoading(false)
+          console.log("Failed to update wardrobe ", error);
+         message.error({
+        content: error.response.data.message,
+        style: {
+          marginTop: '10px',
+          fontSize: '16px',   // Slightly smaller font size for better readability
+          backgroundColor: '#fff3f3', // Light background color for better visibility
+          position: 'absolute',
+          right: '10px',
+          whiteSpace: 'pre-line', // Allow line breaks in the message
+        },
+        duration: 2,
+    });
+        }
       };
 
     const handleCancel = () => {
@@ -109,10 +138,11 @@ const ReviewPayment = () => {
               </button>
 
               <button
+                disabled = {loading}
                 className="bg-[#b3ff00] mr-6 hover:bg-blue-600 hover:text-[#b3ff00] text-[#4949e9] rounded-md p-3 font-medium"
-                onClick={handleSubmit}
+                onClick={() => handleSubmit()}
               >
-                Confirm and Proceed
+                {loading ? "Proceeding..." : "Confirm and Proceed"}
               </button>
             </div>
           </div>

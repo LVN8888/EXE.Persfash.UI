@@ -195,3 +195,31 @@ export const viewCustomerItemRecommendation = async (page, size) => {
     throw error;
   }
 };
+
+export const viewCustomerItemRecommendationFilter = async (page, size, filter) => {
+  try {
+    const response = await apiClient.get("/customer/recommendation/fashion-item-filter", {page, size, filter}, {}, true);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const viewCustomerOutfitRecommendation = async () => {
+  try {
+    const response = await apiClient.get("/outfit/recommendation", {}, {}, true);
+    return response;
+
+  }catch(error) {
+    throw error;
+  }
+}
+
+export const genCustomerOutfitRecommendation = async () => {
+  try {
+    const response = await apiClient.post("/outfit/recommendation", {}, {}, true);
+    return response;
+  }catch (error) {
+    throw error;
+  }
+}
