@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import { Table, Input, Button, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import UpdateSubscription from "./UpdateSubscription"; // Import component UpdateSubscription
 
 const SubscriptionManagement = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-
-  // Dữ liệu giả lập cho Subscriptions
-  const data = [
+  const [subscriptions, setSubscriptions] = useState([
     {
       subscriptionId: 1,
       subscriptionTitle: "Basic Plan",
       price: 9.99,
       durationInDays: 30,
-      description: "Basic plan with limited features",
+      description: ["Basic plan", "Limited features"],
       status: "Active",
     },
     {
@@ -22,7 +21,7 @@ const SubscriptionManagement = () => {
       subscriptionTitle: "Premium Plan",
       price: 19.99,
       durationInDays: 90,
-      description: "Premium plan with all features",
+      description: ["Premium plan", "All features"],
       status: "Active",
     },
     {
@@ -30,19 +29,18 @@ const SubscriptionManagement = () => {
       subscriptionTitle: "Enterprise Plan",
       price: 99.99,
       durationInDays: 365,
-      description: "Full access for enterprises",
+      description: ["Full access", "For enterprises"],
       status: "Inactive",
     },
-    // Thêm dữ liệu giả lập khác
     ...Array.from({ length: 10 }, (_, i) => ({
       subscriptionId: i + 4,
       subscriptionTitle: `Plan ${i + 4}`,
       price: (i + 1) * 15.99,
       durationInDays: (i + 1) * 30,
-      description: `Plan ${i + 4} with extended features`,
+      description: [`Plan ${i + 4}`, "Extended features"],
       status: i % 2 === 0 ? "Active" : "Inactive",
     })),
-  ];
+  ]);
 
   let searchInput;
 
@@ -89,18 +87,24 @@ const SubscriptionManagement = () => {
     filterIcon: (filtered) => <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />,
     onFilter: (value, record) =>
       record[dataIndex] ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()) : "",
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.select(), 100);
-      }
-    },
     render: (text) =>
       searchedColumn === dataIndex ? (
-        <Highlighter highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }} searchWords={[searchText]} autoEscape textToHighlight={text ? text.toString() : ""} />
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
       ) : (
         text
       ),
   });
+
+  const handleUpdate = (id, updatedSubscription) => {
+    setSubscriptions((prev) =>
+      prev.map((item) => (item.subscriptionId === id ? { ...item, ...updatedSubscription } : item))
+    );
+  };
 
   const columns = [
     {
@@ -132,7 +136,13 @@ const SubscriptionManagement = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      ...getColumnSearchProps("description"),
+      render: (description) => (
+        <ul>
+          {description.map((line, index) => (
+            <li key={index}>{line}</li>
+          ))}
+        </ul>
+      ),
     },
     {
       title: "Status",
@@ -144,6 +154,13 @@ const SubscriptionManagement = () => {
       ],
       onFilter: (value, record) => record.status.includes(value),
     },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (_, record) => (
+        <UpdateSubscription subscription={record} onUpdate={handleUpdate} />
+      ),
+    },
   ];
 
   return (
@@ -151,7 +168,7 @@ const SubscriptionManagement = () => {
       <h2 className="text-xl font-bold mb-4">Manage Subscriptions</h2>
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={subscriptions}
         rowKey="subscriptionId"
         pagination={{
           pageSizeOptions: ["5", "10", "20", "50"],
