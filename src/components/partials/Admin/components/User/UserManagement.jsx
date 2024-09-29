@@ -5,7 +5,7 @@ import Highlighter from "react-highlight-words";
 import {
   viewCustomerList,
   activateDeactivateCustomer,
-} from "../../../../../services/UserManagementApi";
+} from "../../../../../services/Admin/UserManagementApi";
 
 const UserManagement = () => {
   const [searchText, setSearchText] = useState("");
