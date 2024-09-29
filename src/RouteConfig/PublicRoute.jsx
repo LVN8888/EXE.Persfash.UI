@@ -1,20 +1,13 @@
-import React, { useContext } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { Spin } from 'antd'; // Ant Design Spin component
-import { AuthContext } from '../context/AuthContext'; // Import AuthContext
+import React, { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import Loading from "../../src/Loading";  // Import Loading component
 
 const PublicRoute = () => {
-  const { isAuthenticated, loading } = useContext(AuthContext); // Lấy trạng thái từ context
+  const { isAuthenticated, loading } = useContext(AuthContext);
 
   if (loading) {
-    // Hiển thị loading spinner với nội dung lồng ghép bên trong Spin
-    return (
-      <div className="flex justify-center items-center h-screen bg-gray-50">
-        <Spin size="large" tip="Loading...">
-          <div style={{ height: '100vh' }}></div>
-        </Spin>
-      </div>
-    );
+    return <Loading tip="Loading..." />;
   }
 
   // Nếu đã đăng nhập, điều hướng về trang home

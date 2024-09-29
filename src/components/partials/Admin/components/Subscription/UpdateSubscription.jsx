@@ -10,21 +10,30 @@ const UpdateSubscription = ({ subscription, onUpdate }) => {
 
   const showModal = () => {
     setIsModalVisible(true);
-    // Chuyển đổi description từ mảng thành chuỗi để hiện trong TextArea
+
+    // Chuyển đổi description từ mảng thành chuỗi để hiện trong TextArea và xử lý các giá trị null
     const updatedSubscription = {
       ...subscription,
-      description: subscription.description.join("\n"), // Mỗi dòng là một chuỗi
+      price: subscription.price !== null ? subscription.price : null, // Giá trị mặc định là null nếu price là null
+      durationInDays: subscription.durationInDays !== null ? subscription.durationInDays : null, // Giá trị mặc định là null nếu durationInDays là null
+      description: Array.isArray(subscription.description)
+        ? subscription.description.join("\n") // Chuyển đổi mảng thành chuỗi với mỗi phần tử trên 1 dòng
+        : "", // Nếu description không phải mảng, đặt chuỗi rỗng
     };
+
     form.setFieldsValue(updatedSubscription);
   };
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      // Chuyển đổi description từ chuỗi thành mảng
+      // Kiểm tra nếu người dùng không nhập giá trị nào, gửi null
       const updatedValues = {
         ...values,
-        description: values.description.split("\n"), // Mỗi dòng là một phần tử trong mảng
+        price: values.price === undefined ? null : values.price, // Nếu không nhập giá trị, gửi null
+        durationInDays: values.durationInDays === undefined ? null : values.durationInDays, // Nếu không nhập giá trị, gửi null
+        description: values.description ? values.description.split("\n") : [], // Chuyển chuỗi thành mảng nếu có nội dung
       };
+
       onUpdate(subscription.subscriptionId, updatedValues); // Gọi hàm update từ props
       setIsModalVisible(false);
     });
@@ -41,7 +50,7 @@ const UpdateSubscription = ({ subscription, onUpdate }) => {
       </Button>
       <Modal
         title="Update Subscription"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         okText="Update"
@@ -58,16 +67,16 @@ const UpdateSubscription = ({ subscription, onUpdate }) => {
           <Form.Item
             label="Price"
             name="price"
-            rules={[{ required: true, message: "Please enter price" }]}
           >
-            <InputNumber min={0} step={0.01} style={{ width: "100%" }} />
+            {/* Giá trị null nếu không nhập */}
+            <InputNumber min={0} step={1000} style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             label="Duration (Days)"
             name="durationInDays"
-            rules={[{ required: true, message: "Please enter duration in days" }]}
           >
-            <InputNumber min={1} style={{ width: "100%" }} />
+            {/* Giá trị null nếu không nhập */}
+            <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             label="Description"

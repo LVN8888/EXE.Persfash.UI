@@ -1,48 +1,52 @@
-import React, { useState } from "react";
-import { Table, Input, Button, Space } from "antd";
+import React, { useState, useEffect } from "react";
+import { Table, Input, Button, Space, message } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 import UpdateSubscription from "./UpdateSubscription"; // Import component UpdateSubscription
+import { getSubscriptions, updateSubscription } from "../../../../../services/Admin/SubscriptionManagementApi"; // Import API calls
 
 const SubscriptionManagement = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-  const [subscriptions, setSubscriptions] = useState([
-    {
-      subscriptionId: 1,
-      subscriptionTitle: "Basic Plan",
-      price: 9.99,
-      durationInDays: 30,
-      description: ["Basic plan", "Limited features"],
-      status: "Active",
-    },
-    {
-      subscriptionId: 2,
-      subscriptionTitle: "Premium Plan",
-      price: 19.99,
-      durationInDays: 90,
-      description: ["Premium plan", "All features"],
-      status: "Active",
-    },
-    {
-      subscriptionId: 3,
-      subscriptionTitle: "Enterprise Plan",
-      price: 99.99,
-      durationInDays: 365,
-      description: ["Full access", "For enterprises"],
-      status: "Inactive",
-    },
-    ...Array.from({ length: 10 }, (_, i) => ({
-      subscriptionId: i + 4,
-      subscriptionTitle: `Plan ${i + 4}`,
-      price: (i + 1) * 15.99,
-      durationInDays: (i + 1) * 30,
-      description: [`Plan ${i + 4}`, "Extended features"],
-      status: i % 2 === 0 ? "Active" : "Inactive",
-    })),
-  ]);
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1, // Trang hiện tại
+    pageSize: 5, // Kích thước trang mặc định
+    total: 0, // Tổng số bản ghi, sẽ được lấy từ API
+  });
 
-  let searchInput;
+  // Fetch subscription data from API
+  const fetchSubscriptions = async (page, size) => {
+    setLoading(true); // Hiển thị spinner loading
+    try {
+      const response = await getSubscriptions(page, size);
+      if (Array.isArray(response)) {
+        setSubscriptions(response);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.totalItems, 
+        }));
+      } else {
+        message.error("Invalid data structure");
+      }
+      setLoading(false); // Tắt loading spinner
+    } catch (error) {
+      message.error("Failed to load subscriptions");
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    // Gọi API lần đầu với trang và pageSize mặc định
+    fetchSubscriptions(pagination.current, pagination.pageSize);
+  }, []);
+
+  const handleTableChange = (pagination) => {
+    // Khi có sự thay đổi phân trang hoặc số bản ghi/trang, cập nhật lại state và gọi API
+    setPagination(pagination);
+    fetchSubscriptions(pagination.current, pagination.pageSize);
+  };
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -100,10 +104,16 @@ const SubscriptionManagement = () => {
       ),
   });
 
-  const handleUpdate = (id, updatedSubscription) => {
-    setSubscriptions((prev) =>
-      prev.map((item) => (item.subscriptionId === id ? { ...item, ...updatedSubscription } : item))
-    );
+  const handleUpdate = async (id, updatedSubscription) => {
+    try {
+      await updateSubscription(id, updatedSubscription);
+      setSubscriptions((prev) =>
+        prev.map((item) => (item.subscriptionId === id ? { ...item, ...updatedSubscription } : item))
+      );
+      message.success("Subscription updated successfully!");
+    } catch (error) {
+      message.error("Failed to update subscription");
+    }
   };
 
   const columns = [
@@ -123,14 +133,15 @@ const SubscriptionManagement = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      sorter: (a, b) => a.price - b.price,
-      render: (price) => `$${price.toFixed(2)}`,
+      sorter: (a, b) => (a.price || 0) - (b.price || 0),
+      render: (price) => (price !== null ? `$${price.toFixed(2)}` : "Free"), // Hiển thị "Free" nếu price là null
     },
     {
       title: "Duration (Days)",
       dataIndex: "durationInDays",
       key: "durationInDays",
-      sorter: (a, b) => a.durationInDays - b.durationInDays,
+      sorter: (a, b) => (a.durationInDays || 0) - (b.durationInDays || 0),
+      render: (duration) => (duration !== null ? `${duration} days` : "Unlimited"), // Hiển thị "Unlimited" nếu duration là null
     },
     {
       title: "Description",
@@ -170,11 +181,15 @@ const SubscriptionManagement = () => {
         columns={columns}
         dataSource={subscriptions}
         rowKey="subscriptionId"
+        loading={loading} // Hiển thị loading spinner khi đang lấy dữ liệu
         pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
           pageSizeOptions: ["5", "10", "20", "50"],
           showSizeChanger: true,
-          defaultPageSize: 10,
         }}
+        onChange={handleTableChange} // Gọi lại API khi thay đổi trang hoặc pageSize
       />
     </div>
   );

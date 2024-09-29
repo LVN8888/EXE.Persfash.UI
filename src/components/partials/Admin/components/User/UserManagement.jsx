@@ -1,66 +1,52 @@
-import React, { useState } from "react";
-import { Table, Input, Button, Space, Switch, Popconfirm } from "antd";
+import React, { useState, useEffect } from "react";
+import { Table, Input, Button, Space, Switch, message } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
+import {
+  viewCustomerList,
+  activateDeactivateCustomer,
+} from "../../../../../services/Admin/UserManagementApi";
 
 const UserManagement = () => {
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
-  const [data, setData] = useState([
-    {
-      customerId: 1,
-      username: "johndoe",
-      email: "johndoe@example.com",
-      fullName: "John Doe",
-      gender: "Male",
-      dob: "1990-05-15",
-      dateJoined: "2024-09-18",
-      status: "Active",
-    },
-    {
-      customerId: 2,
-      username: "janedoe",
-      email: "janedoe@example.com",
-      fullName: "Jane Doe",
-      gender: "Female",
-      dob: "1992-08-25",
-      dateJoined: "2024-09-18",
-      status: "Active",
-    },
-    {
-      customerId: 3,
-      username: "michael",
-      email: "michael@example.com",
-      fullName: "Michael Smith",
-      gender: "Male",
-      dob: "1988-03-22",
-      dateJoined: "2024-09-18",
-      status: "Inactive",
-    },
-    {
-      customerId: 4,
-      username: "emily",
-      email: "emily@example.com",
-      fullName: "Emily Johnson",
-      gender: "Female",
-      dob: "1995-11-05",
-      dateJoined: "2024-09-18",
-      status: "Active",
-    },
-    ...Array.from({ length: 46 }, (_, i) => ({
-      customerId: i + 5,
-      username: `user${i + 5}`,
-      email: `user${i + 5}@example.com`,
-      fullName: `User ${i + 5}`,
-      gender: i % 2 === 0 ? "Male" : "Female",
-      dob: `199${i % 10}-01-01`,
-      dateJoined: `2024-09-18`,
-      status: i % 3 === 0 ? "Inactive" : "Active",
-    })),
-  ]);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
 
-  let searchInput;
+  // Fetch data when component mounts or when pagination changes
+  useEffect(() => {
+    fetchData(pagination.current, pagination.pageSize);
+  }, [pagination.current, pagination.pageSize]);
 
+  // Fetch data from API
+  const fetchData = async (page, size) => {
+    setLoading(true);
+    try {
+      const response = await viewCustomerList(page, size);
+
+      // Đảm bảo lấy đúng dữ liệu từ phản hồi API
+      const customerData = response.data; // Mảng khách hàng
+      const totalItems = response.data.totalItems; // Tổng số lượng bản ghi
+
+      // Update data and pagination
+      setData(customerData); // Đặt dữ liệu khách hàng vào bảng
+      setPagination((prev) => ({
+        ...prev,
+        total: totalItems, // Cập nhật tổng số bản ghi vào phân trang
+      }));
+      setLoading(false);
+    } catch (error) {
+      message.error("Failed to fetch data");
+      setLoading(false);
+    }
+  };
+
+  // Searching logic
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -81,9 +67,6 @@ const UserManagement = () => {
     }) => (
       <div style={{ padding: 8 }}>
         <Input
-          ref={(node) => {
-            searchInput = node;
-          }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) =>
@@ -117,37 +100,35 @@ const UserManagement = () => {
     ),
     onFilter: (value, record) =>
       record[dataIndex]
-        ? record[dataIndex]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase())
+        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
         : "",
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.select(), 100);
-      }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
   });
 
-  const handleStatusToggle = (customerId, checked) => {
-    const newStatus = checked ? "Active" : "Inactive";
-    const updatedData = data.map((user) =>
-      user.customerId === customerId ? { ...user, status: newStatus } : user
-    );
-    setData(updatedData);
+  // Toggle status of customer (Active/Inactive)
+  const handleStatusToggle = async (customerId, checked) => {
+    try {
+      await activateDeactivateCustomer(customerId); // Call API to activate/deactivate
+      const newStatus = checked ? "Active" : "Inactive";
+      const updatedData = data.map((user) =>
+        user.customerId === customerId ? { ...user, status: newStatus } : user
+      );
+      setData(updatedData);
+      message.success(`Customer status updated to ${newStatus}`);
+    } catch (error) {
+      message.error("Failed to update status");
+    }
   };
 
+  // Handle pagination change
+  const handleTableChange = (newPagination) => {
+    setPagination({
+      ...pagination,
+      current: newPagination.current,
+      pageSize: newPagination.pageSize,
+    });
+  };
+
+  // Table columns definition
   const columns = [
     {
       title: "CustomerID",
@@ -185,9 +166,9 @@ const UserManagement = () => {
     },
     {
       title: "Date of Birth",
-      dataIndex: "dob",
-      key: "dob",
-      sorter: (a, b) => new Date(a.dob) - new Date(b.dob),
+      dataIndex: "dateOfBirth",
+      key: "dateOfBirth",
+      sorter: (a, b) => new Date(a.dateOfBirth) - new Date(b.dateOfBirth),
     },
     {
       title: "Status",
@@ -215,16 +196,20 @@ const UserManagement = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Manage Customers</h2>
+      <h2 className="text-xl font-bold mb-4">Manage Users</h2>
       <Table
         columns={columns}
         dataSource={data}
         rowKey="customerId"
         pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
           pageSizeOptions: ["5", "10", "20", "50"],
           showSizeChanger: true,
-          defaultPageSize: 10,
         }}
+        loading={loading}
+        onChange={handleTableChange} // Chỉ cập nhật phân trang mà không gọi lại API
       />
     </div>
   );
