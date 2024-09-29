@@ -30,13 +30,14 @@ const UserManagement = () => {
       const response = await viewCustomerList(page, size);
 
       // Đảm bảo lấy đúng dữ liệu từ phản hồi API
-      const customerData = response.data; // Đây là mảng khách hàng
-      const totalItems = response.data.totalItems;
+      const customerData = response.data; // Mảng khách hàng
+      const totalItems = response.data.totalItems; // Tổng số lượng bản ghi
+
       // Update data and pagination
       setData(customerData); // Đặt dữ liệu khách hàng vào bảng
       setPagination((prev) => ({
         ...prev,
-        total: totalItems, // Đặt tổng số lượng bản ghi vào phân trang
+        total: totalItems, // Cập nhật tổng số bản ghi vào phân trang
       }));
       setLoading(false);
     } catch (error) {
@@ -99,10 +100,7 @@ const UserManagement = () => {
     ),
     onFilter: (value, record) =>
       record[dataIndex]
-        ? record[dataIndex]
-            .toString()
-            .toLowerCase()
-            .includes(value.toLowerCase())
+        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
         : "",
   });
 
@@ -122,11 +120,11 @@ const UserManagement = () => {
   };
 
   // Handle pagination change
-  const handleTableChange = (pagination) => {
+  const handleTableChange = (newPagination) => {
     setPagination({
       ...pagination,
-      current: pagination.current,
-      pageSize: pagination.pageSize,
+      current: newPagination.current,
+      pageSize: newPagination.pageSize,
     });
   };
 
@@ -203,9 +201,15 @@ const UserManagement = () => {
         columns={columns}
         dataSource={data}
         rowKey="customerId"
-        pagination={pagination}
+        pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
+          pageSizeOptions: ["5", "10", "20", "50"],
+          showSizeChanger: true,
+        }}
         loading={loading}
-        onChange={handleTableChange}
+        onChange={handleTableChange} // Chỉ cập nhật phân trang mà không gọi lại API
       />
     </div>
   );

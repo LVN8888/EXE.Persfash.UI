@@ -10,20 +10,26 @@ const SubscriptionManagement = () => {
   const [searchedColumn, setSearchedColumn] = useState("");
   const [subscriptions, setSubscriptions] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  let searchInput;
+  const [pagination, setPagination] = useState({
+    current: 1, // Trang hiện tại
+    pageSize: 5, // Kích thước trang mặc định
+    total: 0, // Tổng số bản ghi, sẽ được lấy từ API
+  });
 
   // Fetch subscription data from API
-  const fetchSubscriptions = async () => {
+  const fetchSubscriptions = async (page, size) => {
     setLoading(true); // Hiển thị spinner loading
     try {
-      const response = await getSubscriptions(1, 10);
+      const response = await getSubscriptions(page, size);
       if (Array.isArray(response)) {
-        setSubscriptions(response); 
+        setSubscriptions(response);
+        setPagination((prev) => ({
+          ...prev,
+          total: response.totalItems, 
+        }));
       } else {
         message.error("Invalid data structure");
       }
-
       setLoading(false); // Tắt loading spinner
     } catch (error) {
       message.error("Failed to load subscriptions");
@@ -32,8 +38,15 @@ const SubscriptionManagement = () => {
   };
 
   useEffect(() => {
-    fetchSubscriptions();
+    // Gọi API lần đầu với trang và pageSize mặc định
+    fetchSubscriptions(pagination.current, pagination.pageSize);
   }, []);
+
+  const handleTableChange = (pagination) => {
+    // Khi có sự thay đổi phân trang hoặc số bản ghi/trang, cập nhật lại state và gọi API
+    setPagination(pagination);
+    fetchSubscriptions(pagination.current, pagination.pageSize);
+  };
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
@@ -170,10 +183,13 @@ const SubscriptionManagement = () => {
         rowKey="subscriptionId"
         loading={loading} // Hiển thị loading spinner khi đang lấy dữ liệu
         pagination={{
+          current: pagination.current,
+          pageSize: pagination.pageSize,
+          total: pagination.total,
           pageSizeOptions: ["5", "10", "20", "50"],
           showSizeChanger: true,
-          defaultPageSize: 10,
         }}
+        onChange={handleTableChange} // Gọi lại API khi thay đổi trang hoặc pageSize
       />
     </div>
   );
