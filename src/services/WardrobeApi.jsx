@@ -36,9 +36,20 @@ export const addNewWardrobe = async (title) => {
     }
 } 
 
+export const updateWardrobe = async (wardrobeId, title) => {
+    try {
+        const response = await apiClient.put("/wardrobe", { wardrobeId, title }, {}, true)
+
+        return response.data
+
+    }catch(error) {
+        throw error
+    }
+} 
+
 export const removeWardrobe = async (wardrobeId) => {
     try {
-        const response = await apiClient.delete(`/wardrobe/${wardrobeId}`, { title }, {}, true)
+        const response = await apiClient.delete(`/wardrobe/${wardrobeId}`, {}, {}, true)
 
         return response.data
 

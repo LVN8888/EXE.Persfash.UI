@@ -62,12 +62,12 @@ const MainHeader = () => {
     try {
       const response = await viewAllWardrobe();
 
-      console.log(response);
+      // console.log(response);
       
       setCustomerWardrobe(response)
 
     }catch(error) {
-      console.log("Failed to load the customer wardrobe",error.response.data.message);
+      console.log("Failed to load the customer wardrobe",error.message);
       
     }
   }
@@ -211,8 +211,15 @@ const MainHeader = () => {
         label: <div onClick={() => navigate("/customer/customer-info")}>View Profile</div>,
     })
 
+    if (isPremium) {
+      userMenuItems.push({
+        key: "3",
+        label: <div onClick={() => navigate("/customer/customer-info")}>View Outfits</div>,
+    })
+    }
+
     userMenuItems.push({
-      key: "3",
+      key: "4",
       label: <div onClick={() => handleLogout()}>Log Out</div>,
   });
 }
@@ -231,7 +238,7 @@ const customerWardrobeMenu = [
 if (customerWardrobe.length > 0) {
   customerWardrobeMenu.push(
     ...customerWardrobe.map((wardrobe, index) => ({
-      key: `${index + 1}`,
+      key: `${index + 2}`,
       label: <div onClick={() => navigate(`/wardrobe/${wardrobe.wardrobeId}`)} className="font-avantgarde font-medium text-[#4949e9]">{wardrobe.notes}</div>,
     }))
   );
@@ -355,11 +362,6 @@ if (customerWardrobe.length > 0) {
                 disabled={!note.trim()}
                 onClick={() => {
                   handleAddNewWardrobe();
-                  // Handle the submit action, e.g., sending the question to your API
-                  // console.log('Submitted Question:', question);
-                  // handleSubmitSupportQuestion();
-
-                  // You may want to reset the input after submission
                   setNote("");
                   setVisibleCreateModal(false); // Close the modal after submission
                 }}

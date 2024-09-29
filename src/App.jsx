@@ -43,7 +43,7 @@ function App() {
             path="/payment/payment-review/:subscriptionId"
             element={<ReviewPaymentPage />}
           />
-          <Route path="/wardrobe" element={<WardrobePage />} />
+          <Route path="/wardrobe/:wardrobeId" element={<WardrobePage />} />
           <Route
             path="/customer/customer-info"
             element={<CustomerInformationPage />}

@@ -17,3 +17,17 @@ export const createPaymentSubscriptionUrl = async (subscriptionId, redirectUrl) 
         throw error
     }
 } 
+
+export const UpdatePaymentSubscriptionStatus = async (paymentId, status) => {
+    try {
+        const paymentUpdateReqModel = {
+            paymentId,
+            status
+        }
+        const response = await apiClient.put("/subscription/subscribe", paymentUpdateReqModel, {}, true )
+
+        return response.data;
+    }catch(error) {
+        throw error
+    }
+}
