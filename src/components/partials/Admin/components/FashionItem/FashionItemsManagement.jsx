@@ -40,11 +40,10 @@ const FashionItemsManagement = () => {
 
   const handleCreate = (values) => {
     if (editingItem) {
-      // Update existing item
-      
+      // Update existing item            
       handleUpdateFashionItem(editingItem.itemId, values.itemName, values.brand, values.category, values.price, values.fitType, 
         values.genderTarget, values.fashionTrend, values.size, values.color, values.material, values.occasion, 
-        values.thumbnail[0], values.productUrl, values.itemImages)
+        values.thumbnail, values.productUrl, values.itemImages)
 
       setEditingItem(null);
     } else {
@@ -171,7 +170,9 @@ const FashionItemsManagement = () => {
      try {
       const resposne = await viewFashionItems(page, pageSize);
       
-      setFashionItems(resposne.data);
+      // console.log(resposne.data);
+      
+      setFashionItems(resposne.data);      
 
       setTotalItems(resposne.totalItems);      
 
@@ -248,7 +249,10 @@ const FashionItemsManagement = () => {
       <FashionItemForm
         visible={isModalVisible}
         onCreate={handleCreate}
-        onCancel={() => setIsModalVisible(false)}
+        onCancel={() => {
+          setIsModalVisible(false);
+          viewAllFashionItem(currentPage);
+        }}
         initialValues={editingItem}
       />
     </div>

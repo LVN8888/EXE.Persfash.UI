@@ -110,25 +110,28 @@ const fashionStyleOptions = [
 
 const FashionItemForm = ({ visible, onCreate, onCancel, initialValues }) => {
   const [form] = Form.useForm();
-  const [thumbnailFile, setThumbnailFile] = useState([]);
+  const [thumbnailFile, setThumbnailFile] = useState(null);
   const [itemImagesFileList, setItemImagesFileList] = useState([]);
 
   // Khi initialValues thay đổi (ví dụ khi người dùng chọn "Update"), điền dữ liệu vào form
   useEffect(() => {
     if (initialValues) {
+      
       form.setFieldsValue(initialValues);
       if (initialValues.thumbnailURL) {
         form.setFieldsValue({thumbnail: initialValues.thumbnailURL})
-        setThumbnailFile([initialValues.thumbnailURL]); // Load thumbnail từ initialValues
+        setThumbnailFile(initialValues.thumbnailURL); // Load thumbnail từ initialValues
       }
       if (initialValues.itemImages) {
         form.setFieldsValue({itemImages: initialValues.itemImages})
         setItemImagesFileList(initialValues.itemImages); // Load danh sách ảnh sản phẩm từ initialValues
       }
     }else {
+      
         form.resetFields(); // Reset form fields
-        form.setFieldsValue({itemName: ""})
-        setThumbnailFile([]); // Clear thumbnail
+        form.setFieldsValue({itemName: "", brand: "", productUrl: "", category: [], fitType: [], genderTarget: [], size: [], color: [], 
+          material: [], occasion: [], price: 0, fashionTrend: []})
+        setThumbnailFile(); // Clear thumbnail
         setItemImagesFileList([]); // Clear item images
     }
   }, [initialValues, form]);
@@ -221,6 +224,17 @@ const FashionItemForm = ({ visible, onCreate, onCancel, initialValues }) => {
   }
 };
 
+const removeThumbnail = () => {
+  setThumbnailFile(null); // Clear the thumbnail file state
+};
+
+// Function to remove an image from the multiple product images list
+const removeItemImage = (indexToRemove) => {
+  const updatedImagesList = itemImagesFileList.filter((_, index) => index !== indexToRemove);
+  setItemImagesFileList(updatedImagesList); // Update the file list without the removed image
+  form.setFieldsValue({itemImages: [itemImagesFileList]})
+};
+
   return (
     <Modal
       open={visible}
@@ -229,10 +243,11 @@ const FashionItemForm = ({ visible, onCreate, onCancel, initialValues }) => {
       cancelText="Cancel"
       onCancel={() => {
         if (!initialValues) {
-          form.setFieldsValue({itemName: ""})
-          form.resetFields(); // Reset form fields
-        setThumbnailFile([]); // Clear thumbnail
-        setItemImagesFileList([]); // Clear item images
+          form.resetFields(null);
+          form.setFieldsValue({ itemName: "" });
+          // Reset form fields
+          setThumbnailFile(null); // Clear thumbnail
+          setItemImagesFileList([]); // Clear item images
         }
         onCancel();
       }}
@@ -247,10 +262,11 @@ const FashionItemForm = ({ visible, onCreate, onCancel, initialValues }) => {
 
             onCreate(values);
             if (!initialValues) {
-              form.setFieldsValue({itemName: ""})
-              form.resetFields(); // Reset form fields
-            setThumbnailFile([]); // Clear thumbnail
-            setItemImagesFileList([]); // Clear item images
+              form.resetFields();
+              form.setFieldsValue({ itemName: "" });
+              // Reset form fields
+              setThumbnailFile(null); // Clear thumbnail
+              setItemImagesFileList([]); // Clear item images
             }
 
             onCancel();
@@ -428,9 +444,15 @@ const FashionItemForm = ({ visible, onCreate, onCancel, initialValues }) => {
             <Form.Item
               name="fashionTrend"
               label="Fashion Trend"
-              rules={[{ required: true, message: "Please select a fashion trend!" }]}
+              rules={[
+                { required: true, message: "Please select a fashion trend!" },
+              ]}
             >
-              <Select mode="multiple" showSearch options={fashionStyleOptions} />
+              <Select
+                mode="multiple"
+                showSearch
+                options={fashionStyleOptions}
+              />
             </Form.Item>
           </Col>
         </Row>
@@ -452,7 +474,7 @@ const FashionItemForm = ({ visible, onCreate, onCancel, initialValues }) => {
                 onChange={handleThumbnailChange}
                 className="mt-4" // Optional: hide this using 'hidden' if needed
               />
-              {thumbnailFile.length > 0 && (
+              {thumbnailFile && (
                 <img
                   src={thumbnailFile}
                   alt="Thumbnail Preview"
@@ -487,6 +509,25 @@ const FashionItemForm = ({ visible, onCreate, onCancel, initialValues }) => {
                       alt="images item"
                       style={{ width: 60, height: 60, marginTop: 10 }}
                     />
+                    <Button
+          type="link"
+          onClick={() => removeItemImage(index)}
+          style={{
+            position: 'absolute',
+            top: 5,
+            right: 5,
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            color: 'red',
+            border: 'none',
+            fontWeight: 'bold',
+            fontSize: '12px',
+            padding: '2px 6px',
+            borderRadius: '50%',
+            cursor: 'pointer',
+          }}
+        >
+          ✕
+        </Button>
                   </Col>
                 ))}
               </Row>
