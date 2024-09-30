@@ -1,8 +1,16 @@
-import React, { useState } from "react";
-import { Table, Button, Space, Image } from "antd";
+import React, { useEffect, useState } from "react";
+import { Table, Button, Space, Image, message } from "antd";
 import FashionItemForm from "./FashionItemForm";
+import { addNewFashionItem, updateFashionItem, viewFashionItems } from "../../../../../services/FashionItemApi";
+import { uploadImages } from "../../../../../services/FileApi";
 
 const FashionItemsManagement = () => {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalItems, setTotalItems] = useState(1);
+    const pageSize = 10; // Set the page size
+
+  const [fashionItems, setFashionItems] = useState([]);
   // Thêm dữ liệu với 50 items
   const [data, setData] = useState(
     Array.from({ length: 50 }, (_, i) => ({
@@ -33,17 +41,19 @@ const FashionItemsManagement = () => {
   const handleCreate = (values) => {
     if (editingItem) {
       // Update existing item
-      setData((prev) =>
-        prev.map((item) =>
-          item.itemId === editingItem.itemId ? { ...item, ...values } : item
-        )
-      );
+      
+      handleUpdateFashionItem(editingItem.itemId, values.itemName, values.brand, values.category, values.price, values.fitType, 
+        values.genderTarget, values.fashionTrend, values.size, values.color, values.material, values.occasion, 
+        values.thumbnail[0], values.productUrl, values.itemImages)
+
       setEditingItem(null);
     } else {
-      // Add new item
-      const newItem = { ...values, itemId: data.length + 1 };
-      setData([...data, newItem]);
-    }
+      // Add new item      
+      handleCreateNewFashionItem(values.itemName, values.brand, values.category, values.price, values.fitType, 
+        values.genderTarget, values.fashionTrend, values.size, values.color, values.material, values.occasion, 
+        values.thumbnail, values.productUrl, values.itemImages)
+      
+    }    
     setIsModalVisible(false);
   };
 
@@ -56,6 +66,120 @@ const FashionItemsManagement = () => {
     setEditingItem(null);
     setIsModalVisible(true);
   };
+
+  const handleUpdateFashionItem = async (
+    itemId,
+    itemName,
+    brand,
+    category,
+    price,
+    fitType,
+    genderTarget,
+    fashionTrend,
+    size,
+    color,
+    material,
+    occasion,
+    thumbnail,
+    productUrl,
+    itemImages
+  ) => {
+    try {
+      const response = await updateFashionItem(itemId, itemName, brand, category, price, fitType, 
+        genderTarget, fashionTrend, size, color, material, occasion, thumbnail, productUrl, itemImages )
+      message.success({
+        content: "Update fashion item successfully!",
+        style: {
+          marginTop: '10px',
+          fontSize: '20px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
+        duration: 2,
+    });
+
+    viewAllFashionItem(currentPage);
+
+    }catch(error) {
+      console.error("Error creating new item:", error);
+      message.error({
+          content: error.response.data.message,
+          style: {
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
+          duration: 2,
+      });
+    }
+  }
+
+  const handleCreateNewFashionItem = async (
+    itemName,
+    brand,
+    category,
+    price,
+    fitType,
+    genderTarget,
+    fashionTrend,
+    size,
+    color,
+    material,
+    occasion,
+    thumbnail,
+    productUrl,
+    itemImages
+  ) => {
+    try {
+      const response = await addNewFashionItem(itemName, brand, category, price, fitType, 
+        genderTarget, fashionTrend, size, color, material, occasion, thumbnail, productUrl, itemImages )
+
+        message.success({
+          content: "Create new fashion item successfully!",
+          style: {
+            marginTop: '10px',
+            fontSize: '20px', 
+            padding: '10px',
+            position: 'absolute',
+            right: '10px'
+        },
+          duration: 2,
+      });
+
+      viewAllFashionItem(currentPage);
+
+    }catch(error) {
+      console.error("Error creating new item:", error);
+            message.error({
+                content: error.response.data.message,
+                style: {
+                  marginTop: '10px',
+                  fontSize: '20px', 
+                  padding: '10px',
+                  position: 'absolute',
+                  right: '10px'
+              },
+                duration: 2,
+            });
+    }
+  }
+
+  const viewAllFashionItem = async (page) => {
+     try {
+      const resposne = await viewFashionItems(page, pageSize);
+      
+      setFashionItems(resposne.data);
+
+      setTotalItems(resposne.totalItems);      
+
+     }catch(error){
+       console.log("Failed to load fashion items", error);
+       
+     }
+  }
 
   const columns = [
     {
@@ -100,6 +224,15 @@ const FashionItemsManagement = () => {
     },
   ];
 
+  useEffect(() => {
+    viewAllFashionItem(currentPage);
+  }, [currentPage])
+
+  const onPageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Manage Fashion Items</h2>
@@ -108,9 +241,9 @@ const FashionItemsManagement = () => {
       </Button>
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={fashionItems}
         rowKey="itemId"
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: pageSize, current: currentPage, total: totalItems, onChange: onPageChange }}
       />
       <FashionItemForm
         visible={isModalVisible}
