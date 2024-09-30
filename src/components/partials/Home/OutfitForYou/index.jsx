@@ -41,9 +41,10 @@ const OutfitForYou = () => {
 
       setCurrCustomer(response.data)
       
-      if (response.data.isDoneProfileSetup === false) {
-        navigate("/profile-setup")
-      }
+      // if (response.data.isDoneProfileSetup === false) {
+      //   navigate("/profile-setup")
+      // }
+      return (response.data.isDoneProfileSetup)
 
     }catch(error){
       console.log("Failed to fetch customer information", error);
@@ -123,11 +124,20 @@ const OutfitForYou = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    if (token) {
-      fetchCustomerInfo();
-      fetchCustomerFashionItemRecommendation();
-      fetchCustomerOutfitRecommendation();
-    } 
+    const fetchAllData = async () => {
+      if (token) {
+        var res = await fetchCustomerInfo();
+ 
+        if (res === true) {
+         fetchCustomerFashionItemRecommendation();
+         fetchCustomerOutfitRecommendation();
+        }else {
+         navigate("/profile-setup")
+        }
+ 
+     } 
+    }
+    fetchAllData();
   }, [])
 
   return (

@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       if (data) {        
         setUser(data);
         setIsAuthenticated(true);
-        await checkProfileSetup();
+        // await checkProfileSetup();
       } else {
         setIsAuthenticated(false);
       }
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("accessToken", data.token);
       localStorage.setItem("refreshToken", data.refreshToken);
       
-      await checkProfileSetup();
+      // await checkProfileSetup();
 
       return userData;
     } catch (error) {
