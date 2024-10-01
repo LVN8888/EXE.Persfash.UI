@@ -162,3 +162,14 @@ export const filterSearchFashionItem = async (
       throw error
     }
   }
+
+  export const  viewDetailsFashionItem = async (itemId) => {
+    try {
+      const response = await apiClient.get(`/fashionitem/${itemId}`)
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }

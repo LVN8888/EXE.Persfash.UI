@@ -15,7 +15,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import moment from "moment";
 import AxiosHelper from "../../../AxiosHelper";
 import { useAuth } from "../../../hooks/useAuth";
-import { customerRegister } from "../../../services/CustomerApi";
+import { checkCustomerProfile, customerRegister } from "../../../services/CustomerApi";
 import { LoginGoogle } from "../../../services/LoginApi";
 
 const Register = () => {
