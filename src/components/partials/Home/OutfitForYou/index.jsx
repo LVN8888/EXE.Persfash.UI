@@ -392,7 +392,7 @@ const OutfitForYou = () => {
               <img
                 src={currFashionItem.thumbnailURL}
                 alt={`${currFashionItem.itemName} Thumbnail`}
-                className="w-[80%] h-[80%] rounded-lg shadow-lg"
+                className="w-full h-[350px] object-cover rounded-lg shadow-lg"
               />
             </div>
 
@@ -527,7 +527,7 @@ const OutfitForYou = () => {
                   <img
                     src={currOutfit.topItem.thumbnailURL}
                     alt={currOutfit.topItem.itemName}
-                    className="w-[80%] h-[80%] rounded-lg shadow-lg object-cover"
+                    className="w-[80%] h-[100%] rounded-lg shadow-lg object-cover"
                   />
                 </div>
                 <div className="w-3/5 pl-4">
@@ -554,7 +554,7 @@ const OutfitForYou = () => {
                   <img
                     src={currOutfit.bottomItem.thumbnailURL}
                     alt={currOutfit.bottomItem.itemName}
-                    className="w-[80%] h-[80%] rounded-lg shadow-lg object-cover"
+                    className="w-[80%] h-[100%] rounded-lg shadow-lg object-cover"
                   />
                 </div>
                 <div className="w-3/5 pl-4">
@@ -581,7 +581,7 @@ const OutfitForYou = () => {
                   <img
                     src={currOutfit.shoesItem.thumbnailURL}
                     alt={currOutfit.shoesItem.itemName}
-                    className="w-[80%] h-[80%] rounded-lg shadow-lg object-cover"
+                    className="w-[80%] h-[100%] rounded-lg shadow-lg object-cover"
                   />
                 </div>
                 <div className="w-3/5 pl-4">
@@ -608,7 +608,7 @@ const OutfitForYou = () => {
                   <img
                     src={currOutfit.accessoriesItem.thumbnailURL}
                     alt={currOutfit.accessoriesItem.itemName}
-                    className="w-[80%] h-[80%] rounded-lg shadow-lg object-cover"
+                    className="w-[80%] h-[100%] rounded-lg shadow-lg object-cover"
                   />
                 </div>
                 <div className="w-3/5 pl-4">
@@ -637,7 +637,7 @@ const OutfitForYou = () => {
                   <img
                     src={currOutfit.dressItem.thumbnailURL}
                     alt={currOutfit.dressItem.itemName}
-                    className="w-[80%] h-[80%] rounded-lg shadow-lg object-cover"
+                    className="w-[80%] h-[100%] rounded-lg shadow-lg object-cover"
                   />
                 </div>
                 <div className="w-3/5 pl-4">
@@ -757,7 +757,7 @@ const OutfitForYou = () => {
                         id={outfit.dressItem.itemId}
                         src={outfit.dressItem.thumbnailURL}
                         alt={`Dress - ${outfit.dressItem.itemName}`}
-                        className="w-full h-[200px] object-cover border rounded-lg transition-transform duration-300 ease-in-out cursor-pointer"
+                        className="w-full h-[200px] object-cover border rounded-lg transition-transform duration-300 ease-in-out cursor-pointer object-top"
                       />
                     </div>
                   )}

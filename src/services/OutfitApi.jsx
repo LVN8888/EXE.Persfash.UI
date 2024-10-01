@@ -46,3 +46,14 @@ export const addFavoriteOutfit = async (outfitId) => {
         throw error
     }
 } 
+
+export const removeFavoriteOutfit = async (outfitId) => {
+    try {
+        const response = await apiClient.delete(`/outfit/favorite/${outfitId}`, {} , {}, true)
+
+        return response.data
+
+    }catch(error) {
+        throw error
+    }
+} 

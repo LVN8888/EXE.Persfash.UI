@@ -73,3 +73,12 @@ export const addItemToWardrobe = async (wardrobeId, itemId) => {
         throw error
     }
 }
+
+export const removeItemFromWardrobe = async (wardrobeItemId) => {
+    try {
+        const response = await apiClient.delete(`/wardrobe/item/${wardrobeItemId}`, {}, {}, true);
+        return response;
+    }catch(error) {
+        throw error;
+    }
+}

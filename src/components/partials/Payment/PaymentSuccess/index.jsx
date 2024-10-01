@@ -102,7 +102,7 @@ const PaymentSuccess = () => {
               <li className="flex flex-wrap items-center">
                 <span className="font-medium mr-4">Amount:</span>
                 <span className="text-lg text-blue-700 font-bold">
-                  {amount ? amount : 49000} VND
+                  {amount} VND
                 </span>
               </li>
               {isPaid && transactions.length > 0 && (

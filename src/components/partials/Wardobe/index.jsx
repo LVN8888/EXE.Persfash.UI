@@ -3,11 +3,12 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Importing carousel styles
 import image3 from "../../../assets/img/main.png"; // Placeholder image
 import { useNavigate, useParams } from "react-router-dom";
-import { removeWardrobe, updateWardrobe, viewAllWardrobe, viewDetailWardrobe } from "../../../services/WardrobeApi";
+import { removeItemFromWardrobe, removeWardrobe, updateWardrobe, viewAllWardrobe, viewDetailWardrobe } from "../../../services/WardrobeApi";
 import { AuthContext } from "../../../context/AuthContext";
 import { viewCurrentUserInfo } from "../../../services/CustomerApi";
 import Modal from 'antd/lib/modal';
 import { Button, Input, message } from "antd";
+import { viewDetailsFashionItem } from "../../../services/FashionItemApi";
 
 const Wardrobe = ({ username }) => {
   // Categories of wardrobe items like shirts, pants, shoes, etc.
@@ -33,7 +34,13 @@ const Wardrobe = ({ username }) => {
   const [visibleUpdateModal, setVisibleUpdateModal] = useState(false);
   const [visibleRemoveModal, setVisibleRemoveModal] = useState(false);
 
+  const [visibleItemModal, setVisibleItemModal] = useState(false);
+
+  const [currFashionItem, setCurrFashionItem] = useState({})
+
   const [note, setNote] = useState('');
+
+  const [currWardrobeItem, setCurrWardrobeItem] = useState(0)
 
   const navigate = useNavigate();
 
@@ -82,7 +89,10 @@ const Wardrobe = ({ username }) => {
 
   const fetchCurrentUserWardrobe = async (wardrobeId) => {
     try {
-      const response = await viewDetailWardrobe(wardrobeId);      
+      const response = await viewDetailWardrobe(wardrobeId);     
+      
+      console.log(response);
+      
 
       setCurrWardrobe(response);        
       setNote(response.notes)
@@ -149,6 +159,65 @@ const Wardrobe = ({ username }) => {
 
     }catch(error) {
       console.log("Failed to update wardrobe ", error);
+      message.error({
+        content: error.response.data.message,
+        style: {
+          marginTop: '10px',
+          fontSize: '16px',   // Slightly smaller font size for better readability
+          backgroundColor: '#fff3f3', // Light background color for better visibility
+          position: 'absolute',
+          right: '10px',
+          whiteSpace: 'pre-line', // Allow line breaks in the message
+        },
+        duration: 2,
+    });
+    }
+  }
+
+  const handleClickItem = (itemId, wardrobeItemId) => {
+    setCurrWardrobeItem(wardrobeItemId);
+    setVisibleItemModal(true);
+    fetchDetailsFashionItem(itemId)
+  }
+
+  const handleClickRemoveItem = (wardrobeItemId) => {
+    removeFashionItemFromWardrobe(wardrobeItemId);
+    setVisibleItemModal(false);
+  }
+
+  const fetchDetailsFashionItem = async (itemId) => {
+    try {
+      const response = await viewDetailsFashionItem(itemId);
+
+      console.log(response);
+
+      setCurrFashionItem(response);
+
+    }catch(error) {
+      console.log("Failed to fetch details information  wardrobe ", error);
+    }
+  }
+
+  const removeFashionItemFromWardrobe = async (wardrobeItemId) => {
+    try {      
+      const response = await removeItemFromWardrobe(wardrobeItemId);
+
+      fetchCurrentUserWardrobe(wardrobeId);
+
+      message.success({
+        content: "Remove item from wardrobe successfully!",
+        style: {
+          marginTop: '10px',
+          fontSize: '18px', 
+          padding: '10px',
+          position: 'absolute',
+          right: '10px'
+      },
+        duration: 2,
+    });
+
+    }catch(error) {
+      console.log("Failed to remove selected item from wardrobe ", error);
       message.error({
         content: error.response.data.message,
         style: {
@@ -235,12 +304,13 @@ const Wardrobe = ({ username }) => {
                   transitionTime={500} // Smooth transition
                 >
                   {items.map((item) => (
-                    <div key={item.item.itemId} className="p-4">
+                    <div key={item.item.itemId} className="p-4" 
+                    onClick={() => handleClickItem(item.item.itemId, item.wardrobeItemId)}>
                       <img
                         id={item.item.itemId}
                         src={item.item.thumbnailURL}
                         alt={`Wardrobe item ${item.item.itemName}`}
-                        className="rounded-lg w-full h-[300px] object-cover shadow-lg"
+                        className="rounded-lg w-full h-[450px] object-cover shadow-lg"
                       />
                     </div>
                   ))}
@@ -255,6 +325,113 @@ const Wardrobe = ({ username }) => {
           </div>
         )}
       </div>
+
+
+      <Modal
+        centered
+        title="Fashion Item Details"
+        open={visibleItemModal}
+        onCancel={() => {
+          setVisibleItemModal(false);
+        }}
+        footer={null}
+        className="font-medium text-[#4949e9] font-avantgarde"
+        // style={{width: "80%", maxWidth: "800px"}}
+        width={750}
+      >
+        {currFashionItem ? (
+          <div className="flex">
+            {/* Left side: Thumbnail */}
+            <div className="w-2/5">
+              <img
+                src={currFashionItem.thumbnailURL}
+                alt={`${currFashionItem.itemName} Thumbnail`}
+                className="w-full h-[350px]rounded-lg shadow-lg"
+              />
+            </div>
+
+            {/* Right side: Item details */}
+            <div className="w-3/5 pl-6">
+              <h2 className="font-bold text-xl mb-2">
+                {currFashionItem.itemName}
+              </h2>
+              <p>
+                <strong>Brand:</strong> {currFashionItem.brand}
+              </p>
+              <p>
+                <strong>Category:</strong> {currFashionItem.category}
+              </p>
+              <p>
+                <strong>Color:</strong> {currFashionItem.color}
+              </p>
+              <p>
+                <strong>Material:</strong> {currFashionItem.material}
+              </p>
+              <p>
+                <strong>Size:</strong> {currFashionItem.size}
+              </p>
+              <p>
+                <strong>Fit Type:</strong> {currFashionItem.fitType}
+              </p>
+              <p>
+                <strong>Fashion Trend:</strong> {currFashionItem.fashionTrend}
+              </p>
+              <p>
+                <strong>Gender:</strong> {currFashionItem.genderTarget}
+              </p>
+              <p>
+                <strong>Occasion:</strong> {currFashionItem.occasion}
+              </p>
+              <p>
+                <strong>Price:</strong> {currFashionItem.price} VND
+              </p>
+
+              {/* Item Images */}
+              {currFashionItem.itemImages &&
+                currFashionItem.itemImages.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="font-semibold mb-2">More Images</h3>
+                    <div className="grid grid-cols-2 gap-2">
+                      {currFashionItem.itemImages.map((image, index) => (
+                        <img
+                          key={index}
+                          src={image}
+                          alt={`Item Image ${index + 1}`}
+                          className="w-[60px] h-[60px] object-cover rounded-lg"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+              {/* Buttons */}
+              <div className="mt-6">
+                <Button
+                  style={{ backgroundColor: "#4949e9", color: "#b3ff00" }}
+                  className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
+                  onClick={() => {
+                    window.open(currFashionItem.productUrl, "_blank");
+                  }}
+                >
+                  Buy Now
+                </Button>
+
+                <Button
+                  style={{ backgroundColor: "#4949e9", color: "#b3ff00" }}
+                  className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
+                  onClick={() => handleClickRemoveItem(currWardrobeItem)}
+                >
+                  Remove from wardrobe
+                </Button>
+
+
+              </div>
+            </div>
+          </div>
+        ) : (
+          <p>Loading item details...</p>
+        )}
+      </Modal>
 
       <Modal
         centered
