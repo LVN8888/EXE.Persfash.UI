@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/layouts/Sidebar";
 import Header from "../components/layouts/Header";
-import SubscriptionManagement from "../components/SubscriptionManagement"; // Component quản lý Subscription
+import SubscriptionManagement from "../components/Subscription/SubscriptionManagement"; // Component quản lý Subscription
 import Footer from "../../../layouts/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

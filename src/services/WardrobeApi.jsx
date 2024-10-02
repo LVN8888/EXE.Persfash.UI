@@ -36,9 +36,9 @@ export const addNewWardrobe = async (title) => {
     }
 } 
 
-export const removeWardrobe = async (wardrobeId) => {
+export const updateWardrobe = async (wardrobeId, title) => {
     try {
-        const response = await apiClient.delete(`/wardrobe/${wardrobeId}`, { title }, {}, true)
+        const response = await apiClient.put("/wardrobe", { wardrobeId, title }, {}, true)
 
         return response.data
 
@@ -46,3 +46,39 @@ export const removeWardrobe = async (wardrobeId) => {
         throw error
     }
 } 
+
+export const removeWardrobe = async (wardrobeId) => {
+    try {
+        const response = await apiClient.delete(`/wardrobe/${wardrobeId}`, {}, {}, true)
+
+        return response.data
+
+    }catch(error) {
+        throw error
+    }
+}
+
+export const addItemToWardrobe = async (wardrobeId, itemId) => {
+
+    const createModel = {
+        wardrobeId: wardrobeId,
+        itemId: itemId
+    }
+
+    try {
+        const response = await apiClient.post("/wardrobe/item", createModel, {}, true)
+
+        return response;
+    }catch(error){
+        throw error
+    }
+}
+
+export const removeItemFromWardrobe = async (wardrobeItemId) => {
+    try {
+        const response = await apiClient.delete(`/wardrobe/item/${wardrobeItemId}`, {}, {}, true);
+        return response;
+    }catch(error) {
+        throw error;
+    }
+}

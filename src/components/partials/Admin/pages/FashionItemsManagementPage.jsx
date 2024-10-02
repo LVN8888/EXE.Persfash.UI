@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../components/layouts/Sidebar";
 import Header from "../components/layouts/Header";
-import FashionItemsManagement from "../components/FashionItemsManagement"; // Component quản lý Fashion Items
+import FashionItemsManagement from "../components/FashionItem/FashionItemsManagement"; // Component quản lý Fashion Items
 import Footer from "../../../layouts/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

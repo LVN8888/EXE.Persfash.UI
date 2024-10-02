@@ -403,6 +403,7 @@ const fashionStyleOptions = [
   { label: 'Bohemian', value: 'Bohemian' },
   { label: 'Luxury', value: 'Luxury' },
   { label: 'Sporty', value: 'Sporty' },
+  { label: 'Trendy', value: 'Trendy' },
 ];
 
 const fitPreferencesOptions = [
@@ -428,6 +429,7 @@ const preferredSizeOptions = [
   { label: '42', value: '42' },
   { label: '43', value: '43' },
   { label: '44', value: '44' },
+  { label: 'One Size', value: 'One Size' },
 ];
 
 const preferredColorsOptions = [
@@ -454,6 +456,11 @@ const preferredMaterialsOptions = [
   { label: 'Leather', value: 'Leather' },
   { label: 'Linen', value: 'Linen' },
   { label: 'Nylon', value: 'Nylon' },
+  { label: 'Corduroy', value: 'Corduroy' },
+  { label: 'Rubber', value: 'Rubber' },
+  { label: 'Canvas', value: 'Canvas' },
+  { label: 'Metal', value: 'Metal' },
+  { label: 'Plastic', value: 'Plastic' },
 ];
 
 const occasionOptions = [

@@ -64,3 +64,112 @@ export const filterSearchFashionItem = async (
       throw error; // Re-throw the error for further handling
     }
   };
+
+  export const  viewFashionItems = async (pageIndex, sizeIndex) => {
+    try {
+      const response = await apiClient.get("/fashionitem/view/admin", {pageIndex, sizeIndex})
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }
+
+  export const  addNewFashionItem = async (
+    itemName,
+    brand,
+    category,
+    price,
+    fitType,
+    genderTarget,
+    fashionTrend,
+    size,
+    color,
+    material,
+    occasion,
+    thumbnail,
+    productUrl,
+    itemImages) => {
+    try {
+
+      const createModel = {
+        itemName: itemName,
+        brand: brand,
+        category,
+        price: price,
+        fitType: fitType,
+        genderTarget: genderTarget,
+        fashionTrend: fashionTrend,
+        size: size,
+        color: color,
+        material: material,
+        occasion: occasion,
+        thumbnail: thumbnail,
+        productUrl: productUrl,
+        itemImages: itemImages}
+
+      const response = await apiClient.post("/fashionitem", createModel, {}, true)
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }
+
+
+  export const  updateFashionItem = async (
+    itemId,
+    itemName,
+    brand,
+    category,
+    price,
+    fitType,
+    genderTarget,
+    fashionTrend,
+    size,
+    color,
+    material,
+    occasion,
+    thumbnail,
+    productUrl,
+    itemImages) => {
+    try {
+
+      const fashionItemUpdateReqModel = {
+        itemId: itemId,
+        itemName: itemName,
+        brand: brand,
+        category,
+        price: price,
+        fitType: fitType,
+        genderTarget: genderTarget,
+        fashionTrend: fashionTrend,
+        size: size,
+        color: color,
+        material: material,
+        occasion: occasion,
+        thumbnail: thumbnail,
+        productUrl: productUrl,
+        itemImages: itemImages}
+
+      const response = await apiClient.put("/fashionitem", fashionItemUpdateReqModel, {}, true)
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }
+
+  export const  viewDetailsFashionItem = async (itemId) => {
+    try {
+      const response = await apiClient.get(`/fashionitem/${itemId}`)
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }

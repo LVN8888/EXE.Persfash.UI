@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Input, Button, Checkbox, Collapse, Spin, message } from "antd";
+import { Input, Button, Checkbox, Collapse, Spin, message, Pagination } from "antd";
 import { filterSearchFashionItem } from "../../../services/FashionItemApi";
 // import { searchProducts } from "../../../../services/SearchApi"; // Example service
 
@@ -16,6 +16,7 @@ const fashionStyleOptions = [
   { label: 'Bohemian', value: 'Bohemian' },
   { label: 'Luxury', value: 'Luxury' },
   { label: 'Sporty', value: 'Sporty' },
+  { label: 'Trendy', value: 'Trendy' },
 ];
 
 const fitPreferencesOptions = [
@@ -41,6 +42,7 @@ const preferredSizeOptions = [
   { label: '42', value: '42' },
   { label: '43', value: '43' },
   { label: '44', value: '44' },
+  { label: 'One Size', value: 'One Size' },
 ];
 
 const preferredColorsOptions = [
@@ -67,6 +69,11 @@ const preferredMaterialsOptions = [
   { label: 'Leather', value: 'Leather' },
   { label: 'Linen', value: 'Linen' },
   { label: 'Nylon', value: 'Nylon' },
+  { label: 'Corduroy', value: 'Corduroy' },
+  { label: 'Rubber', value: 'Rubber' },
+  { label: 'Canvas', value: 'Canvas' },
+  { label: 'Metal', value: 'Metal' },
+  { label: 'Plastic', value: 'Plastic' },
 ];
 
 const occasionOptions = [
@@ -109,11 +116,17 @@ export const SearchResult = () => {
 
     const [loading, setLoading] = useState(false);
   
+
+    //Pagination 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalItems, setTotalItems] = useState(1);
+    const pageSize = 10; // Set the page size
+
     useEffect(() => {
-      if (searchValue) {
-        handleSearch();
-      }
-    }, []);
+      // if (searchValue) {
+        handleSearch(currentPage, true);
+      // }
+    }, [currentPage]);
   
     const handleSearchInputChange = (e) => {
         setSearchValue(e.target.value);
@@ -126,15 +139,15 @@ export const SearchResult = () => {
       });
     };
   
-    const handleSearch = async () => {
+    const handleSearch = async (page = 1, isPageChange = false) => {
       setLoading(true);
       try {
         // Simulate an API call
-        console.log("Filters being applied:", category);
+        // console.log("Filters being applied:", category);
         
         const response = await filterSearchFashionItem(
-            1,
-            10,
+            page,
+            pageSize,
             searchValue,
             category,
             fitPreferences,
@@ -152,14 +165,31 @@ export const SearchResult = () => {
 
         // console.log(filters.fitpreferences);
         
-        console.log(response);
+        // console.log(response);
         
         setSearchResults(response.data);
+
+        setTotalItems(response.totalItems);
+
+        // reset page về 1 khi apply search
+         // kiểm tra is page changed để bt ng dùng có ấn search ko search thì về 1, ko thì đang chuyển trang ko fetch lại api search
+        if (!isPageChange) {
+          setCurrentPage(1) 
+        }
+
       } catch (error) {
         console.error("Error searching:", error);
       } finally {
         setLoading(false);
       }
+    };
+
+    const handleSearchSubmit = () => {
+      handleSearch(1, false);
+    }
+
+    const onPageChange = (page) => {
+      setCurrentPage(page);
     };
 
     return (
@@ -170,11 +200,12 @@ export const SearchResult = () => {
             placeholder="Search for products..."
             onChange={handleSearchInputChange}
             value={searchValue}
-            onSearch={handleSearch}
+            onSearch={() => handleSearchSubmit()}
             style={{ width: 400 }}
             enterButton={
-              <Button style={{ backgroundColor: "#4949E9", color: "#fff" }}
-              // disabled={!searchValue.trim()}
+              <Button
+                style={{ backgroundColor: "#4949E9", color: "#fff" }}
+                // disabled={!searchValue.trim()}
               >
                 Search
               </Button>
@@ -277,23 +308,36 @@ export const SearchResult = () => {
             {loading ? (
               <Spin size="large" />
             ) : searchResults.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {searchResults.map((result, index) => (
-                  <div
-                    key={index}
-                    className="border rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
-                  >
-                    <img
-                      src={result.thumbnailURL}
-                      alt={result.itemName}
-                      className="w-full h-64 object-cover rounded-md"
-                    />
-                    <h3 className="font-medium text-lg mt-1 font-avantgarde">{result.itemName}</h3>
-                  </div>
-                ))}
-              </div>
+              <>
+                {/* Render search results */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                  {searchResults.map((result, index) => (
+                    <div
+                      key={index}
+                      className="border rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
+                    >
+                      <img
+                        src={result.thumbnailURL}
+                        alt={result.itemName}
+                        className="w-full h-64 object-cover rounded-md object-top"
+                      />
+                      <h3 className="font-medium text-lg mt-1 font-avantgarde">
+                        {result.itemName}
+                      </h3>
+                    </div>
+                  ))}
+                </div>
+                {/* Pagination */}
+                <Pagination
+                  className="mt-4 font-medium"
+                  current={currentPage}
+                  pageSize={pageSize}
+                  total={totalItems}
+                  onChange={onPageChange}
+                />
+              </>
             ) : (
-              <p className="font-medium font-avantgarde">No results found.</p>
+              <p className="font-medium font-avantgarde ml-4 text-2xl text-center">No results found</p>
             )}
           </div>
         </div>

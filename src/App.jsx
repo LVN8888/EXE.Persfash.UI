@@ -25,6 +25,7 @@ import PublicRoute from "./RouteConfig/PublicRoute.jsx";
 import FashionItemsManagementPage from "./components/partials/Admin/pages/FashionItemsManagementPage.jsx";
 import SubscriptionManagementPage from "./components/partials/Admin/pages/SubscriptionManagementPage.jsx";
 import { SearchResultPage } from "./pages/SearchResultPage/index.jsx";
+import { FavoriteOutfitPage } from "./pages/FavoriteOutfitPage/index.jsx";
 
 function App() {
   return (
@@ -43,7 +44,8 @@ function App() {
             path="/payment/payment-review/:subscriptionId"
             element={<ReviewPaymentPage />}
           />
-          <Route path="/wardrobe" element={<WardrobePage />} />
+          <Route path="/wardrobe/:wardrobeId" element={<WardrobePage />} />
+          <Route path="/favorite-outfit" element={<FavoriteOutfitPage />} />
           <Route
             path="/customer/customer-info"
             element={<CustomerInformationPage />}
