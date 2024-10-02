@@ -12,7 +12,7 @@ export const uploadImages = async (imagesFile) => {
             formData.append('images', file); // 'images' is the key that the server expects
         });
 
-        const response = await apiClient.post('/file/image', formData, {
+        const response = await apiClient.post('/file/cloudinary/image', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data', // Set the correct content type for file uploads
             },

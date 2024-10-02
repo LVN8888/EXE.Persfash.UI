@@ -26,6 +26,7 @@ const fitTypeOptions = [
   { label: "Regular", value: "Regular" },
   { label: "Slim", value: "Slim" },
   { label: "Loose", value: "Loose" },
+  { label: 'Tight', value: 'Tight' },
 ];
 
 const genderOptions = [

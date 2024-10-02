@@ -203,7 +203,17 @@ export const EditProfileSetup = () => {
             <Form.Item
               label="Fashion Style"
               name="FashionStyle"
-              rules={[{ required: true, message: 'At least one Fashion Style is required.' }]}
+              rules={[
+                { required: true, message: 'Fashion Style is required.' },
+                {
+                  validator: (_, value) => {
+                    if (value && value.length >= 3) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Please select at least three Fashion Style.'));
+                  }
+                }
+              ]}
               className='font-avantgarde font-medium'
             >
               <Select
@@ -245,7 +255,17 @@ export const EditProfileSetup = () => {
             <Form.Item
               label="Preferred Size"
               name="PreferredSize"
-              rules={[{ required: true, message: 'At least one Preferred Size is required.' }]}
+              rules={[
+                { required: true, message: 'Preferred size is required.' },
+                {
+                  validator: (_, value) => {
+                    if (value && value.length >= 3) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Please select at least three preferred size.'));
+                  }
+                }
+              ]}
               className='font-avantgarde font-medium'
             >
               <Select
@@ -266,7 +286,17 @@ export const EditProfileSetup = () => {
             <Form.Item
               label="Preferred Colors"
               name="PreferredColors"
-              rules={[{ required: true, message: 'At least one Preferred Color is required.' }]}
+              rules={[
+                { required: true, message: 'Preferred Colors is required.' },
+                {
+                  validator: (_, value) => {
+                    if (value && value.length >= 2) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Please select at least two Preferred Colors.'));
+                  }
+                }
+              ]}
               className='font-avantgarde font-medium'
             >
               <Select
@@ -287,7 +317,17 @@ export const EditProfileSetup = () => {
             <Form.Item
               label="Preferred Materials"
               name="PreferredMaterials"
-              rules={[{ required: true, message: 'At least one Preferred Material is required.' }]}
+              rules={[
+                { required: true, message: 'Preferred Materials is required.' },
+                {
+                  validator: (_, value) => {
+                    if (value && value.length >= 3) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Please select at least three Preferred Materials.'));
+                  }
+                }
+              ]}
               className='font-avantgarde font-medium'
             >
               <Select
@@ -308,7 +348,17 @@ export const EditProfileSetup = () => {
             <Form.Item
               label="Occasion"
               name="Occasion"
-              rules={[{ required: true, message: 'At least one Occasion is required.' }]}
+              rules={[
+                { required: true, message: 'Occasion is required.' },
+                {
+                  validator: (_, value) => {
+                    if (value && value.length >= 2) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Please select at least two Occasion.'));
+                  }
+                }
+              ]}
               className='font-avantgarde font-medium'
             >
               <Select
