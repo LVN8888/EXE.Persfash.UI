@@ -8,13 +8,13 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  XAxis,
-  YAxis,
 } from "recharts";
 import {
   getDashboardData,
   getDashboardDataByDate,
 } from "../../../../services/Admin/DashboardAPI";
+import XAxisCustom from "./custom/XAxisCustom"; // Import XAxisCustom
+import YAxisCustom from "./custom/YAxisCustom"; // Import YAxisCustom
 
 const { RangePicker } = DatePicker;
 
@@ -55,9 +55,9 @@ const Dashboard = () => {
         formattedStartDate,
         formattedEndDate
       );
-      setRevenueInRange(response.data.totalRevenueDateRange || 0);
+      setRevenueInRange(response.totalRevenueDateRange || 0);
 
-      const chartDataFromApi = response.data.revenueDateRange || {};
+      const chartDataFromApi = response.revenueDateRange || {};
       const formattedChartData = Object.keys(chartDataFromApi).map((date) => ({
         day: date,
         revenue: chartDataFromApi[date],
@@ -159,7 +159,7 @@ const Dashboard = () => {
         </Col>
       </Row>
 
-      {/* Revenue in Date Range (ở một dòng riêng) */}
+      {/* Revenue in Date Range */}
       <Row gutter={[24, 24]} className="mt-6">
         <Col xs={24}>
           <Card
@@ -176,7 +176,7 @@ const Dashboard = () => {
               value={dateRange}
               onChange={handleDateRangeChange}
               format="YYYY-MM-DD"
-              style={{ width: "100%" }} // Đặt chiều rộng 100% để RangePicker không mở rộng quá nhiều
+              style={{ width: "100%" }}
             />
           </Card>
         </Col>
@@ -193,8 +193,8 @@ const Dashboard = () => {
             <ResponsiveContainer width="100%" height={400}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis />
+                <XAxisCustom dataKey="day" /> {/* Custom XAxis */}
+                <YAxisCustom /> {/* Custom YAxis */}
                 <Tooltip formatter={(value) => formatCurrency(value)} />
                 <Legend />
                 <Line

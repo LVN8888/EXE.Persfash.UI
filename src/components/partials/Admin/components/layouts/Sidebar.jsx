@@ -4,7 +4,6 @@ import {
   MenuUnfoldOutlined, 
   DashboardOutlined, 
   UserOutlined, 
-  SettingOutlined, 
   DollarCircleOutlined,  // Icon cho subscription
   ShoppingOutlined       // Icon cho fashion items
 } from '@ant-design/icons';
@@ -39,10 +38,6 @@ const Sidebar = ({ collapsed, toggleSidebar }) => {
         <li className="flex items-center">
           <ShoppingOutlined className="text-xl" />
           {!collapsed && <Link to="/admin/fashion-item-management" className="text-white block ml-4">Manage Fashion Items</Link>}
-        </li>
-        <li className="flex items-center">
-          <SettingOutlined className="text-xl" />
-          {!collapsed && <Link to="/settings" className="text-white block ml-4">Settings</Link>}
         </li>
       </ul>
     </div>
