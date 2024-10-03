@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Space, Image, message } from "antd";
+import { Table, Button, Space, Image, message, Input, Switch } from "antd";
 import FashionItemForm from "./FashionItemForm";
-import { addNewFashionItem, updateFashionItem, viewFashionItems } from "../../../../../services/FashionItemApi";
+import { activateDeactivateFashionItem, addNewFashionItem, updateFashionItem, viewFashionItems } from "../../../../../services/FashionItemApi";
 import { uploadImages } from "../../../../../services/FileApi";
+import { SearchOutlined } from "@ant-design/icons";
 
 const FashionItemsManagement = () => {
 
@@ -170,7 +171,7 @@ const FashionItemsManagement = () => {
      try {
       const resposne = await viewFashionItems(page, pageSize);
       
-      // console.log(resposne.data);
+      console.log(resposne.data);
       
       setFashionItems(resposne.data);      
 
@@ -182,11 +183,91 @@ const FashionItemsManagement = () => {
      }
   }
 
+  const handleStatusToggle = async (itemId, checked) => {
+    try {
+      await activateDeactivateFashionItem(itemId); // Call API to activate/deactivate
+      const newStatus = checked ? "Available" : "Unavailable";
+      const updatedData = fashionItems.map((item) =>
+        item.itemId === itemId ? { ...item, status: newStatus } : item
+      );
+      setFashionItems(updatedData);
+      message.success({
+        content: `Fashion item's status updated to ${newStatus} successfully!`,
+        style: {
+          marginTop: '5px',
+          fontSize: '16px', 
+          padding: '10px',
+      },
+        duration: 2,
+    });
+    } catch (error) {
+      message.error("Failed to update status of fashion item");
+    }
+  }
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{ marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+        : "",
+  });
+
   const columns = [
     {
       title: "ItemID",
       dataIndex: "itemId",
       key: "itemId",
+      sorter: (a, b) => a.itemId - b.itemId,
     },
     {
       title: "Item Name",
@@ -207,7 +288,26 @@ const FashionItemsManagement = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      render: (price) => (price !== null ? `${price.toFixed(2)} VND` : "Not available"), // Hiển thị "Free" nếu price là null
     },
+
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      filters: [
+        { text: "Available", value: "Available" },
+        { text: "Unavailable", value: "Unavailable" },],
+        onFilter: (value, record) => record.status.includes(value),
+        render: (text, record) => (
+          <Switch
+            checked={record.status === "Available"}
+            onChange={(checked) => handleStatusToggle(record.itemId, checked)}
+          />
+        ),
+    },
+    
+
     {
       title: "Thumbnail",
       dataIndex: "thumbnailURL",

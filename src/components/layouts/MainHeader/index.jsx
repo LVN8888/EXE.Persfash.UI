@@ -214,7 +214,7 @@ const MainHeader = () => {
     if (isPremium) {
       userMenuItems.push({
         key: "3",
-        label: <div onClick={() => navigate("/customer/customer-info")}>View Outfits</div>,
+        label: <div onClick={() => navigate("/favorite-outfit")}>View Outfits</div>,
     })
     }
 

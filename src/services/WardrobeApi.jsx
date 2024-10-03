@@ -56,4 +56,29 @@ export const removeWardrobe = async (wardrobeId) => {
     }catch(error) {
         throw error
     }
-} 
+}
+
+export const addItemToWardrobe = async (wardrobeId, itemId) => {
+
+    const createModel = {
+        wardrobeId: wardrobeId,
+        itemId: itemId
+    }
+
+    try {
+        const response = await apiClient.post("/wardrobe/item", createModel, {}, true)
+
+        return response;
+    }catch(error){
+        throw error
+    }
+}
+
+export const removeItemFromWardrobe = async (wardrobeItemId) => {
+    try {
+        const response = await apiClient.delete(`/wardrobe/item/${wardrobeItemId}`, {}, {}, true);
+        return response;
+    }catch(error) {
+        throw error;
+    }
+}

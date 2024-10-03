@@ -25,6 +25,9 @@ import PublicRoute from "./RouteConfig/PublicRoute.jsx";
 import FashionItemsManagementPage from "./components/partials/Admin/pages/FashionItemsManagementPage.jsx";
 import SubscriptionManagementPage from "./components/partials/Admin/pages/SubscriptionManagementPage.jsx";
 import { SearchResultPage } from "./pages/SearchResultPage/index.jsx";
+import { FavoriteOutfitPage } from "./pages/FavoriteOutfitPage/index.jsx";
+import { SupportMessageManagement } from "./components/partials/Admin/components/SupportMessage/SupportMessageManagement.jsx";
+import { SupportMessageManagementPage } from "./components/partials/Admin/pages/SupportMessageManagementPage.jsx";
 
 function App() {
   return (
@@ -44,6 +47,7 @@ function App() {
             element={<ReviewPaymentPage />}
           />
           <Route path="/wardrobe/:wardrobeId" element={<WardrobePage />} />
+          <Route path="/favorite-outfit" element={<FavoriteOutfitPage />} />
           <Route
             path="/customer/customer-info"
             element={<CustomerInformationPage />}
@@ -78,6 +82,10 @@ function App() {
           <Route
             path="/admin/subscription-management"
             element={<SubscriptionManagementPage />}
+          />
+          <Route
+            path="/admin/support-question-management"
+            element={<SupportMessageManagementPage />}
           />
         </Route>
 

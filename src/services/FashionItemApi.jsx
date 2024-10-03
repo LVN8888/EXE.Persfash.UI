@@ -162,3 +162,25 @@ export const filterSearchFashionItem = async (
       throw error
     }
   }
+
+  export const  viewDetailsFashionItem = async (itemId) => {
+    try {
+      const response = await apiClient.get(`/fashionitem/${itemId}`)
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }
+
+  export const activateDeactivateFashionItem = async (itemId) => {
+    try {
+      const response = await apiClient.post(`/fashionitem/${itemId}`, {}, {}, true)
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }

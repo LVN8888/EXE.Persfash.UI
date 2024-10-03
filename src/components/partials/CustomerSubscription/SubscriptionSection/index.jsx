@@ -92,13 +92,13 @@ export default function SubscriptionSection() {
                 </p>
               )}
             </div>
-            <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+            {/* <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
               <div className="rounded-2xl cursor-pointer bg-gray-50 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                 <div className="mx-auto max-w-xs">
-                  <p className="text-base font-semibold text-[#4949e9]">Manage payment subscription</p>
+                  <p className="text-base font-semibold text-[#4949e9]">{customerSubscription.subscription.subscriptionTitle || "N/A"}</p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         )}
       </div>
