@@ -36,3 +36,31 @@ export const RemoveSupportQuestion = async (supportId) => {
         throw error
     }
 }
+
+export const createSupportMessage = async (supportId, message) => {
+    try {
+
+        const createModel = {
+            supportId: supportId,
+            messageText: message,
+        }
+
+        const response = await apiClient.post("/supportmessage", createModel, {}, true);
+
+        return response.data;
+
+    }catch(error) {
+        throw error
+    }
+}
+
+export const removeSupportMessage = async (messageId) => {
+    try {
+        const response = await apiClient.delete(`/supportmessage/${messageId}`, {}, {}, true);
+
+        return response.data;
+
+    }catch(error) {
+        throw error
+    }
+}

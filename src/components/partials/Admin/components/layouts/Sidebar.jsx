@@ -39,6 +39,11 @@ const Sidebar = ({ collapsed, toggleSidebar }) => {
           <ShoppingOutlined className="text-xl" />
           {!collapsed && <Link to="/admin/fashion-item-management" className="text-white block ml-4">Manage Fashion Items</Link>}
         </li>
+
+        <li className="flex items-center">
+          <ShoppingOutlined className="text-xl" />
+          {!collapsed && <Link to="/admin/support-question-management" className="text-white block ml-4">Manage Support Questions</Link>}
+        </li>
       </ul>
     </div>
   );

@@ -26,6 +26,8 @@ import FashionItemsManagementPage from "./components/partials/Admin/pages/Fashio
 import SubscriptionManagementPage from "./components/partials/Admin/pages/SubscriptionManagementPage.jsx";
 import { SearchResultPage } from "./pages/SearchResultPage/index.jsx";
 import { FavoriteOutfitPage } from "./pages/FavoriteOutfitPage/index.jsx";
+import { SupportMessageManagement } from "./components/partials/Admin/components/SupportMessage/SupportMessageManagement.jsx";
+import { SupportMessageManagementPage } from "./components/partials/Admin/pages/SupportMessageManagementPage.jsx";
 
 function App() {
   return (
@@ -80,6 +82,10 @@ function App() {
           <Route
             path="/admin/subscription-management"
             element={<SubscriptionManagementPage />}
+          />
+          <Route
+            path="/admin/support-question-management"
+            element={<SupportMessageManagementPage />}
           />
         </Route>
 
