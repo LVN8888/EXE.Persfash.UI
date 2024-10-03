@@ -173,3 +173,14 @@ export const filterSearchFashionItem = async (
       throw error
     }
   }
+
+  export const activateDeactivateFashionItem = async (itemId) => {
+    try {
+      const response = await apiClient.post(`/fashionitem/${itemId}`, {}, {}, true)
+
+      return response.data;
+
+    }catch(error) {
+      throw error
+    }
+  }
