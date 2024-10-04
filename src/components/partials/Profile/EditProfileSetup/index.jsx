@@ -454,6 +454,7 @@ const fashionStyleOptions = [
   { label: 'Luxury', value: 'Luxury' },
   { label: 'Sporty', value: 'Sporty' },
   { label: 'Trendy', value: 'Trendy' },
+  { label: 'Chic', value: 'Chic' },
 ];
 
 const fitPreferencesOptions = [
