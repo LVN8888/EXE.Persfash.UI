@@ -358,7 +358,7 @@ const OutfitForYou = () => {
                   id={outfit.itemId}
                   src={outfit.thumbnailURL}
                   alt={`Outfit ${index}`}
-                  className="rounded-lg w-full h-[450px] object-cover shadow-lg"
+                  className="rounded-lg w-full h-[350px] object-top object-cover shadow-lg"
                 />
               </div>
             ))
@@ -437,7 +437,7 @@ const OutfitForYou = () => {
                 currFashionItem.itemImages.length > 0 && (
                   <div className="mt-4">
                     <h3 className="font-semibold mb-2">More Images</h3>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="flex">
                       {currFashionItem.itemImages.map((image, index) => (
                         <img
                           key={index}

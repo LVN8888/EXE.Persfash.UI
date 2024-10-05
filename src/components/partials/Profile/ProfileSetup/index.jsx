@@ -26,6 +26,7 @@ const bodyTypeOptions = [
     { label: 'Luxury', value: 'Luxury' },
     { label: 'Sporty', value: 'Sporty' },
     { label: 'Trendy', value: 'Trendy' },
+    { label: 'Chic', value: 'Chic' },
   ];
   
   const fitPreferencesOptions = [
@@ -42,6 +43,9 @@ const bodyTypeOptions = [
     { label: 'L', value: 'L' },
     { label: 'XL', value: 'XL' },
     { label: 'XXL', value: 'XXL' },
+  ];
+
+  const preferredAccessoriesSizeOptions = [
     { label: '36', value: '36' },
     { label: '37', value: '37' },
     { label: '38', value: '38' },
@@ -52,7 +56,7 @@ const bodyTypeOptions = [
     { label: '43', value: '43' },
     { label: '44', value: '44' },
     { label: 'One Size', value: 'One Size' },
-  ];
+  ]
   
   const preferredColorsOptions = [
     { label: 'Red', value: 'Red' },
@@ -70,6 +74,7 @@ const bodyTypeOptions = [
   
   const preferredMaterialsOptions = [
     { label: 'Cotton', value: 'Cotton' },
+    { label: 'Kaki', value: 'Kaki' },
     { label: 'Polyester', value: 'Polyester' },
     { label: 'Silk', value: 'Silk' },
     { label: 'Denim', value: 'Denim' },
@@ -156,7 +161,7 @@ const bodyTypeOptions = [
 
     // const storedUser = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('accessToken');
-    console.log(user);
+    // console.log(user);
     
     if (user && token) {
       setUser(user);
@@ -178,11 +183,13 @@ const bodyTypeOptions = [
 
   const handleSubmit = async (values) => {
 
+    const preferredSize = [...values.PreferredSize, ...values.PreferredAccessoriesSize]
+
     const customerProfileSetupReqModel = {
         bodyType : values.BodyType,
         fashionStyle : values.FashionStyle,
         fitPreferences: values.FitPreferences,
-        preferredSize: values.PreferredSize,
+        preferredSize: preferredSize,
         preferredColors: values.PreferredColors,
         preferredMaterials: values.PreferredMaterials,
         occasion: values.Occasion,
@@ -191,7 +198,7 @@ const bodyTypeOptions = [
 
     setIsLoading(true)
 
-    console.log('Form Submitted:', customerProfileSetupReqModel);
+    // console.log('Form Submitted:', customerProfileSetupReqModel);
 
     try {
         const response = await setupCustomerProfile(customerProfileSetupReqModel.bodyType, customerProfileSetupReqModel.fashionStyle, customerProfileSetupReqModel.fitPreferences
@@ -344,19 +351,9 @@ const bodyTypeOptions = [
 
             {/* Preferred Size */}
             <Form.Item
-              label="Preferred Size"
+              label="Preferred Clothes Size"
               name="PreferredSize"
-              rules={[
-                { required: true, message: 'Preferred size is required.' },
-                {
-                  validator: (_, value) => {
-                    if (value && value.length >= 3) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(new Error('Please select at least three preferred size.'));
-                  }
-                }
-              ]}
+              rules={[{ required: true, message: 'At least one Preferred Clothes Size is required.' }]}
               className='font-avantgarde font-medium'
             >
               <Select
@@ -365,6 +362,25 @@ const bodyTypeOptions = [
                 className="w-full"
               >
                 {preferredSizeOptions.map(option => (
+                  <Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              label="Preferred Accessories Size"
+              name="PreferredAccessoriesSize"
+              rules={[{ required: true, message: 'At least one Preferred Accessories Size is required.' }]}
+              className='font-avantgarde font-medium'
+            >
+              <Select
+                mode="multiple"
+                placeholder="Select Preferred Size"
+                className="w-full"
+              >
+                {preferredAccessoriesSizeOptions.map(option => (
                   <Option key={option.value} value={option.value}>
                     {option.label}
                   </Option>

@@ -70,6 +70,7 @@ const preferredColorsOptions = [
 
 const preferredMaterialsOptions = [
   { label: 'Cotton', value: 'Cotton' },
+  { label: 'Kaki', value: 'Kaki' },
   { label: 'Polyester', value: 'Polyester' },
   { label: 'Silk', value: 'Silk' },
   { label: 'Denim', value: 'Denim' },
@@ -106,6 +107,7 @@ const fashionStyleOptions = [
   { label: 'Luxury', value: 'Luxury' },
   { label: 'Sporty', value: 'Sporty' },
   { label: 'Trendy', value: 'Trendy' },
+  { label: 'Chic', value: 'Chic' },
 ];
 
 

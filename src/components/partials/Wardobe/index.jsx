@@ -310,7 +310,7 @@ const Wardrobe = ({ username }) => {
                         id={item.item.itemId}
                         src={item.item.thumbnailURL}
                         alt={`Wardrobe item ${item.item.itemName}`}
-                        className="rounded-lg w-full h-[450px] object-cover shadow-lg"
+                        className="rounded-lg w-full h-[350px] object-cover shadow-lg"
                       />
                     </div>
                   ))}
