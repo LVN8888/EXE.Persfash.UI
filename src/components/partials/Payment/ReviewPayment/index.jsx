@@ -38,7 +38,7 @@ const ReviewPayment = () => {
         // Handle form submission logic here
         setLoading(true)
         try {
-          const response = await createPaymentSubscriptionUrl(subscriptionId, "http://localhost:5173/payment/payment-success")
+          const response = await createPaymentSubscriptionUrl(subscriptionId, "https://persfash.store/payment/payment-success")
 
           console.log(response);
 
