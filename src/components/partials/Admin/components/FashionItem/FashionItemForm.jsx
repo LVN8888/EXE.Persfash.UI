@@ -42,6 +42,7 @@ const preferredSizeOptions = [
   { label: "L", value: "L" },
   { label: "XL", value: "XL" },
   { label: "XXL", value: "XXL" },
+  { label: '35', value: '35' },
   { label: "36", value: "36" },
   { label: "37", value: "37" },
   { label: "38", value: "38" },
