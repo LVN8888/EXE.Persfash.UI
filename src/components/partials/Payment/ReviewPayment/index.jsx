@@ -40,7 +40,7 @@ const ReviewPayment = () => {
         try {
           const response = await createPaymentSubscriptionUrl(subscriptionId, "https://persfash.store/payment/payment-success")
 
-          console.log(response);
+          // console.log(response);
 
           window.location.href = response.paymentUrl;
 
