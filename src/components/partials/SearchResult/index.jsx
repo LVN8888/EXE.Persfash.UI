@@ -62,6 +62,7 @@ const preferredColorsOptions = [
 
 const preferredMaterialsOptions = [
   { label: 'Cotton', value: 'Cotton' },
+  { label: 'Kaki', value: 'Kaki' },
   { label: 'Polyester', value: 'Polyester' },
   { label: 'Silk', value: 'Silk' },
   { label: 'Denim', value: 'Denim' },
@@ -320,7 +321,7 @@ export const SearchResult = () => {
                       <img
                         src={result.thumbnailURL}
                         alt={result.itemName}
-                        className="w-full h-64 object-cover rounded-md object-top"
+                        className="w-full h-[410px] object-cover rounded-md object-top"
                       />
                       <h3 className="font-medium text-lg mt-1 font-avantgarde">
                         {result.itemName}
