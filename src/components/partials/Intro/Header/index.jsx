@@ -61,9 +61,9 @@ const Header = () => {
         <span>persfash</span>
       </div>
       <nav className={styles.nav}>
-        <span className={styles.support} onClick={handleSupportClick}>
+        {/* <span className={styles.support} onClick={handleSupportClick}>
           Support
-        </span>
+        </span> */}
         <Button className={styles.loginButton} onClick={handleLoginClick}>
           Log in
         </Button>

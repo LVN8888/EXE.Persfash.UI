@@ -40,7 +40,7 @@ const ReviewPayment = () => {
         try {
           const response = await createPaymentSubscriptionUrl(subscriptionId, "http://localhost:5173/payment/payment-success")
 
-          console.log(response);
+          // console.log(response);
 
           window.location.href = response.paymentUrl;
 

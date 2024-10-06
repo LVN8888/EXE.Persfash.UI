@@ -3,12 +3,13 @@ import React from 'react';
 import Support from '../../components/partials/Support';
 import AuthHeader from '../../components/partials/AuthHeader';
 import Footer from '../../components/layouts/Footer';
+import MainHeader from '../../components/layouts/MainHeader';
 
 
 const SupportPage = () => {
   return (
     <div>
-        <AuthHeader/>
+        <MainHeader/>
         <Support/>
         <Footer/>
     </div>
