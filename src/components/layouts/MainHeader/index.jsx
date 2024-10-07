@@ -284,14 +284,14 @@ if (customerWardrobe.length > 0) {
 
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <img src={logo} alt="persfash logo" />
+      <header className={`${styles.header} dark:bg-gradient-to-r dark:from-[#4949e9] dark:to-[#7979c9]`}>
+        <div className={`${styles.logo} dark:text-[#b3ff00]`}>
+          <img src={logo} alt="persfash logo" className="dark:filter-none" />
           <span>persfash</span>
         </div>
         <nav className={styles.nav}>
           <div
-            className={styles.link}
+            className={`${styles.link} dark:text-[#b3ff00]`}
             onClick={() => navigate("/home")}
             style={{ cursor: "pointer" }}
           >
@@ -328,7 +328,7 @@ if (customerWardrobe.length > 0) {
               )}
             >
               <div
-                className={styles.link}
+                className={`${styles.link} dark:text-[#b3ff00]`}
                 onClick={toggleWardrobeDropdown}
                 style={{ cursor: "pointer" }}
               >
@@ -372,14 +372,14 @@ if (customerWardrobe.length > 0) {
           </Modal>
 
           <div
-            className={styles.link}
+            className={`${styles.link} dark:text-[#b3ff00]`}
             onClick={() => navigate("/plan")}
             style={{ cursor: "pointer" }}
           >
             Plan
           </div>
           <div
-            className={styles.link}
+            className={`${styles.link} dark:text-[#b3ff00]`}
             onClick={() => navigate("/support")}
             style={{ cursor: "pointer" }}
           >
@@ -395,6 +395,7 @@ if (customerWardrobe.length > 0) {
           >
             <div className={styles.searchIcon}>
               <img
+                className="dark:!filter-none"
                 src={lookupIcon}
                 alt="Search"
                 onClick={() => setSearchVisible(!searchVisible)}
@@ -430,12 +431,13 @@ if (customerWardrobe.length > 0) {
               </div>
             )}
           >
-            <div className={styles.userIcon}>
+            <div className={`${styles.userIcon}`}>
               <img
                 src={profileIcon}
                 alt="User"
+                className="dark:!filter-none"
                 onClick={toggleUserDropdown}
-                style={{ cursor: "pointer" }}
+                // style={{ cursor: "pointer", filte: 'none' }}
               />
             </div>
           </Dropdown>

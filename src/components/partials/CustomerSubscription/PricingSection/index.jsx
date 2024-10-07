@@ -105,7 +105,7 @@ export default function PricingSection() {
   }
 
   return (
-    <div className="w-full pt-8 pb-32 px-4 bg-white dark:bg-gradient-to-b from-[#4949e9] to-[#7979c9]">
+    <div className="w-full pt-8 pb-32 px-4 bg-white dark:bg-gradient-to-br from-[#4949e9] to-[#7979c9]">
       <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
         {subscriptions.map(renderSubscription)}
 

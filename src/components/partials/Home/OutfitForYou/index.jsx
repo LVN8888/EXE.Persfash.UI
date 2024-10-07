@@ -316,7 +316,7 @@ const OutfitForYou = () => {
   }, [])
 
   return (
-    <div className="mb-12 w-full px-8 pb-8 flex flex-col items-center dark:bg-[#4949e9]">
+    <div className="w-full px-8 pb-8 flex flex-col items-center dark:bg-gradient-to-br dark:from-[#4949e9] dark:to-[#7979c9]">
       <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6 dark:text-white">
         <span>ITEMS FOR YOU</span>
         <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2 dark:bg-white"></div>
