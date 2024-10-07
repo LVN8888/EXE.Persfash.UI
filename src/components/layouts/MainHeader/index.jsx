@@ -42,13 +42,13 @@ const MainHeader = () => {
     if (savedDarkMode) {
       setDarkMode(JSON.parse(savedDarkMode));
       if (JSON.parse(savedDarkMode)) {
-        document.body.classList.add("dark-mode");
+        document.body.classList.add("dark");
       } else {
-        document.body.classList.remove("dark-mode");
+        document.body.classList.remove("dark");
       }
     } else {
       // Mặc định là Light Mode
-      document.body.classList.remove("dark-mode");
+      document.body.classList.remove("dark");
     }
 
     const token = localStorage.getItem('accessToken')
@@ -181,9 +181,9 @@ const MainHeader = () => {
     setDarkMode(checked);
     localStorage.setItem("darkMode", checked);
     if (checked) {
-      document.body.classList.add("dark-mode");
+      document.body.classList.add("dark");
     } else {
-      document.body.classList.remove("dark-mode");
+      document.body.classList.remove("dark");
     }
   };
 
@@ -441,7 +441,7 @@ if (customerWardrobe.length > 0) {
           </Dropdown>
 
           <div className={styles.languageIcon} ref={dropdownRef}>
-            <img src={globeIcon} alt="language" onClick={toggleDropdown} />
+            {/* <img src={globeIcon} alt="language" onClick={toggleDropdown} />
             <div
               className={`${styles.languageDropdown} ${
                 isDropdownVisible ? styles.show : ""
@@ -463,7 +463,7 @@ if (customerWardrobe.length > 0) {
                   EN
                 </Button>
               </Button.Group>
-            </div>
+            </div> */}
           </div>
         </nav>
       </header>

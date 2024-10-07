@@ -71,7 +71,7 @@ const Header = () => {
           Sign up
         </Button>
         <div className={styles.languageIcon} ref={dropdownRef}>
-          <img src={globeIcon} alt="language" onClick={toggleDropdown} />
+          {/* <img src={globeIcon} alt="language" onClick={toggleDropdown} />
           <div
             className={`${styles.languageDropdown} ${
               isDropdownVisible ? styles.show : ""
@@ -93,7 +93,7 @@ const Header = () => {
                 EN
               </Button>
             </Button.Group>
-          </div>
+          </div> */}
         </div>
       </nav>
     </header>

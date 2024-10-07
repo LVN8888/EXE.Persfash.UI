@@ -75,7 +75,7 @@ export const ChangePassword = () => {
   };
 
   return (
-      <div className="flex min-h-screen flex-1 flex-col justify-center items-center h-screen bg-gradient-to-r from-white to-[#4949e9]">
+      <div className="flex min-h-screen flex-1 flex-col justify-center items-center h-screen bg-gradient-to-r from-white to-[#4949e9] dark:bg-gradient-to-tr dark:from-[#7979c9] dark:to-[#4949e9]">
         <div className="bg-white p-8 rounded-md shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-semibold text-center mb-4 text-[#4949e9]">
             Change Password
