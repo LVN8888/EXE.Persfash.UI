@@ -1,4 +1,4 @@
-import { Footer } from "antd/es/layout/layout"
+import Footer from "../../components/layouts/Footer"
 import MainHeader from "../../components/layouts/MainHeader"
 import { FavoriteOutift } from "../../components/partials/Outift/FavoriteOutfits"
 

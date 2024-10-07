@@ -316,10 +316,10 @@ const OutfitForYou = () => {
   }, [])
 
   return (
-    <div className="mb-16 w-full px-8 flex flex-col items-center">
-      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6">
+    <div className="mb-12 w-full px-8 pb-8 flex flex-col items-center dark:bg-[#4949e9]">
+      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6 dark:text-white">
         <span>ITEMS FOR YOU</span>
-        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2"></div>
+        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2 dark:bg-white"></div>
       </div>
 
       <div className="mb-4 flex justify-center space-x-4">
@@ -329,7 +329,7 @@ const OutfitForYou = () => {
             onClick={() => handleFilterChange(option)}
             className={`${
               filter === option
-                ? "bg-[#4949E9] text-white"
+                ? "bg-[#4949E9] text-white dark:bg-[#B3FF00] dark:text-[#4949e9]"
                 : "bg-gray-200 text-black"
             } px-4 py-2 rounded-full hover:bg-[#B3FF00] transition-all duration-300`}
           >
@@ -704,9 +704,9 @@ const OutfitForYou = () => {
         )}
       </Modal>
 
-      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6">
+      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6 dark:text-white">
         <span>OUTFITS FOR YOU</span>
-        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2"></div>
+        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2 dark:bg-white"></div>
       </div>
 
       <div className="w-full">
@@ -732,7 +732,7 @@ const OutfitForYou = () => {
               >
                 {/* Main Outfit Thumbnail */}
                 {/* Fashion items inside the outfit */}
-                <div className="grid grid-cols-1 gap-2 mt-3 w-full h-[450px] border rounded-lg object-cover shadow-lg">
+                <div className="grid grid-cols-1 gap-2 mt-3 w-full h-[450px] border rounded-lg object-cover shadow-lg dark:border-none dark:bg-white">
                   <div className="grid grid-cols-2 gap-2 h-1/2">
                     {/* Display Top and Bottom Images */}
                     {outfit.topItem && (

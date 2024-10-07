@@ -170,7 +170,7 @@ export const EditProfileSetup = () => {
   }
 
   return (
-    <div className="flex justify-center p-10 bg-gradient-to-r from-white to-[#4949e9] min-h-screen">
+    <div className="flex justify-center p-10 bg-gradient-to-r from-white to-[#4949e9] min-h-screen dark:bg-gradient-to-tr dark:from-[#7979c9] dark:to-[#4949e9]">
       <div className="max-w-5xl w-full">
         <Card className="p-6 shadow-lg rounded-xl">
           <h2 className="text-4xl font-bold mb-4 text-[#4949e9] font-avantgarde">Edit Profile Setup</h2>

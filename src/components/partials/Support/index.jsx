@@ -45,7 +45,7 @@ const Support = () => {
 
   useEffect(() => {
     fetchSupportQuestion()
-    console.log(supportedQuestion);
+    // console.log(supportedQuestion);
     
   }, []);
 
@@ -141,7 +141,7 @@ const Support = () => {
   const totalPages = Math.ceil((supportedQuestion ? supportedQuestion.length : 0) / questionsPerPage);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start">
+    <div className="min-h-screen flex flex-col items-center justify-start dark:bg-[#4949e9]">
       {/* Image Section with Text Positioned on the Left, Slightly Higher */}
       <div className="relative w-full h-96">
         <img
@@ -155,8 +155,8 @@ const Support = () => {
       </div>
 
       {/* Common Questions */}
-      <div className="bg-white p-6 w-11/12 max-w-4xl mt-10">
-        <h2 className="text-4xl font-semibold text-center mb-6" style={{ color: "#4949E9" }}>
+      <div className="bg-white p-6 w-11/12 max-w-4xl mt-10 dark:bg-[#4949e9] rounded-lg">
+        <h2 className="text-4xl font-semibold text-center mb-6 text-[#4949e9] dark:text-white">
           Common questions
         </h2>
         <div className="flex flex-col space-y-4">
@@ -164,8 +164,8 @@ const Support = () => {
             currentQuestions.map((question, index) => (
               <div key={index}>
           <button
-            className="text-white py-2 px-4 rounded-lg text-left hover:bg-[#4949e9] w-full flex items-center justify-between"
-            style={{ backgroundColor: "#4949E9" }}
+            className="text-white py-2 px-4 rounded-lg text-left hover:bg-[#4949e9] w-full flex items-center justify-between bg-[#4949e9] dark:bg-white dark:text-[#4949e9]"
+            // style={{ backgroundColor: "#4949E9" }}
           >
             <span className="flex-grow">{question.question}</span>
             <div className="flex items-center">
@@ -274,23 +274,23 @@ const Support = () => {
 </Modal>
 
       <div className="mt-6 w-11/12 max-w-4xl text-center pb-2">
-        <h2 className="text-4xl font-semibold mb-6" style={{ color: "#4949E9" }}>
+        {/* <h2 className="text-4xl font-semibold mb-6" style={{ color: "#4949E9" }}>
           Search for other topics
-        </h2>
-        <div className="pb-4">
+        </h2> */}
+        {/* <div className="pb-4">
           <Input.Search placeholder="Search for other topics..." size="large" />
-        </div>
+        </div> */}
       </div>
 
       {/* Thicker Blue Line */}
-      <div className="w-full mt-1 mb-2" style={{ borderTop: "20px solid #4949E9" }}></div>
+      <div className="w-full mt-1 mb-2 border-t-[20px] border-[#4949e9] dark:border-white"></div>
 
-      <div className="w-full bg-white">
+      <div className="w-full bg-white dark:bg-[#4949e9]">
         <div className="flex flex-col items-center justify-center py-12">
-          <h2 className="text-4xl font-bold" style={{ color: "#4949E9" }}>
+          <h2 className="text-4xl font-bold text-[#4949e9] dark:text-white">
             Get support
           </h2>
-          <p className="text-center mt-4 px-8 max-w-2xl" style={{ color: "#4949E9" }}>
+          <p className="text-center mt-4 px-8 max-w-2xl text-[#4949e9] dark:text-white">
             Please provide some detailed information so we can provide the best
             solution for you. Connect via phone, chat, email, and more.
           </p>

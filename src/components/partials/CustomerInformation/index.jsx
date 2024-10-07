@@ -207,7 +207,7 @@ export const CustomerInformation = () => {
 
 
     return (
-      <div className="flex justify-center p-10 bg-gray-100 min-h-screen bg-gradient-to-tr from-white to-[#4949e9]">
+      <div className="flex justify-center p-10 bg-gray-100 min-h-screen bg-gradient-to-tr from-white to-[#4949e9] dark:bg-gradient-to-tr dark:from-[#7979c9] dark:to-[#4949e9]">
         <div className="max-w-7xl w-full">
           <div className="flex flex-col md:flex-row justify-between items-start space-y-4 md:space-y-0 md:space-x-20">
             {/* Avatar and Details Card */}
