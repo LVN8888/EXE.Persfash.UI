@@ -69,7 +69,7 @@ const AuthHeader = () => {
         <Button className={styles.loginButton} onClick={handleLoginClick}>Log in</Button>
         <Button className={styles.signUpButton} onClick={handleSignUpClick}>Sign up</Button>
         <div className={styles.languageIcon} ref={dropdownRef}>
-          <img src={globeIcon} alt="language" onClick={toggleDropdown} />
+          {/* <img src={globeIcon} alt="language" onClick={toggleDropdown} />
           <div className={`${styles.languageDropdown} ${isDropdownVisible ? styles.show : ""}`}>
             <Button.Group>
               <Button
@@ -87,7 +87,7 @@ const AuthHeader = () => {
                 EN
               </Button>
             </Button.Group>
-          </div>
+          </div> */}
         </div>
       </nav>
     </header>
