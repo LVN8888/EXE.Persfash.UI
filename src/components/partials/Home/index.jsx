@@ -23,9 +23,9 @@ const Home = () => {
 
   return (
     <div>
-      <div className={styles.homeContainer}>
+      <div className={`${styles.homeContainer} dark:bg-gradient-to-tr dark:from-[#4949e9] dark:to-[#7979c9] dark:min-w-full`}>
         <div className={styles.textContainer}>
-          <h1 className={styles.heading}>
+          <h1 className={`${styles.heading} text-[#4949e9] dark:text-white dark:ml-[215px]`}>
             How
             <br />
             are
@@ -33,7 +33,7 @@ const Home = () => {
             you
           </h1>
         </div>
-        <div className={styles.imageSection}>
+        <div className={`${styles.imageSection} dark:mr-[75px]`}>
           <div className={styles.imageSlider}>
             {images.map((image, index) => (
               <img
@@ -47,8 +47,8 @@ const Home = () => {
             ))}
           </div>
           <div className={styles.textBelow}>
-            <div className={styles.line}></div>
-            <h1 className={styles.headingBelow}>these day?</h1>
+            <div className={`${styles.line} bg-[#4949e9] dark:bg-white`}></div>
+            <h1 className={`${styles.headingBelow} text-[#4949e9] dark:text-white`}>these day?</h1>
           </div>
         </div>
       </div>

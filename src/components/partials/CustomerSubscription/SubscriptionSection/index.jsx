@@ -62,7 +62,7 @@ export default function SubscriptionSection() {
   }, [])
 
   return (
-    <div className="bg-white pt-24 sm:py-16 dark:bg-[#4949e9]">
+    <div className="bg-white pt-24 sm:py-16 dark:bg-gradient-to-tr dark:from-[#4949e9] dark:to-[#7979c9]">
       <div className="max-w-[1240px] mx-auto">
         <div className="mx-auto max-w-2xl sm:text-center">
           <h2 className="text-3xl font-bold tracking-tight text-[#B3FF00] sm:text-4xl">Plans</h2>

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 40px;
   max-width: 1600px;
   margin: 0 auto;
@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: center;
   text-align: left;
-  color: #4949E9;
+  // color: #4949E9;
   flex: 1;
 }
 
@@ -69,14 +69,14 @@
 .line {
   width: 200px;
   height: 10px;
-  background-color: #4949E9;
+  // background-color: #4949E9;
   margin-right: 10px;
 }
 
 .headingBelow {
   font-size: 130px; 
   font-weight: bold;
-  color: #4949E9;
+  // color: #4949E9;
   margin: 0;
   white-space: nowrap;
 }
