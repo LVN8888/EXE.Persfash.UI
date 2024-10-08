@@ -195,7 +195,7 @@ export const SearchResult = () => {
     };
 
     return (
-      <div className="p-6">
+      <div className="p-6 dark:bg-gradient-to-tr dark:from-[#7979c9] dark:to-[#4949e9]">
         {/* Search Menu */}
         <div className="flex flex-col items-center">
           <Search
@@ -316,14 +316,14 @@ export const SearchResult = () => {
                   {searchResults.map((result, index) => (
                     <div
                       key={index}
-                      className="border rounded-lg shadow hover:shadow-lg transition-shadow duration-300"
+                      className="border rounded-lg shadow hover:shadow-lg transition-shadow duration-300 dark:border-[#7979c9]"
                     >
                       <img
                         src={result.thumbnailURL}
                         alt={result.itemName}
                         className="w-full h-[410px] object-cover rounded-md object-top"
                       />
-                      <h3 className="font-medium text-lg mt-1 font-avantgarde">
+                      <h3 className="font-medium text-center text-lg mt-1 font-avantgarde text-[#4949e9] dark:text-white">
                         {result.itemName}
                       </h3>
                     </div>
@@ -339,7 +339,7 @@ export const SearchResult = () => {
                 />
               </>
             ) : (
-              <p className="font-medium font-avantgarde ml-4 text-2xl text-center">No results found</p>
+              <p className="font-medium font-avantgarde ml-4 text-3xl text-center">No results found</p>
             )}
           </div>
         </div>
