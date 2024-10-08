@@ -24,8 +24,8 @@ const Home = () => {
   return (
     <div>
       <div className={`${styles.homeContainer} dark:bg-gradient-to-tr dark:from-[#4949e9] dark:to-[#7979c9] dark:min-w-full`}>
-        <div className={styles.textContainer}>
-          <h1 className={`${styles.heading} text-[#4949e9] dark:text-white dark:ml-[215px]`}>
+        <div className={`${styles.textContainer}`}>
+          <h1 className={`${styles.heading} text-[#4949e9] dark:text-white`}>
             How
             <br />
             are
@@ -33,7 +33,7 @@ const Home = () => {
             you
           </h1>
         </div>
-        <div className={`${styles.imageSection} dark:mr-[75px]`}>
+        <div className={`${styles.imageSection}`}>
           <div className={styles.imageSlider}>
             {images.map((image, index) => (
               <img

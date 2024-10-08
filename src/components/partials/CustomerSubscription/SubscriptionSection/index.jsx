@@ -84,7 +84,7 @@ export default function SubscriptionSection() {
               {/* Conditional rendering based on subscription type */}
               {customerSubscription.subscription.subscriptionTitle === "Premium" ? (
                 <p className="mt-1 text-base leading-7 text-gray-400 dark:text-gray-900">
-                  Your next bill for {customerSubscription.subscription.price +" VND" || 'N/A'} is on {new Date(customerSubscription.endDate).toISOString().split('T')[0] || 'N/A'}
+                  Your next bill for {new Intl.NumberFormat('vi-VN').format(customerSubscription.subscription.price) +" VND" || 'N/A'} is on {new Date(customerSubscription.endDate).toISOString().split('T')[0] || 'N/A'}
                 </p>
               ) : (
                 <p className="mt-1 text-base leading-7 text-gray-400 dark:text-gray-900">

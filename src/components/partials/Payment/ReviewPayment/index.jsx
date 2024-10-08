@@ -100,7 +100,7 @@ const ReviewPayment = () => {
                 <div className="bg-gray-100 p-4 rounded-md">
                   <h3 className="font-semibold text-gray-800">Price:</h3>
                   <p className="text-lg font-medium text-gray-800">
-                    {currSubscription.price ? currSubscription.price : null} VND/ month
+                    {currSubscription.price ? new Intl.NumberFormat('vi-VN').format(currSubscription.price) : null} VND/ month
                   </p>
                 </div>
 
