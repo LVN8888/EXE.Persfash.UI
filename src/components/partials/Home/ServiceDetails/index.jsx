@@ -25,7 +25,7 @@ const ServiceDetails = () => {
   };
 
   return (
-    <div className={styles.serviceDetailsContainer}>
+    <div className={`${styles.serviceDetailsContainer} dark:bg-gradient-to-tr dark:from-[#4949e9] dark:to-[#7979c9]`}>
       <div className={styles.upgradeSection}> {/* Gom tất cả vào phần này */}
         <div className={styles.titleColumn}>
           <span>{content["What our services appoinment cover"]}</span>

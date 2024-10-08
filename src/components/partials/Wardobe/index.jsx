@@ -234,16 +234,16 @@ const Wardrobe = ({ username }) => {
   }
   
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 py-10">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 py-10 dark:bg-gradient-to-tr dark:from-[#7979c9] dark:to-[#4949e9]">
       {/* Main Wardrobe Section */}
       <div className="text-left px-8 w-full">
         {/* Welcome Text */}
-        <h1 className="text-6xl font-bold text-[#4949E9]">
+        <h1 className="text-6xl font-bold text-[#4949E9] dark:text-white">
           Welcome back, {username}
         </h1>
 
         {/* Subtext */}
-        <h2 className="text-5xl font-semibold mt-4 text-[#4949E9]">
+        <h2 className="text-5xl font-semibold mt-4 text-[#4949E9] dark:text-white">
           Let’s get dressed with
         </h2>
 
@@ -253,13 +253,15 @@ const Wardrobe = ({ username }) => {
 
         <button 
         onClick={() => setVisibleUpdateModal(true)}
-        className="bg-[#4949e9] px-4 py-2 my-2 mr-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde">
+        className="bg-[#4949e9] px-4 py-2 my-2 mr-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde
+        dark:text-[#4949e9] dark:bg-[#b3ff00] dark:hover:bg-[#4949e9] dark:hover:text-[#b3ff00]">
           Update
         </button>
 
         <button 
         onClick={() => setVisibleRemoveModal(true)}
-        className="bg-[#4949e9] px-4 py-2 my-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde">
+        className="bg-[#4949e9] px-4 py-2 my-2 rounded-md font-medium text-[#b3ff00] hover:bg-[#b3ff00] hover:text-[#4949e9] font-avantgarde 
+        dark:text-[#4949e9] dark:bg-[#b3ff00] dark:hover:bg-[#4949e9] dark:hover:text-[#b3ff00]">
           Remove wardrobe
         </button>
       </div>
@@ -284,9 +286,9 @@ const Wardrobe = ({ username }) => {
             return (
               <div key={category} className="mb-16">
                 {/* Category Title */}
-                <div className="text-center text-[#4949E9] font-bold text-3xl mb-6">
+                <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 dark:text-white">
                   <span>{category}</span>
-                  <div className="h-1 w-28 bg-[#4949E9] mx-auto mt-2"></div>
+                  <div className="h-1 w-28 bg-[#4949E9] mx-auto mt-2 dark:bg-white"></div>
                 </div>
 
                 {/* Carousel for Category Items */}
@@ -320,7 +322,7 @@ const Wardrobe = ({ username }) => {
           })
         ) : (
           // Render message if wardrobeItems is null
-          <div className="text-center text-5xl font-semibold text-[#4949E9]">
+          <div className="text-center text-5xl font-semibold text-[#4949E9] dark:text-white">
             No wardrobe items to show.
           </div>
         )}
@@ -391,13 +393,13 @@ const Wardrobe = ({ username }) => {
                 currFashionItem.itemImages.length > 0 && (
                   <div className="mt-4">
                     <h3 className="font-semibold mb-2">More Images</h3>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="flex">
                       {currFashionItem.itemImages.map((image, index) => (
                         <img
                           key={index}
                           src={image}
                           alt={`Item Image ${index + 1}`}
-                          className="w-[60px] h-[60px] object-cover rounded-lg"
+                          className="w-[60px] h-[60px] object-cover rounded-lg mr-2"
                         />
                       ))}
                     </div>

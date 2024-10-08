@@ -74,7 +74,7 @@ export default function PricingSection() {
     return (
       <div
         key={subscriptionId}
-        className="w-full flex flex-col justify-between p-5 h-full border border-gray-300 rounded-lg text-center shadow-lg shadow-[#4949e9] text-[#4949e9] hover:scale-105 duration-300"
+        className="w-full flex flex-col justify-between p-5 h-full border border-gray-300 rounded-lg text-center shadow-lg shadow-[#4949e9] text-[#4949e9] hover:scale-105 duration-300 dark:text-white"
       >
         <h2 className="text-2xl font-bold mb-2">{subscriptionTitle}</h2>
         {price ? (<p className="text-center text-3xl font-bold">{price} VND/month</p>) : null}
@@ -105,7 +105,7 @@ export default function PricingSection() {
   }
 
   return (
-    <div className="w-full pt-0 pb-32 px-4 bg-white">
+    <div className="w-full pt-8 pb-32 px-4 bg-white dark:bg-gradient-to-br from-[#4949e9] to-[#7979c9]">
       <div className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8">
         {subscriptions.map(renderSubscription)}
 

@@ -131,24 +131,24 @@ export const FavoriteOutift = () => {
     
 
       return (
-        <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 py-10">
+        <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 py-10 dark:bg-gradient-to-tr dark:from-[#7979c9] dark:to-[#4949e9]">
           {/* Main Wardrobe Section */}
           <div className="text-left px-8 w-full">
             {/* Welcome Text */}
-            <h1 className="text-6xl font-bold text-[#4949E9]">
+            <h1 className="text-6xl font-bold text-[#4949E9] dark:text-white">
               Here your favorite outfit, {currCustomer ? currCustomer.username : "John doe"}
             </h1>
       
             {/* Subtext */}
-            <h2 className="text-5xl font-semibold mt-4 text-[#4949E9]">
+            <h2 className="text-5xl font-semibold mt-4 text-[#4949E9] dark:text-white">
               What is your favorite outfit of the day
             </h2>
           </div>
       
           <div className="w-full px-8 mt-10">
-            <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6">
+            <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6 dark:text-white">
               <span>YOUR FAVORITE OUTFITS</span>
-              <div className="h-1 w-[300px] bg-[#4949E9] mx-auto mt-2"></div>
+              <div className="h-1 w-[300px] bg-[#4949E9] mx-auto mt-2 dark:bg-white"></div>
             </div>
 
             <Modal
@@ -329,7 +329,7 @@ export const FavoriteOutift = () => {
                 {customerFavoriteOutfit.map((outfit, index) => (
                   <div key={index} className="p-2" 
                   onClick={() => handleClickOutfit(outfit.outfitId)}>
-                    <div className="grid grid-cols-1 gap-2 mt-3 w-full h-[450px] border rounded-lg object-cover shadow-lg">
+                    <div className="grid grid-cols-1 gap-2 mt-3 w-full h-[450px] border rounded-lg object-cover shadow-lg dark:border-none dark:bg-white">
                       <div className="grid grid-cols-2 gap-2 h-1/2">
                         {outfit.topItem && (  
                           <div className="flex justify-center items-center m-2">

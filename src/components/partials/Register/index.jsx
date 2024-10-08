@@ -121,7 +121,7 @@ const Register = () => {
   // Function to handle Google Sign-Up
   const googleLogin = useGoogleLogin({
     onSuccess: (token) => {
-      console.log(token.access_token);
+      // console.log(token.access_token);
 
       handleGoogleLogin(token.access_token);
     },
@@ -158,7 +158,7 @@ const Register = () => {
             role: data.role,
         };
 
-        console.log(userData);
+        // console.log(userData);
         
 
         apiClient.setAccessToken(data.token);
@@ -373,7 +373,7 @@ const Register = () => {
                 >
                   <Option value="Male">Male</Option>
                   <Option value="Female">Female</Option>
-                  <Option value="Others">Others</Option>
+                  {/* <Option value="Others">Others</Option> */}
                 </Select>
               </Form.Item>
 

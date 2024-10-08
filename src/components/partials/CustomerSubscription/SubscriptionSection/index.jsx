@@ -62,11 +62,11 @@ export default function SubscriptionSection() {
   }, [])
 
   return (
-    <div className="bg-white pt-24 sm:py-16 mb-8">
+    <div className="bg-white pt-24 sm:py-16 dark:bg-gradient-to-tr dark:from-[#4949e9] dark:to-[#7979c9]">
       <div className="max-w-[1240px] mx-auto">
         <div className="mx-auto max-w-2xl sm:text-center">
           <h2 className="text-3xl font-bold tracking-tight text-[#B3FF00] sm:text-4xl">Plans</h2>
-          <p className="mt-6 text-lg leading-8 text-[#4949e9]">
+          <p className="mt-6 text-lg leading-8 text-[#4949e9] dark:text-white">
             "PersFash offers two service packages: Free with outfit and clothing recommendations,
             and Premium with wardrobe management and the option to add clothes to favorite outfits,
             while the 1:1 personalized course with an expert is coming soon. New customers will receive the Premium package for free."
@@ -75,19 +75,19 @@ export default function SubscriptionSection() {
 
         {/* Render subscription details only if customerSubscription is available */}
         {customerSubscription && (
-          <div className="bg-[#4949e9] mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+          <div className="bg-[#4949e9] mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none dark:bg-white">
             <div className="p-8 sm:p-10 lg:flex-auto">
-              <h4 className="text-2xl font-bold tracking-tight text-white">Your current subscription</h4>
+              <h4 className="text-2xl font-bold tracking-tight text-white dark:text-[#4949e9]">Your current subscription</h4>
               <h2 className="text-2xl py-1 font-bold tracking-tight text-[#B3FF00]">
                 {customerSubscription.subscription.subscriptionTitle || "N/A"} Subscription
               </h2>
               {/* Conditional rendering based on subscription type */}
               {customerSubscription.subscription.subscriptionTitle === "Premium" ? (
-                <p className="mt-1 text-base leading-7 text-gray-400">
+                <p className="mt-1 text-base leading-7 text-gray-400 dark:text-gray-900">
                   Your next bill for {customerSubscription.subscription.price +" VND" || 'N/A'} is on {new Date(customerSubscription.endDate).toISOString().split('T')[0] || 'N/A'}
                 </p>
               ) : (
-                <p className="mt-1 text-base leading-7 text-gray-400">
+                <p className="mt-1 text-base leading-7 text-gray-400 dark:text-gray-900">
                   You are currently using the Free plan with access to basic features.
                 </p>
               )}

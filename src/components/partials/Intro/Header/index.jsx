@@ -61,9 +61,9 @@ const Header = () => {
         <span>persfash</span>
       </div>
       <nav className={styles.nav}>
-        <span className={styles.support} onClick={handleSupportClick}>
+        {/* <span className={styles.support} onClick={handleSupportClick}>
           Support
-        </span>
+        </span> */}
         <Button className={styles.loginButton} onClick={handleLoginClick}>
           Log in
         </Button>
@@ -71,7 +71,7 @@ const Header = () => {
           Sign up
         </Button>
         <div className={styles.languageIcon} ref={dropdownRef}>
-          <img src={globeIcon} alt="language" onClick={toggleDropdown} />
+          {/* <img src={globeIcon} alt="language" onClick={toggleDropdown} />
           <div
             className={`${styles.languageDropdown} ${
               isDropdownVisible ? styles.show : ""
@@ -93,7 +93,7 @@ const Header = () => {
                 EN
               </Button>
             </Button.Group>
-          </div>
+          </div> */}
         </div>
       </nav>
     </header>

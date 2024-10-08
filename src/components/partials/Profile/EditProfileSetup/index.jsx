@@ -170,7 +170,7 @@ export const EditProfileSetup = () => {
   }
 
   return (
-    <div className="flex justify-center p-10 bg-gradient-to-r from-white to-[#4949e9] min-h-screen">
+    <div className="flex justify-center p-10 bg-gradient-to-r from-white to-[#4949e9] min-h-screen dark:bg-gradient-to-tr dark:from-[#7979c9] dark:to-[#4949e9]">
       <div className="max-w-5xl w-full">
         <Card className="p-6 shadow-lg rounded-xl">
           <h2 className="text-4xl font-bold mb-4 text-[#4949e9] font-avantgarde">Edit Profile Setup</h2>
@@ -454,6 +454,7 @@ const fashionStyleOptions = [
   { label: 'Luxury', value: 'Luxury' },
   { label: 'Sporty', value: 'Sporty' },
   { label: 'Trendy', value: 'Trendy' },
+  { label: 'Chic', value: 'Chic' },
 ];
 
 const fitPreferencesOptions = [
@@ -470,6 +471,7 @@ const preferredSizeOptions = [
   { label: 'L', value: 'L' },
   { label: 'XL', value: 'XL' },
   { label: 'XXL', value: 'XXL' },
+  { label: '35', value: '35' },
   { label: '36', value: '36' },
   { label: '37', value: '37' },
   { label: '38', value: '38' },
@@ -498,6 +500,7 @@ const preferredColorsOptions = [
 
 const preferredMaterialsOptions = [
   { label: 'Cotton', value: 'Cotton' },
+  { label: 'Kaki', value: 'Kaki' },
   { label: 'Polyester', value: 'Polyester' },
   { label: 'Silk', value: 'Silk' },
   { label: 'Denim', value: 'Denim' },

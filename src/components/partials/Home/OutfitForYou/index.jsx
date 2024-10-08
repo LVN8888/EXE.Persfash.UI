@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel"; 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import image3 from "../../../../assets/img/main.png";
-import { Button, Input, message } from "antd";
+import { Button, Input, message, Spin } from "antd";
 import { genCustomerOutfitRecommendation, viewCurrentUserInfo, viewCustomerItemRecommendation, viewCustomerItemRecommendationFilter, viewCustomerOutfitRecommendation } from "../../../../services/CustomerApi";
 import { useNavigate } from "react-router-dom";
 import Modal from 'antd/lib/modal';
@@ -36,6 +36,8 @@ const OutfitForYou = () => {
   const [customerWardrobe, setCustomerWardrobe] = useState([{}])
 
   const [selectedWardrobe, setSelectedWardrobe] = useState("");
+
+  const [isloading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -176,10 +178,14 @@ const OutfitForYou = () => {
 
   const fetchOutfit = async (outfitId) => {
     try {
+
+      setIsLoading(true);
+
       const response = await viewDetailsRecommendationOutfit(outfitId);
 
-      console.log(response);
+      // console.log(response);
 
+      setIsLoading(false);
       setCurrOutfit(response);
       
     }catch(error) {
@@ -310,10 +316,10 @@ const OutfitForYou = () => {
   }, [])
 
   return (
-    <div className="mb-16 w-full px-8 flex flex-col items-center">
-      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6">
+    <div className="w-full px-8 pb-8 flex flex-col items-center dark:bg-gradient-to-br dark:from-[#4949e9] dark:to-[#7979c9]">
+      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6 dark:text-white">
         <span>ITEMS FOR YOU</span>
-        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2"></div>
+        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2 dark:bg-white"></div>
       </div>
 
       <div className="mb-4 flex justify-center space-x-4">
@@ -323,7 +329,7 @@ const OutfitForYou = () => {
             onClick={() => handleFilterChange(option)}
             className={`${
               filter === option
-                ? "bg-[#4949E9] text-white"
+                ? "bg-[#4949E9] text-white dark:bg-[#B3FF00] dark:text-[#4949e9]"
                 : "bg-gray-200 text-black"
             } px-4 py-2 rounded-full hover:bg-[#B3FF00] transition-all duration-300`}
           >
@@ -358,7 +364,7 @@ const OutfitForYou = () => {
                   id={outfit.itemId}
                   src={outfit.thumbnailURL}
                   alt={`Outfit ${index}`}
-                  className="rounded-lg w-full h-[450px] object-cover shadow-lg"
+                  className="rounded-lg w-full h-[450px] object-top object-cover shadow-lg"
                 />
               </div>
             ))
@@ -437,13 +443,13 @@ const OutfitForYou = () => {
                 currFashionItem.itemImages.length > 0 && (
                   <div className="mt-4">
                     <h3 className="font-semibold mb-2">More Images</h3>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="flex">
                       {currFashionItem.itemImages.map((image, index) => (
                         <img
                           key={index}
                           src={image}
                           alt={`Item Image ${index + 1}`}
-                          className="w-[60px] h-[60px] object-cover rounded-lg"
+                          className="w-[60px] h-[60px] object-cover rounded-lg mr-2"
                         />
                       ))}
                     </div>
@@ -513,12 +519,19 @@ const OutfitForYou = () => {
         centered
         title="Outfit Details"
         open={visibleOutfitModal}
-        onCancel={() => setVisibleOutfitModal(false)}
+        onCancel={() => {
+          setVisibleOutfitModal(false)
+          setIsLoading(false);
+        }}
         footer={null}
         className="font-medium text-[#4949e9] font-avantgarde"
         width={500}
       >
-        {currOutfit ? (
+        {isloading ? (
+          <div className="flex justify-center items-center h-[300px]">
+            <Spin size="large" tip="Loading..." /> {/* Loading spinner */}
+          </div>
+        ) : currOutfit ? (
           <div>
             {/* Render each outfit item if it exists */}
             {currOutfit.topItem ? (
@@ -540,7 +553,9 @@ const OutfitForYou = () => {
                   </p>
                   <button
                     className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
-                    onClick={() => window.open(currOutfit.topItem.productUrl, "_blank")}
+                    onClick={() =>
+                      window.open(currOutfit.topItem.productUrl, "_blank")
+                    }
                   >
                     Buy Now
                   </button>
@@ -558,7 +573,9 @@ const OutfitForYou = () => {
                   />
                 </div>
                 <div className="w-3/5 pl-4">
-                  <h3 className="font-bold">{currOutfit.bottomItem.itemName}</h3>
+                  <h3 className="font-bold">
+                    {currOutfit.bottomItem.itemName}
+                  </h3>
                   <p>
                     <strong>Brand:</strong> {currOutfit.bottomItem.brand}
                   </p>
@@ -567,7 +584,9 @@ const OutfitForYou = () => {
                   </p>
                   <button
                     className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
-                    onClick={() => window.open(currOutfit.bottomItem.productUrl, "_blank")}
+                    onClick={() =>
+                      window.open(currOutfit.bottomItem.productUrl, "_blank")
+                    }
                   >
                     Buy Now
                   </button>
@@ -594,7 +613,9 @@ const OutfitForYou = () => {
                   </p>
                   <button
                     className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
-                    onClick={() => window.open(currOutfit.shoesItem.productUrl, "_blank")}
+                    onClick={() =>
+                      window.open(currOutfit.shoesItem.productUrl, "_blank")
+                    }
                   >
                     Buy Now
                   </button>
@@ -612,17 +633,23 @@ const OutfitForYou = () => {
                   />
                 </div>
                 <div className="w-3/5 pl-4">
-                  <h3 className="font-bold">{currOutfit.accessoriesItem.itemName}</h3>
+                  <h3 className="font-bold">
+                    {currOutfit.accessoriesItem.itemName}
+                  </h3>
                   <p>
                     <strong>Brand:</strong> {currOutfit.accessoriesItem.brand}
                   </p>
                   <p>
-                    <strong>Category:</strong> {currOutfit.accessoriesItem.category}
+                    <strong>Category:</strong>{" "}
+                    {currOutfit.accessoriesItem.category}
                   </p>
                   <button
                     className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
                     onClick={() =>
-                      window.open(currOutfit.accessoriesItem.productUrl, "_blank")
+                      window.open(
+                        currOutfit.accessoriesItem.productUrl,
+                        "_blank"
+                      )
                     }
                   >
                     Buy Now
@@ -650,7 +677,9 @@ const OutfitForYou = () => {
                   </p>
                   <button
                     className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
-                    onClick={() => window.open(currOutfit.dressItem.productUrl, "_blank")}
+                    onClick={() =>
+                      window.open(currOutfit.dressItem.productUrl, "_blank")
+                    }
                   >
                     Buy Now
                   </button>
@@ -661,8 +690,10 @@ const OutfitForYou = () => {
             {/* Add to Favorite button for premium users */}
             {isPremium && (
               <div className="mt-4">
-                <button className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
-                onClick={() => handleAddToFavoriteList(currOutfit.outfitId)}>
+                <button
+                  className="bg-[#4949e9] text-[#b3ff00] py-2 px-4 rounded-full font-medium mr-4 mb-4"
+                  onClick={() => handleAddToFavoriteList(currOutfit.outfitId)}
+                >
                   Add to Favorite Outfit List
                 </button>
               </div>
@@ -673,9 +704,9 @@ const OutfitForYou = () => {
         )}
       </Modal>
 
-      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6">
+      <div className="text-center text-[#4949E9] font-bold text-3xl mb-6 mt-6 dark:text-white">
         <span>OUTFITS FOR YOU</span>
-        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2"></div>
+        <div className="h-1 w-30 bg-[#4949E9] mx-auto mt-2 dark:bg-white"></div>
       </div>
 
       <div className="w-full">
@@ -701,7 +732,7 @@ const OutfitForYou = () => {
               >
                 {/* Main Outfit Thumbnail */}
                 {/* Fashion items inside the outfit */}
-                <div className="grid grid-cols-1 gap-2 mt-3 w-full h-[450px] border rounded-lg object-cover shadow-lg">
+                <div className="grid grid-cols-1 gap-2 mt-3 w-full h-[450px] border rounded-lg object-cover shadow-lg dark:border-none dark:bg-white">
                   <div className="grid grid-cols-2 gap-2 h-1/2">
                     {/* Display Top and Bottom Images */}
                     {outfit.topItem && (

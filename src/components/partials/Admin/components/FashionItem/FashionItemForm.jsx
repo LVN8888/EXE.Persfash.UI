@@ -42,6 +42,7 @@ const preferredSizeOptions = [
   { label: "L", value: "L" },
   { label: "XL", value: "XL" },
   { label: "XXL", value: "XXL" },
+  { label: '35', value: '35' },
   { label: "36", value: "36" },
   { label: "37", value: "37" },
   { label: "38", value: "38" },
@@ -70,6 +71,7 @@ const preferredColorsOptions = [
 
 const preferredMaterialsOptions = [
   { label: 'Cotton', value: 'Cotton' },
+  { label: 'Kaki', value: 'Kaki' },
   { label: 'Polyester', value: 'Polyester' },
   { label: 'Silk', value: 'Silk' },
   { label: 'Denim', value: 'Denim' },
@@ -106,6 +108,7 @@ const fashionStyleOptions = [
   { label: 'Luxury', value: 'Luxury' },
   { label: 'Sporty', value: 'Sporty' },
   { label: 'Trendy', value: 'Trendy' },
+  { label: 'Chic', value: 'Chic' },
 ];
 
 
