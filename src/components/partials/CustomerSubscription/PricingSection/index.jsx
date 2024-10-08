@@ -77,7 +77,7 @@ export default function PricingSection() {
         className="w-full flex flex-col justify-between p-5 h-full border border-gray-300 rounded-lg text-center shadow-lg shadow-[#4949e9] text-[#4949e9] hover:scale-105 duration-300 dark:text-white"
       >
         <h2 className="text-2xl font-bold mb-2">{subscriptionTitle}</h2>
-        {price ? (<p className="text-center text-3xl font-bold">{price} VND/month</p>) : null}
+        {price ? (<p className="text-center text-3xl font-bold">{new Intl.NumberFormat('vi-VN').format(price)} VND/month</p>) : null}
         <div className="text-left font-medium">
           {description.map((desc, idx) => (
             <p key={idx} className="py-2 border-b mx-8 flex items-center">

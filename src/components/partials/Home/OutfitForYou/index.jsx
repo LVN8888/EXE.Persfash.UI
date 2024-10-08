@@ -435,7 +435,8 @@ const OutfitForYou = () => {
                 <strong>Occasion:</strong> {currFashionItem.occasion}
               </p>
               <p>
-                <strong>Price:</strong> {currFashionItem.price} VND
+              <strong>Price:</strong> {new Intl.NumberFormat('vi-VN').format(currFashionItem.price)} VND
+
               </p>
 
               {/* Item Images */}
