@@ -436,11 +436,13 @@ export const EditProfileSetup = () => {
 const bodyTypeOptions = [
   { label: 'Slim', value: 'Slim' },
   { label: 'Athletic', value: 'Athletic' },
-  { label: 'Curvy', value: 'Curvy' },
-  { label: 'Plus Size', value: 'Plus Size' },
+  { label: 'Neat Hourglass', value: 'Neat Hourglass' },
+  { label: 'Full Hourglass', value: 'Full Hourglass' },
   { label: 'Rectangle', value: 'Rectangle' },
   { label: 'Inverted Triangle', value: 'Inverted Triangle' },
   { label: 'Pear', value: 'Pear' },
+  { label: 'Apple', value: 'Apple' },
+  { label: 'Lean Column', value: 'Lean Column' },
 ];
 
 const fashionStyleOptions = [
