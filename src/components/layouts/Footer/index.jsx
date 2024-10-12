@@ -13,8 +13,8 @@ const Footer = () => {
       </div>
       <div className={styles.column}>
         <h3>Get in touch</h3>
-        <p>perfsfash@fpt.edu.vn</p>
-        <p>perfsash.com.vn</p>
+        <p>support@persfash.store</p>
+        <p>perfsash.store</p>
       </div>
       <div className={styles.column}>
         <h3>Connect</h3>
