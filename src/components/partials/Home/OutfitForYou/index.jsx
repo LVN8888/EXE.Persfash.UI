@@ -139,7 +139,7 @@ const OutfitForYou = () => {
       if (response.isSuccess === true) {
         const outfit = await viewCustomerOutfitRecommendation();
 
-        console.log(outfit.data);
+        // console.log(outfit.data);
 
         setOutifts(outfit.data);
         
@@ -167,7 +167,7 @@ const OutfitForYou = () => {
     try {
       const response = await viewDetailsFashionItem(itemId);
 
-      console.log(response);
+      // console.log(response);
 
       setCurrFashionItem(response);
       
@@ -195,7 +195,9 @@ const OutfitForYou = () => {
 
   const handleClickFashionItem = (itemId) => {
     setVisibleItemModal(true);
-    fetchWardrobeOfCustomer();
+    if(isPremium) {
+       fetchWardrobeOfCustomer();
+    }
     fetchFashionItem(itemId)
   }
 
