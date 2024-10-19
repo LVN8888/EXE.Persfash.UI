@@ -344,7 +344,7 @@ const FashionItemsManagement = () => {
         columns={columns}
         dataSource={fashionItems}
         rowKey="itemId"
-        pagination={{ pageSize: pageSize, current: currentPage, total: totalItems, onChange: onPageChange }}
+        pagination={{ pageSize: pageSize, current: currentPage, total: totalItems, onChange: onPageChange, showSizeChanger: false }}
       />
       <FashionItemForm
         visible={isModalVisible}
