@@ -187,7 +187,7 @@ const SubscriptionManagement = () => {
           pageSize: pagination.pageSize,
           total: pagination.total,
           pageSizeOptions: ["5", "10", "20", "50"],
-          showSizeChanger: true,
+          showSizeChanger: false,
         }}
         onChange={handleTableChange} // Gọi lại API khi thay đổi trang hoặc pageSize
       />
