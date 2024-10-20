@@ -21,7 +21,7 @@ const UserManagement = () => {
   // Fetch data when component mounts or when pagination changes
   useEffect(() => {
     fetchData(pagination.current, pagination.pageSize);
-  }, [pagination.current, pagination.pageSize]);
+  }, [pagination.current]);
 
   // Fetch data from API
   const fetchData = async (page, size) => {
@@ -31,7 +31,7 @@ const UserManagement = () => {
 
       // Đảm bảo lấy đúng dữ liệu từ phản hồi API
       const customerData = response.data; // Mảng khách hàng
-      const totalItems = response.data.totalItems; // Tổng số lượng bản ghi
+      const totalItems = response.totalItems; // Tổng số lượng bản ghi
 
       // Update data and pagination
       setData(customerData); // Đặt dữ liệu khách hàng vào bảng
@@ -202,11 +202,9 @@ const UserManagement = () => {
         dataSource={data}
         rowKey="customerId"
         pagination={{
-          current: pagination.current,
           pageSize: pagination.pageSize,
+          current: pagination.current,
           total: pagination.total,
-          pageSizeOptions: ["5", "10", "20", "50"],
-          showSizeChanger: true,
         }}
         loading={loading}
         onChange={handleTableChange} // Chỉ cập nhật phân trang mà không gọi lại API

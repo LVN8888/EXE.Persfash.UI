@@ -218,7 +218,7 @@ const OutfitForYou = () => {
       const response = await addFavoriteOutfit(outfitId);
 
       message.success({
-        content: "Add new item to wardrobe successfully!",
+        content: "Add favorite outfit successfully!",
         style: {
           marginTop: '10px',
           fontSize: '20px', 
@@ -231,7 +231,7 @@ const OutfitForYou = () => {
 
 
     }catch(error) {
-      console.log("Failed to add new item to wardrobe", error);
+      console.log("Failed to add new favorite outfit", error);
       message.error({
         content: error.response.data.message,
         style: {
