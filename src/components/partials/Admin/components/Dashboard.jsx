@@ -29,6 +29,9 @@ const Dashboard = () => {
     moment().endOf("week"),
   ]);
 
+  const [startDate, setStartDate] = useState(moment().startOf("week").format("YYYY-MM-DD"));
+  const [endDate, setEndDate] = useState(moment().endOf("week").format("YYYY-MM-DD"));
+
   // Function to load general dashboard data
   const loadDashboardData = async () => {
     try {
@@ -47,13 +50,10 @@ const Dashboard = () => {
 
   // Function to load data for the selected date range
   const loadDashboardDataByDate = async (startDate, endDate) => {
-    try {
-      const formattedStartDate = startDate.format("YYYY-MM-DD");
-      const formattedEndDate = endDate.format("YYYY-MM-DD");
-
+    try {      
       const response = await getDashboardDataByDate(
-        formattedStartDate,
-        formattedEndDate
+        startDate,
+        endDate
       );
       setRevenueInRange(response.totalRevenueDateRange || 0);
 
@@ -72,11 +72,28 @@ const Dashboard = () => {
     loadDashboardData(); // Load dashboard data when the component is mounted
   }, []);
 
-  const handleDateRangeChange = async (dates) => {
-    setDateRange(dates);
-    const [startDate, endDate] = dates;
+  // const handleDateRangeChange = async (dates) => {
+  //   setDateRange(dates);
+  //   const [startDate, endDate] = dates;
 
-    await loadDashboardDataByDate(startDate, endDate);
+  //   await loadDashboardDataByDate(startDate, endDate);
+  // };
+
+  const handleStartDateChange = (e) => {
+    const newStartDate = e.target.value;
+    setStartDate(newStartDate);
+
+    console.log(newStartDate);
+    console.log(endDate);
+    
+    
+    loadDashboardDataByDate(newStartDate, endDate);
+  };
+
+  const handleEndDateChange = (e) => {
+    const newEndDate = e.target.value;
+    setEndDate(newEndDate);
+    loadDashboardDataByDate(startDate, newEndDate);
   };
 
   const formatCurrency = (value) => {
@@ -171,13 +188,20 @@ const Dashboard = () => {
               value={formatCurrency(revenueInRange)}
               valueStyle={{ color: "#fa541c", fontSize: "2rem" }}
             />
-            <RangePicker
-              className="mt-2 w-full"
-              value={dateRange}
-              onChange={handleDateRangeChange}
-              format="YYYY-MM-DD"
-              style={{ width: "100%" }}
-            />
+             <div className="mt-2">
+              <input
+                type="date"
+                value={startDate}
+                onChange={handleStartDateChange}
+                className="p-2 border rounded w-[50%]"
+              />
+              <input
+                type="date"
+                value={endDate}
+                onChange={handleEndDateChange}
+                className="p-2 border rounded w-[50%]"
+              />
+            </div>
           </Card>
         </Col>
       </Row>
