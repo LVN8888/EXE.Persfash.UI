@@ -65,7 +65,7 @@ export const filterSearchFashionItem = async (
     }
   };
 
-  export const  viewFashionItems = async (pageIndex, sizeIndex) => {
+  export const viewFashionItems = async (pageIndex, sizeIndex) => {
     try {
       const response = await apiClient.get("/fashionitem/view/admin", {pageIndex, sizeIndex})
 

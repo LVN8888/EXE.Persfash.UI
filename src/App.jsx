@@ -28,6 +28,7 @@ import { SearchResultPage } from "./pages/SearchResultPage/index.jsx";
 import { FavoriteOutfitPage } from "./pages/FavoriteOutfitPage/index.jsx";
 import { SupportMessageManagement } from "./components/partials/Admin/components/SupportMessage/SupportMessageManagement.jsx";
 import { SupportMessageManagementPage } from "./components/partials/Admin/pages/SupportMessageManagementPage.jsx";
+import PaymentManagementPage from "./components/partials/Admin/pages/PaymentManagementPage.jsx";
 
 function App() {
   return (
@@ -86,6 +87,11 @@ function App() {
           <Route
             path="/admin/support-question-management"
             element={<SupportMessageManagementPage />}
+          />
+
+          <Route
+            path="/admin/payment-management"
+            element={<PaymentManagementPage />}
           />
         </Route>
 
