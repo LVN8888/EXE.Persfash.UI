@@ -3,6 +3,17 @@ import AxiosHelper from "../AxiosHelper";
 const BaseURL = import.meta.env.VITE_SERVER_URL;
 const apiClient = new AxiosHelper(BaseURL)
 
+export const viewPaymentForAdmin = async (pageIndex, sizeIndex) => {
+    try {
+        const response = await apiClient.get("/payment", {pageIndex, sizeIndex}, {}, true)
+  
+        return response.data;
+  
+      }catch(error) {
+        throw error
+      }
+}
+
 export const createPaymentSubscriptionUrl = async (subscriptionId, redirectUrl) => {
     try {
         const subscriptionPaymentReqModel = {
