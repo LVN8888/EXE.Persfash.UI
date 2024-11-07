@@ -40,6 +40,53 @@ const PaymentManagement = () => {
       clearFilters();
       setSearchText("");
     };
+
+    const getNestedValue = (record, path) => {
+      return path.split('.').reduce((value, key) => (value ? value[key] : null), record);
+    };
+    
+    const getColumnSearchPropsForNested = (dataIndex) => ({
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+        <div style={{ padding: 8 }}>
+          <Input
+            placeholder={`Search ${dataIndex}`}
+            value={selectedKeys[0]}
+            onChange={(e) =>
+              setSelectedKeys(e.target.value ? [e.target.value] : [])
+            }
+            onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            style={{ marginBottom: 8, display: "block" }}
+          />
+          <Space>
+            <Button
+              type="primary"
+              onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+              icon={<SearchOutlined />}
+              size="small"
+              style={{ width: 90 }}
+            >
+              Search
+            </Button>
+            <Button
+              onClick={() => handleReset(clearFilters)}
+              size="small"
+              style={{ width: 90 }}
+            >
+              Reset
+            </Button>
+          </Space>
+        </div>
+      ),
+      filterIcon: (filtered) => (
+        <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+      ),
+      onFilter: (value, record) => {
+        const nestedValue = getNestedValue(record, dataIndex);
+        return nestedValue
+          ? nestedValue.toString().toLowerCase().includes(value.toLowerCase())
+          : "";
+      },
+    });
   
     const getColumnSearchProps = (dataIndex) => ({
       filterDropdown: ({
@@ -109,11 +156,13 @@ const PaymentManagement = () => {
         title: "Email",
         key: "email",
         render: (record) => (record.customer ? record.customer.email : "N/A"),
+        ...getColumnSearchPropsForNested("customer.email"),
       },
       {
         title: "Username",
         key: "username",
         render: (record) => (record.customer ? record.customer.username : "N/A"),
+        ...getColumnSearchPropsForNested("customer.username"),
       },
       {
         title: "Subscription",
